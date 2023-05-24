@@ -12,6 +12,8 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Collections.ObjectModel;
+using TouristAgency.UserControls;
 
 namespace TouristAgency
 {
@@ -23,6 +25,106 @@ namespace TouristAgency
         public MainWindow()
         {
             InitializeComponent();
+            Loaded += MainWindow_Loaded;
+
+            ucPutovanja putovanja = new ucPutovanja();
+            mainComponent.Children.Add(putovanja);
+
+           
         }
+
+
+        private void MainWindow_Loaded(object sender, RoutedEventArgs e)
+        {
+            WindowState = WindowState.Maximized;
+            WindowStyle = WindowStyle.None;
+        }
+
+        private bool IsMaximize = false;
+        private void Border_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            if (e.ClickCount == 2)
+            {
+                if (IsMaximize)
+                {
+                    this.WindowState = WindowState.Normal;
+                    this.Width = 1080;
+                    this.Height = 720;
+
+                    IsMaximize = false;
+                }
+                else
+                {
+                    this.WindowState = WindowState.Maximized;
+
+                    IsMaximize = true;
+                }
+            }
+        }
+
+        private void Border_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            if (e.ChangedButton == MouseButton.Left)
+            {
+                this.DragMove();
+            }
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            this.Close();
+        }
+
+        private void MinimizeButton_Click(object sender, RoutedEventArgs e)
+        {
+            this.WindowState = WindowState.Minimized;
+        }
+
+        private void Button_Click_1(object sender, RoutedEventArgs e)
+        {
+            if (this.WindowState == WindowState.Normal)
+                this.WindowState = WindowState.Maximized;
+            else
+                this.WindowState = WindowState.Normal;
+        }
+
+        private void Atrakcije_Click(object sender, RoutedEventArgs e)
+        {
+            ucAtrakcije atrakcije = new ucAtrakcije();
+            mainComponent.Children.Clear();
+            mainComponent.Children.Add(atrakcije);
+        }
+
+        private void Smestaji_Click(object sender, RoutedEventArgs e)
+        {
+            ucSmestaji smestaji = new ucSmestaji();
+            mainComponent.Children.Clear();
+            mainComponent.Children.Add(smestaji);
+        }
+
+        private void Restorani_Click(object sender, RoutedEventArgs e)
+        {
+            ucRestorani restorani = new ucRestorani();
+            mainComponent.Children.Clear();
+            mainComponent.Children.Add(restorani);
+        }
+
+        private void Putovanja_Click(object sender, RoutedEventArgs e)
+        {
+            ucPutovanja putovanja = new ucPutovanja();
+            mainComponent.Children.Clear();
+            mainComponent.Children.Add(putovanja);
+        }
+    }
+
+    public class Member
+    {
+        public string Character { get; set; }
+        public Brush BgColor { get; set; }
+        public string Number { get; set; }
+        public string Name { get; set; }
+        public string Position { get; set; }
+        public string Email { get; set; }
+        public string Phone { get; set; }
     }
 }

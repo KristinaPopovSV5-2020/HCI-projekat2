@@ -15,7 +15,7 @@ namespace TouristAgency.Model
         private string id { get; set; }
 
         private string ime;
-        private string opis;
+        private string brojDana;
         private string cena;
         private DateTime datum;
 
@@ -27,23 +27,23 @@ namespace TouristAgency.Model
 
 
 
-        public Putovanje(string id,string ime, string opis, string cena, DateTime datum, List<Smestaj> smestaji, List<Restoran> restorani, List<Atrakcija> atrakcije)
+        public Putovanje(string id,string ime, string brojDana, string cena, DateTime datum)
         {
             this.id = id;
             this.ime = ime;
-            this.opis = opis;
+            this.brojDana = brojDana;
             this.cena = cena;
             this.datum = datum;
-            this.smestaji = smestaji;
-            this.restorani = restorani;
-            this.atrakcije = atrakcije;
+            this.smestaji = new List<Smestaj>();
+            this.restorani = new List<Restoran>();
+            this.atrakcije = new List<Atrakcija>();
         }
 
         public string Id { get => id; set => id = value; }
 
         public string Ime { get => ime; set => ime = value; }
 
-        public string Opis { get => opis; set => opis = value; }
+        public string BrojDana { get => brojDana; set => brojDana = value; }
 
         public string Cena { get => cena; set => cena = value; }
 
