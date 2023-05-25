@@ -54,5 +54,13 @@ namespace TouristAgency.UserControls
             }
 
         }
+
+        private void Dodaj_Atrakciju(object sender, RoutedEventArgs e)
+        {
+            ucAtrakcijaIzmena forma = new ucAtrakcijaIzmena();
+            mainComponent.Children.Clear();
+            mainComponent.Children.Add(forma);
+
+        }
     }
 }
