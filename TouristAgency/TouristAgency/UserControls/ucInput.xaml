@@ -5,6 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:TouristAgency.UserControls"
              mc:Ignorable="d" 
+             Name="input"
              d:DesignHeight="450" d:DesignWidth="800"
              >
     <UserControl.Resources>
@@ -12,11 +13,9 @@
     </UserControl.Resources>
 
     <Grid>
-        
-            <TextBlock Margin="10 0" VerticalAlignment="Center" Foreground="#868686" IsHitTestVisible="False" Panel.ZIndex="1" 
-                       Text="{Binding Path=Hint,ElementName=myTextBox}"
-                       Visibility="{Binding ElementName=textBox, Converter={StaticResource MyBoolToVisibilityConverter}}" />
-            <TextBox FontSize="20" Name="textBox" />
-
+        <TextBlock Margin="10 0" VerticalAlignment="Center" Foreground="#868686" IsHitTestVisible="False" Panel.ZIndex="1" FontSize="20"
+                   Text="{Binding Path=Hint,ElementName=input, Mode=TwoWay}"
+                   Visibility="{Binding ElementName=textBox, Path=Text.IsEmpty, Converter={StaticResource MyBoolToVisibilityConverter}}" />
+        <TextBox Name="textBox" FontSize="20" TextChanged="Promenjen_Text" />
     </Grid>
 </UserControl>

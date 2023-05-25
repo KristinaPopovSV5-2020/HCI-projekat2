@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Windows;
 using System.Windows.Controls;
@@ -31,5 +33,13 @@ namespace TouristAgency.UserControls
 
         public static readonly DependencyProperty HintProperty = DependencyProperty.Register("Hint", typeof(string), typeof(ucInput));
 
+        private void Promenjen_Text(object sender, TextChangedEventArgs e)
+        {
+            TextBox textBox = (TextBox)sender;
+            string noviText = textBox.Text;
+
+            // Update the property with the new text
+            Hint = noviText;
+        }
     }
 }

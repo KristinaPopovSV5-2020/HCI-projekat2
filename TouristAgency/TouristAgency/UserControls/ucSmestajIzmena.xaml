@@ -1,10 +1,11 @@
-﻿<UserControl x:Class="TouristAgency.UserControls.ucAtrakcijaIzmena"
+﻿<UserControl x:Class="TouristAgency.UserControls.ucSmestajIzmena"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:uc="clr-namespace:TouristAgency.UserControls"
+             xmlns:local="clr-namespace:TouristAgency.UserControls"
              mc:Ignorable="d" 
+              xmlns:uc="clr-namespace:TouristAgency.UserControls"
              d:DesignHeight="720" d:DesignWidth="1080"
              Margin="100">
     <Grid>
@@ -30,13 +31,16 @@
 
                     <TextBlock Grid.Row="0" Text="Id" Style="{StaticResource text}"/>
                     <TextBlock Grid.Row="1" Text="Naziv" Style="{StaticResource text}"/>
-                    <TextBlock Grid.Row="2" Text="Opis" Style="{StaticResource text}"/>
+                    <TextBlock Grid.Row="2" Text="Tip" Style="{StaticResource text}"/>
                     <TextBlock Grid.Row="3" Text="Adresa" Style="{StaticResource text}"/>
+                    <TextBlock Grid.Row="4" Text="Ocena" Style="{StaticResource text}"/>
+
 
                     <uc:ucInput Grid.Column="1" Grid.Row="0" Hint="" x:Name="id"/>
                     <uc:ucInput Grid.Column="1" Grid.Row="1" Hint="" x:Name="naziv"/>
-                    <uc:ucInput Grid.Column="1" Grid.Row="2" Hint="" x:Name="opis"/>
+                    <uc:ucInput Grid.Column="1" Grid.Row="2" Hint="" x:Name="tip"/>
                     <uc:ucInput Grid.Column="1" Grid.Row="3" Hint="" x:Name="adresa"/>
+                    <uc:ucInput Grid.Column="1" Grid.Row="4" Hint="" x:Name="ocena"/>
 
 
                     <Grid Grid.Column="1" Grid.Row="7" Margin="0 40 0 0">
