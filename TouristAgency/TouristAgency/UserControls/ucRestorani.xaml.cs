@@ -25,12 +25,12 @@ namespace TouristAgency.UserControls
         {
             InitializeComponent();
 
-            restorani.Add(new Restoran("1", "Naziv1", "Lokacija1"));
-            restorani.Add(new Restoran("1", "Naziv1", "Lokacija1"));
-            restorani.Add(new Restoran("1", "Naziv1", "Lokacija1"));
-            restorani.Add(new Restoran("1", "Naziv1", "Lokacija1"));
-            restorani.Add(new Restoran("1", "Naziv1", "Lokacija1"));
-            restorani.Add(new Restoran("1", "Naziv1", "Lokacija1"));
+            restorani.Add(new Restoran("1", "Naziv1", "Lokacija1","5"));
+            restorani.Add(new Restoran("1", "Naziv1", "Lokacija1", "5"));
+            restorani.Add(new Restoran("1", "Naziv1", "Lokacija1", "5"));
+            restorani.Add(new Restoran("1", "Naziv1", "Lokacija1", "5"));
+            restorani.Add(new Restoran("1", "Naziv1", "Lokacija1", "5"));
+            restorani.Add(new Restoran("1", "Naziv1", "Lokacija1", "5"));
 
             restoraniDataGrid.ItemsSource = restorani;
         }

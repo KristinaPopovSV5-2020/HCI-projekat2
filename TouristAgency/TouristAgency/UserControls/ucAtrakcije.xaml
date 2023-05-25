@@ -68,6 +68,7 @@
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
                 <DataGridTextColumn Header="Opis" Binding="{Binding Opis}" IsReadOnly="True" Width="*"/>
+                <DataGridTextColumn Header="Adresa" Binding="{Binding Adresa}" IsReadOnly="True" Width="*"/>
                 <DataGridTemplateColumn Header="" IsReadOnly="True" Width="auto">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>

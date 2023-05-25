@@ -25,13 +25,13 @@ namespace TouristAgency.UserControls
         {
             InitializeComponent();
 
-            atrakcije.Add(new Atrakcija("1", "Atrakcija1", "Opis atrakcije"));
-            atrakcije.Add(new Atrakcija("1", "Atrakcija1", "Opis atrakcije"));
-            atrakcije.Add(new Atrakcija("1", "Atrakcija1", "Opis atrakcije"));
-            atrakcije.Add(new Atrakcija("1", "Atrakcija1", "Opis atrakcije"));
-            atrakcije.Add(new Atrakcija("1", "Atrakcija1", "Opis atrakcije"));
-            atrakcije.Add(new Atrakcija("1", "Atrakcija1", "Opis atrakcije"));
-            atrakcije.Add(new Atrakcija("1", "Atrakcija1", "Opis atrakcije"));
+            atrakcije.Add(new Atrakcija("1", "Atrakcija1", "Opis atrakcije","Adresa1"));
+            atrakcije.Add(new Atrakcija("1", "Atrakcija1", "Opis atrakcije", "Adresa1"));
+            atrakcije.Add(new Atrakcija("1", "Atrakcija1", "Opis atrakcije", "Adresa1"));
+            atrakcije.Add(new Atrakcija("1", "Atrakcija1", "Opis atrakcije", "Adresa1"));
+            atrakcije.Add(new Atrakcija("1", "Atrakcija1", "Opis atrakcije", "Adresa1"));
+            atrakcije.Add(new Atrakcija("1", "Atrakcija1", "Opis atrakcije", "Adresa1"));
+            atrakcije.Add(new Atrakcija("1", "Atrakcija1", "Opis atrakcije", "Adresa1"));
 
             atrakcijeDataGrid.ItemsSource = atrakcije;
         }

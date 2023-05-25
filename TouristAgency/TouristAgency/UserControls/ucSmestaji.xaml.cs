@@ -41,12 +41,12 @@ namespace TouristAgency.UserControls
 
             if (selectedItem != null)
             {
-                MessageBoxResult result = MessageBox.Show("Da li sigurno želiš da izbrišeš smestaj " + selectedItem.Ime, "Potvrda", MessageBoxButton.YesNo, MessageBoxImage.Question);
+                MessageBoxResult result = MessageBox.Show("Da li sigurno želiš da izbrišeš smestaj " + selectedItem.Naziv, "Potvrda", MessageBoxButton.YesNo, MessageBoxImage.Question);
 
                 if (result == MessageBoxResult.Yes)
                 {
                     smestaji.Remove(selectedItem);
-                    MessageBox.Show($"Smestaj '{selectedItem.Ime}' je obrisan.", "Smestaj obrisan", MessageBoxButton.OK, MessageBoxImage.Information);
+                    MessageBox.Show($"Smestaj '{selectedItem.Naziv}' je obrisan.", "Smestaj obrisan", MessageBoxButton.OK, MessageBoxImage.Information);
 
                 }
 

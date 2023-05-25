@@ -62,7 +62,7 @@
                             <StackPanel Orientation="Horizontal">
 
 
-                                <TextBlock Text="{Binding Ime}" VerticalAlignment="Center"/>
+                                <TextBlock Text="{Binding Naziv}" VerticalAlignment="Center"/>
                             </StackPanel>
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>

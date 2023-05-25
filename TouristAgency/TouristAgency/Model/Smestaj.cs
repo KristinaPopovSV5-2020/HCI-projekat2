@@ -20,28 +20,28 @@ namespace TouristAgency.Model
         [BsonRepresentation(BsonType.ObjectId)]
         private string id { get; set; }
 
-        private string ime;
+        private string naziv;
         private string adresa;
         private TipSmestaja tipSmestaja;
-        private string opis;
+        private string ocena;
 
 
-        public Smestaj(string id,string ime, string adresa, TipSmestaja tip, string opis)
+        public Smestaj(string id,string naziv, string adresa, TipSmestaja tip, string ocena)
         {
             this.id = id;
-            this.ime = ime;
+            this.naziv = naziv;
             this.adresa = adresa;
             this.tipSmestaja = tip;
-            this.opis = opis;
+            this.ocena = ocena;
         }
 
         public string Id { get => id; set => id = value; }
 
-        public string Ime { get => ime; set => ime = value; }
+        public string Naziv { get => naziv; set => naziv = value; }
         public string Adresa { get => adresa; set => adresa = value; }
 
         public TipSmestaja Tip { get => tipSmestaja; set => tipSmestaja = value; }
 
-        public string Opis { get => opis; set => opis = value; }
+        public string Ocena { get => ocena; set => ocena = value; }
     }
 }

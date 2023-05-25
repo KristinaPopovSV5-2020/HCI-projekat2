@@ -15,14 +15,16 @@ namespace TouristAgency.Model
         private string id { get; set; }
 
         private string naziv;
-        private string lokacija;
+        private string adresa;
+        private string ocena;
 
 
-        public Restoran(string id,string naziv, string lokacija)
+        public Restoran(string id,string naziv, string adresa, string ocena)
         {
             this.id = id;
             this.naziv = naziv;
-            this.lokacija = lokacija;
+            this.adresa = adresa;
+            this.ocena = ocena;
         }
 
         public string Id { get => id; set => id = value; }
@@ -30,6 +32,8 @@ namespace TouristAgency.Model
 
         public string Naziv { get => naziv; set => naziv = value; }
 
-        public string Lokacija { get => lokacija; set => lokacija = value; }
+        public string Adresa { get => adresa; set => adresa = value; }
+
+        public string Ocena { get => ocena; set => ocena = value; }
     }
 }

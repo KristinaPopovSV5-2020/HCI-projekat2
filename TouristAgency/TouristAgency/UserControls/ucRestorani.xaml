@@ -67,8 +67,8 @@
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
-                <DataGridTextColumn Header="Lokacija" Binding="{Binding Lokacija}" IsReadOnly="True" Width="*"/>
-                <DataGridTextColumn Header="Ocena" Binding="{Binding Email}" IsReadOnly="True" Width="*"/>
+                <DataGridTextColumn Header="Lokacija" Binding="{Binding Adresa}" IsReadOnly="True" Width="*"/>
+                <DataGridTextColumn Header="Ocena" Binding="{Binding Ocena}" IsReadOnly="True" Width="*"/>
                 <DataGridTemplateColumn Header="" IsReadOnly="True" Width="auto">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
