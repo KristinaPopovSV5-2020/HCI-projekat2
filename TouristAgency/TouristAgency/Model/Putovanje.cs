@@ -14,7 +14,7 @@ namespace TouristAgency.Model
         [BsonRepresentation(BsonType.ObjectId)]
         private string id { get; set; }
 
-        private string ime;
+        private string naziv;
         private string brojDana;
         private string cena;
         private DateTime datum;
@@ -27,10 +27,10 @@ namespace TouristAgency.Model
 
 
 
-        public Putovanje(string id,string ime, string brojDana, string cena, DateTime datum)
+        public Putovanje(string id,string naziv, string brojDana, string cena, DateTime datum)
         {
             this.id = id;
-            this.ime = ime;
+            this.naziv = naziv;
             this.brojDana = brojDana;
             this.cena = cena;
             this.datum = datum;
@@ -41,7 +41,7 @@ namespace TouristAgency.Model
 
         public string Id { get => id; set => id = value; }
 
-        public string Ime { get => ime; set => ime = value; }
+        public string Naziv { get => naziv; set => naziv = value; }
 
         public string BrojDana { get => brojDana; set => brojDana = value; }
 
