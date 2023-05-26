@@ -35,5 +35,38 @@ namespace TouristAgency.Servis
             }
 
         }
+
+        public bool ProveraKorisnickogImena(string korisnickoIme)
+        {
+
+
+            var filter = Builders<BsonDocument>.Filter.Eq("korisnickoIme", korisnickoIme);
+
+            var rezultat = Baza.KorisniciiKol.Find(filter).FirstOrDefault();
+
+            if (rezultat != null)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+
+        }
+
+        public void Registracija(string korisnickoIme, string lozinka)
+        {
+            var korisnik = new BsonDocument
+            {
+                { "korisnickoIme", korisnickoIme },
+                { "lozinka", lozinka }
+            };
+
+            Baza.KorisniciiKol.InsertOne(korisnik);
+
+        }
+
+
     }
 }
