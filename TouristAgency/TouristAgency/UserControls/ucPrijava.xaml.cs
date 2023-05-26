@@ -56,7 +56,7 @@ namespace TouristAgency.UserControls
             if (!KorisnikServis.Prijava(username, password))
             {
                 txtError.Visibility = Visibility.Visible;
-                txtError.Text = "Neispravno korisničko ime ili lozinka." + password + " " + username;
+                txtError.Text = "Neispravno korisničko ime ili lozinka.";
                 return false;
             }
 
