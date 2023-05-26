@@ -1,4 +1,5 @@
-﻿using MongoDB.Driver;
+﻿using MongoDB.Bson;
+using MongoDB.Driver;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -16,10 +17,11 @@ namespace TouristAgency.Servis
 
         
 
-        public Boolean prijava(string korisnickoIme, string lozinka)
+        public bool Prijava(string korisnickoIme, string lozinka)
         {
-            var filter = Builders<Korisnik>.Filter.Eq(x => x.KorisnickoIme, korisnickoIme) &
-             Builders<Korisnik>.Filter.Eq(x => x.Lozinka, lozinka);
+
+
+            var filter = Builders<BsonDocument>.Filter.Eq("korisnickoIme", korisnickoIme) & Builders<BsonDocument>.Filter.Eq("lozinka", lozinka);
 
             var rezultat = Baza.KorisniciiKol.Find(filter).FirstOrDefault();
 

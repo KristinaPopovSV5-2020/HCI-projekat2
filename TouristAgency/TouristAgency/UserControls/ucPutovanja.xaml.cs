@@ -12,12 +12,11 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using TouristAgency.Model;
+using TouristAgency.Servis;
 
 namespace TouristAgency.UserControls
 {
-    /// <summary>
-    /// Interaction logic for ucPutovanja.xaml
-    /// </summary>
+    
     public partial class ucPutovanja : UserControl
     {
         ObservableCollection<Putovanje> putovanja = new ObservableCollection<Putovanje>();

@@ -27,7 +27,7 @@ namespace TouristAgency
             InitializeComponent();
             Loaded += MainWindow_Loaded;
 
-            ucPutovanja putovanja = new ucPutovanja();
+            ucPrijava putovanja = new ucPrijava();
             mainComponent.Children.Add(putovanja);
 
            
