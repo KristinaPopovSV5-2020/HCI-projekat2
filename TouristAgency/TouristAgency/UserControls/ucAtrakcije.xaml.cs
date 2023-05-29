@@ -30,16 +30,11 @@ namespace TouristAgency.UserControls
         {
             InitializeComponent();
 
-            atrakcije = new ObservableCollection<Atrakcija>();
-
-            atrakcije.Add(new Atrakcija("1", "Naziv1", "Lokacija1", "5"));
-            atrakcije.Add(new Atrakcija("1", "Naziv1", "Lokacija1", "5"));
-            atrakcije.Add(new Atrakcija("1", "Naziv1", "Lokacija1", "5"));
-            atrakcije.Add(new Atrakcija("1", "Naziv1", "Lokacija1", "5"));
-            atrakcije.Add(new Atrakcija("1", "Naziv1", "Lokacija1", "5"));
-            atrakcije.Add(new Atrakcija("1", "Naziv1", "Lokacija1", "5"));
-
-            atrakcijeDataGrid.ItemsSource = atrakcije;
+            Loaded += async (sender, e) =>
+            {
+                atrakcije=await putovanjaServis.SveAtrakcijeAsync();
+                atrakcijeDataGrid.ItemsSource = atrakcije;
+            };
         }
 
         private void Obrisi_Atrakciju(object sender, RoutedEventArgs e)
@@ -52,9 +47,11 @@ namespace TouristAgency.UserControls
 
                 if (result == MessageBoxResult.Yes)
                 {
+                    putovanjaServis.ObrisiAtrakciju(selectedItem);
                     atrakcije.Remove(selectedItem);
+                    atrakcijeDataGrid.Items.Refresh();
                     MessageBox.Show($"Atrakcija '{selectedItem.Naziv}' je obrisana.", "Atrakcija obrisana", MessageBoxButton.OK, MessageBoxImage.Information);
-
+                    
                 }
 
             }
@@ -70,7 +67,6 @@ namespace TouristAgency.UserControls
             mainComponent.Children.Clear();
             mainComponent.Children.Add(forma);
 
-            forma.Izmeni_Atrakciju += Promeni;
             forma.VratiSeNa_Atrakcije += Vrati;
 
 
@@ -84,36 +80,11 @@ namespace TouristAgency.UserControls
             mainComponent.Children.Clear();
             mainComponent.Children.Add(forma);
 
-            forma.Dodaj_Atrakciju += Ucitaj;
             forma.VratiSeNa_Atrakcije += Vrati;
             
 
         }
 
-        private void Ucitaj(object sender, AtrakcijaArgs e)
-        {
-            ucAtrakcije atr = new ucAtrakcije();
-            atr.atrakcije.Add(e.PovratnaVrednost);
-            mainComponent.Children.Clear();
-            mainComponent.Children.Add(atr);
-
-
-        }
-
-        private void Promeni(object sender, AtrakcijaArgs e)
-        {
-            ucAtrakcije atr = new ucAtrakcije();
-            Atrakcija atrakcijaZaPromenu = atr.atrakcije.FirstOrDefault(item => item.Id == e.PovratnaVrednost.Id);
-            atrakcijaZaPromenu.Id = e.PovratnaVrednost.Id;
-            atrakcijaZaPromenu.Naziv = e.PovratnaVrednost.Naziv;
-            atrakcijaZaPromenu.Opis = e.PovratnaVrednost.Opis;
-            atrakcijaZaPromenu.Adresa = e.PovratnaVrednost.Adresa;
-
-            mainComponent.Children.Clear();
-            mainComponent.Children.Add(atr);
-
-
-        }
 
         private void Vrati(object sender, EventArgs e)
         {

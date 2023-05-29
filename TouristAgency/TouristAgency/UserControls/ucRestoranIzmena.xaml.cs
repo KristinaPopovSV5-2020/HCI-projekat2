@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MongoDB.Bson;
+using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Windows;
@@ -11,6 +12,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using TouristAgency.Model;
+using TouristAgency.Servis;
 
 namespace TouristAgency.UserControls
 {
@@ -20,6 +22,7 @@ namespace TouristAgency.UserControls
     public partial class ucRestoranIzmena : UserControl
     {
         public Restoran restoran = new Restoran();
+        PutovanjaServis putovanjaServis = new PutovanjaServis();
 
 
         public ucRestoranIzmena(string id, string naziv, string adresa, string ocena)
@@ -62,8 +65,6 @@ namespace TouristAgency.UserControls
         }
 
         public event EventHandler VratiSeNa_Restoran;
-        public event EventHandler<RestoranArgs> Dodaj_Restoran;
-        public event EventHandler<RestoranArgs> Izmeni_Restoran;
 
         private void Vrati_Se(object sender, RoutedEventArgs e)
         {
@@ -86,11 +87,14 @@ namespace TouristAgency.UserControls
             Button b = (Button)sender;
             if (b.Content.ToString() == "Dodaj")
             {
-                Dodaj_Restoran?.Invoke(this, args);
+                restoran.Id = ObjectId.GenerateNewId().ToString();
+                putovanjaServis.DodajRestoran(restoran);
+                VratiSeNa_Restoran?.Invoke(this, EventArgs.Empty);
             }
             else
             {
-                Izmeni_Restoran?.Invoke(this, args);
+                putovanjaServis.IzmeniRestoran(restoran);
+                VratiSeNa_Restoran?.Invoke(this, EventArgs.Empty);
                 MessageBox.Show($"Restoran '{restoran.Id}' je izmenjen.", "Restoran izmenjen", MessageBoxButton.OK, MessageBoxImage.Information);
             }
 

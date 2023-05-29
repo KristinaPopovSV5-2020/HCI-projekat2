@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MongoDB.Bson;
+using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Windows;
@@ -11,6 +12,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using TouristAgency.Model;
+using TouristAgency.Servis;
 
 namespace TouristAgency.UserControls
 {
@@ -20,6 +22,7 @@ namespace TouristAgency.UserControls
     public partial class ucSmestajIzmena : UserControl
     {
         public Smestaj smestaj = new Smestaj();
+        PutovanjaServis putovanjaServis = new PutovanjaServis();
 
         public ucSmestajIzmena(string id, string naziv, string tip, string adresa, string ocena)
         {
@@ -71,8 +74,6 @@ namespace TouristAgency.UserControls
 
 
         public event EventHandler VratiSeNa_Smestaj;
-        public event EventHandler<SmestajArgs> Dodaj_Smestaj;
-        public event EventHandler<SmestajArgs> Izmeni_Smestaj;
 
         private void Vrati_Se(object sender, RoutedEventArgs e)
         {
@@ -96,11 +97,14 @@ namespace TouristAgency.UserControls
             Button b = (Button)sender;
             if (b.Content.ToString() == "Dodaj")
             {
-                Dodaj_Smestaj?.Invoke(this, args);
+                smestaj.Id = ObjectId.GenerateNewId().ToString();
+                putovanjaServis.DodajSmestaj(smestaj);
+                VratiSeNa_Smestaj?.Invoke(this, EventArgs.Empty);
             }
             else
             {
-                Izmeni_Smestaj?.Invoke(this, args);
+                putovanjaServis.IzmeniSmestaj(smestaj);
+                VratiSeNa_Smestaj?.Invoke(this, EventArgs.Empty);
                 MessageBox.Show($"Smestaj '{smestaj.Id}' je izmenjen.", "Smestaj izmenjen", MessageBoxButton.OK, MessageBoxImage.Information);
             }
 

@@ -13,6 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using TouristAgency.Model;
+using TouristAgency.Servis;
 
 namespace TouristAgency.UserControls
 {
@@ -22,20 +23,16 @@ namespace TouristAgency.UserControls
     public partial class ucRestorani : UserControl
     {
         ObservableCollection<Restoran> restorani;
+        PutovanjaServis putovanjaServis = new PutovanjaServis();
         public ucRestorani()
         {
             InitializeComponent();
 
-            restorani = new ObservableCollection<Restoran>();
-
-            restorani.Add(new Restoran("1", "Naziv1", "Lokacija1","5"));
-            restorani.Add(new Restoran("1", "Naziv1", "Lokacija1", "5"));
-            restorani.Add(new Restoran("1", "Naziv1", "Lokacija1", "5"));
-            restorani.Add(new Restoran("1", "Naziv1", "Lokacija1", "5"));
-            restorani.Add(new Restoran("1", "Naziv1", "Lokacija1", "5"));
-            restorani.Add(new Restoran("1", "Naziv1", "Lokacija1", "5"));
-
-            restoraniDataGrid.ItemsSource = restorani;
+            Loaded += async (sender, e) =>
+            {
+                restorani = await putovanjaServis.SviRestoraniAsync();
+                restoraniDataGrid.ItemsSource = restorani;
+            };
         }
 
         private void Obrisi_Restoran(object sender, RoutedEventArgs e)
@@ -48,7 +45,9 @@ namespace TouristAgency.UserControls
 
                 if (result == MessageBoxResult.Yes)
                 {
+                    putovanjaServis.ObrisiRestoran(selectedItem);
                     restorani.Remove(selectedItem);
+                    restoraniDataGrid.Items.Refresh();
                     MessageBox.Show($"Restoran '{selectedItem.Naziv}' je obrisan.", "Restoran obrisan", MessageBoxButton.OK, MessageBoxImage.Information);
 
                 }
@@ -66,7 +65,6 @@ namespace TouristAgency.UserControls
             mainComponent.Children.Clear();
             mainComponent.Children.Add(forma);
 
-            forma.Izmeni_Restoran += Promeni;
             forma.VratiSeNa_Restoran += Vrati;
 
 
@@ -80,33 +78,7 @@ namespace TouristAgency.UserControls
             mainComponent.Children.Clear();
             mainComponent.Children.Add(forma);
 
-            forma.Dodaj_Restoran += Ucitaj;
             forma.VratiSeNa_Restoran += Vrati;
-
-
-        }
-
-        private void Ucitaj(object sender, RestoranArgs e)
-        {
-            ucRestorani atr = new ucRestorani();
-            atr.restorani.Add(e.PovratnaVrednost);
-            mainComponent.Children.Clear();
-            mainComponent.Children.Add(atr);
-
-
-        }
-
-        private void Promeni(object sender, RestoranArgs e)
-        {
-            ucRestorani atr = new ucRestorani();
-            Restoran restoranZaPromenu = atr.restorani.FirstOrDefault(item => item.Id == e.PovratnaVrednost.Id);
-            restoranZaPromenu.Id = e.PovratnaVrednost.Id;
-            restoranZaPromenu.Naziv = e.PovratnaVrednost.Naziv;
-            restoranZaPromenu.Ocena = e.PovratnaVrednost.Ocena;
-            restoranZaPromenu.Adresa = e.PovratnaVrednost.Adresa;
-
-            mainComponent.Children.Clear();
-            mainComponent.Children.Add(atr);
 
 
         }

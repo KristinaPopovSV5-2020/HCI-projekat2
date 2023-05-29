@@ -10,11 +10,15 @@ namespace TouristAgency.Model
     {
 
         [BsonId]
+        [BsonElement("id")]
         [BsonRepresentation(BsonType.ObjectId)]
         private string id { get; set; }
 
+        [BsonElement("naziv")]
         private string naziv { get; set; }
+        [BsonElement("opis")]
         private string opis { get; set; }
+        [BsonElement("adresa")]
         private string adresa { get; set; }
 
 
