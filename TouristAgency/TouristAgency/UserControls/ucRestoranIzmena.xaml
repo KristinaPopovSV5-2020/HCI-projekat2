@@ -7,6 +7,8 @@
              xmlns:uc="clr-namespace:TouristAgency.UserControls"
              mc:Ignorable="d" 
              d:DesignHeight="720" d:DesignWidth="1080"
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             xmlns:materialDesignConverters="clr-namespace:MaterialDesignThemes.Wpf.Converters;assembly=MaterialDesignThemes.Wpf"
              Margin="100">
 
     <Grid>
@@ -30,7 +32,7 @@
                         <RowDefinition Height="auto"/>
                     </Grid.RowDefinitions>
 
-                    <TextBlock Grid.Row="0" Text="Id" Style="{StaticResource text}"/>
+                    <TextBlock Grid.Row="0" Text="Id" Style="{StaticResource text}" Name="idLabela"/>
                     <TextBlock Grid.Row="1" Text="Naziv" Style="{StaticResource text}"/>
                     <TextBlock Grid.Row="2" Text="Adresa" Style="{StaticResource text}"/>
                     <TextBlock Grid.Row="3" Text="Ocena" Style="{StaticResource text}"/>
@@ -38,7 +40,14 @@
                     <uc:ucInput Grid.Column="1" Grid.Row="0" Hint="" x:Name="id"/>
                     <uc:ucInput Grid.Column="1" Grid.Row="1" Hint="" x:Name="naziv"/>
                     <uc:ucInput Grid.Column="1" Grid.Row="2" Hint="" x:Name="adresa"/>
-                    <uc:ucInput Grid.Column="1" Grid.Row="3" Hint="" x:Name="ocena"/>
+                    <ComboBox  Grid.Column="1" Grid.Row="3" x:Name="ocena" Foreground="#868686" Margin="0 5 0 0"  BorderThickness="0" Height="45" FontSize="20" Width="270" materialDesign:HintAssist.Hint="Select an item">
+                        <ComboBoxItem FontSize="15" Content="1" />
+                        <ComboBoxItem FontSize="15" Content="2" />
+                        <ComboBoxItem FontSize="15" Content="3" />
+                        <ComboBoxItem FontSize="15" Content="4" />
+                        <ComboBoxItem FontSize="15" Content="5" />
+                    </ComboBox>
+
 
 
                     <Grid Grid.Column="1" Grid.Row="7" Margin="0 40 0 0">

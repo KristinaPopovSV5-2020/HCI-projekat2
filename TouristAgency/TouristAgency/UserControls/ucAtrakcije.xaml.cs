@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Windows;
@@ -14,6 +15,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using TouristAgency.Model;
+using TouristAgency.Servis;
 
 namespace TouristAgency.UserControls
 {
@@ -23,19 +25,19 @@ namespace TouristAgency.UserControls
     public partial class ucAtrakcije : UserControl
     {
         public ObservableCollection<Atrakcija> atrakcije;
+        PutovanjaServis putovanjaServis = new PutovanjaServis();
         public ucAtrakcije()
         {
             InitializeComponent();
 
             atrakcije = new ObservableCollection<Atrakcija>();
 
-            atrakcije.Add(new Atrakcija("1", "Atrakcija1", "Opis atrakcije","Adresa1"));
-            atrakcije.Add(new Atrakcija("2", "Atrakcija1", "Opis atrakcije", "Adresa1"));
-            atrakcije.Add(new Atrakcija("3", "Atrakcija1", "Opis atrakcije", "Adresa1"));
-            atrakcije.Add(new Atrakcija("4", "Atrakcija1", "Opis atrakcije", "Adresa1"));
-            atrakcije.Add(new Atrakcija("5", "Atrakcija1", "Opis atrakcije", "Adresa1"));
-            atrakcije.Add(new Atrakcija("6", "Atrakcija1", "Opis atrakcije", "Adresa1"));
-            atrakcije.Add(new Atrakcija("7", "Atrakcija1", "Opis atrakcije", "Adresa1"));
+            atrakcije.Add(new Atrakcija("1", "Naziv1", "Lokacija1", "5"));
+            atrakcije.Add(new Atrakcija("1", "Naziv1", "Lokacija1", "5"));
+            atrakcije.Add(new Atrakcija("1", "Naziv1", "Lokacija1", "5"));
+            atrakcije.Add(new Atrakcija("1", "Naziv1", "Lokacija1", "5"));
+            atrakcije.Add(new Atrakcija("1", "Naziv1", "Lokacija1", "5"));
+            atrakcije.Add(new Atrakcija("1", "Naziv1", "Lokacija1", "5"));
 
             atrakcijeDataGrid.ItemsSource = atrakcije;
         }

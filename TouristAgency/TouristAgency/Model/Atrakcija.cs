@@ -13,9 +13,9 @@ namespace TouristAgency.Model
         [BsonRepresentation(BsonType.ObjectId)]
         private string id { get; set; }
 
-        private string naziv;
-        private string opis;
-        private string adresa;
+        private string naziv { get; set; }
+        private string opis { get; set; }
+        private string adresa { get; set; }
 
 
         public Atrakcija(string id,string naziv, string opis, string adresa)

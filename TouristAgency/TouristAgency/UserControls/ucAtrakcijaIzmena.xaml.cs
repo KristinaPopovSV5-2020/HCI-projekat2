@@ -39,6 +39,7 @@ namespace TouristAgency.UserControls
             naslov.Text = "Izmeni atrakciju";
             potvrdi.Content = "Izmeni";
             this.id.IsEnabled = false;
+           
 
         }
 
@@ -48,6 +49,8 @@ namespace TouristAgency.UserControls
 
             naslov.Text = "Dodaj atrakciju";
             potvrdi.Content = "Dodaj";
+            this.id.Visibility = Visibility.Hidden;
+            this.idLabela.Visibility = Visibility.Hidden;
         }
 
         public event EventHandler VratiSeNa_Atrakcije;

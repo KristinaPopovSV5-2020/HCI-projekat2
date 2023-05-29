@@ -25,21 +25,38 @@ namespace TouristAgency.UserControls
         {
             InitializeComponent();
 
+            foreach (ComboBoxItem item in this.ocena.Items)
+            {
+                if (item.Content.ToString() == ocena)
+                {
+                    this.ocena.SelectedItem = item;
+                    break;
+                }
+            }
+
+            foreach (ComboBoxItem item in this.tip.Items)
+            {
+                if (item.Content.ToString() == tip)
+                {
+                    this.tip.SelectedItem = item;
+                    break;
+                }
+            }
+
             this.id.Hint = id;
             this.naziv.Hint = naziv;
-            this.tip.Hint = tip.ToString();
             this.adresa.Hint = adresa;
-            this.ocena.Hint = ocena;
 
             smestaj.Id = this.id.Hint;
             smestaj.Naziv = this.naziv.Hint;
-            smestaj.Tip = (TipSmestaja)Enum.Parse(typeof(TipSmestaja), this.tip.Hint);
+            smestaj.Tip = (TipSmestaja)Enum.Parse(typeof(TipSmestaja), (this.tip.SelectedItem as ComboBoxItem).Content.ToString());
             smestaj.Adresa = this.adresa.Hint;
-            smestaj.Ocena = this.ocena.Hint;
+            smestaj.Ocena = this.ocena.SelectedItem.ToString();
 
             naslov.Text = "Izmeni smestaj";
             potvrdi.Content = "Izmeni";
             this.id.IsEnabled = false;
+            
 
         }
         public ucSmestajIzmena()
@@ -48,6 +65,8 @@ namespace TouristAgency.UserControls
 
             naslov.Text = "Dodaj smestaj";
             potvrdi.Content = "Dodaj";
+            this.id.Visibility = Visibility.Hidden;
+            this.idLabela.Visibility = Visibility.Hidden;
         }
 
 
@@ -67,9 +86,10 @@ namespace TouristAgency.UserControls
 
             smestaj.Id = id.Hint;
             smestaj.Naziv = naziv.Hint;
-            smestaj.Tip = (TipSmestaja)Enum.Parse(typeof(TipSmestaja), tip.Hint);
+            smestaj.Tip = (TipSmestaja)Enum.Parse(typeof(TipSmestaja), (this.tip.SelectedItem as ComboBoxItem).Content.ToString());
             smestaj.Adresa = adresa.Hint;
-            smestaj.Ocena = ocena.Hint;
+            string o = ocena.SelectedItem.ToString();
+            smestaj.Ocena = o[o.Length - 1].ToString();
 
             args.PovratnaVrednost = smestaj;
 

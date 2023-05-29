@@ -26,19 +26,28 @@ namespace TouristAgency.UserControls
         {
             InitializeComponent();
 
+            foreach (ComboBoxItem item in this.ocena.Items)
+            {
+                if (item.Content.ToString() == ocena)
+                {
+                    this.ocena.SelectedItem = item;
+                    break;
+                }
+            }
+
             this.id.Hint = id;
             this.naziv.Hint = naziv;
             this.adresa.Hint = adresa;
-            this.ocena.Hint = ocena;
 
             restoran.Id = this.id.Hint;
             restoran.Naziv = this.naziv.Hint;
-            restoran.Ocena = this.ocena.Hint;
+            restoran.Ocena = this.ocena.SelectedItem.ToString();
             restoran.Adresa = this.adresa.Hint;
 
             naslov.Text = "Izmeni restoran";
             potvrdi.Content = "Izmeni";
             this.id.IsEnabled = false;
+           
 
         }
 
@@ -48,6 +57,8 @@ namespace TouristAgency.UserControls
 
             naslov.Text = "Dodaj restoran";
             potvrdi.Content = "Dodaj";
+            this.id.Visibility = Visibility.Hidden;
+            this.idLabela.Visibility = Visibility.Hidden;
         }
 
         public event EventHandler VratiSeNa_Restoran;
@@ -66,7 +77,8 @@ namespace TouristAgency.UserControls
 
             restoran.Id = id.Hint;
             restoran.Naziv = naziv.Hint;
-            restoran.Ocena = ocena.Hint;
+            string o=ocena.SelectedItem.ToString();
+            restoran.Ocena = o[o.Length - 1].ToString();
             restoran.Adresa = adresa.Hint;
 
             args.PovratnaVrednost = restoran;
