@@ -6,7 +6,7 @@ using System.Text;
 
 namespace TouristAgency.Model
 {
-    class Atrakcija
+    public class Atrakcija
     {
 
         [BsonId]

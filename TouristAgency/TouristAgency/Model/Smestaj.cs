@@ -14,7 +14,7 @@ namespace TouristAgency.Model
         HOTEL,
         SOBA
     }
-    class Smestaj
+    public class Smestaj
     {
         [BsonId]
         [BsonRepresentation(BsonType.ObjectId)]

@@ -7,23 +7,26 @@ using MongoDB.Bson.Serialization.Attributes;
 
 namespace TouristAgency.Model
 {
-    class Restoran
+    public class Restoran
     {
 
         [BsonId]
         [BsonRepresentation(BsonType.ObjectId)]
-        private string id { get; set; }
+        private string id;
+
+        private string adresa;
 
         private string naziv;
-        private string adresa;
+        
         private string ocena;
 
 
-        public Restoran(string id,string naziv, string adresa, string ocena)
+        public Restoran(string id,string adresa, string naziv, string ocena)
         {
             this.id = id;
-            this.naziv = naziv;
             this.adresa = adresa;
+            this.naziv = naziv;
+            
             this.ocena = ocena;
         }
 

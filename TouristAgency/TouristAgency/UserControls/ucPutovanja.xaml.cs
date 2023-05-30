@@ -46,7 +46,7 @@ namespace TouristAgency.UserControls
 
             if (selectedItem != null)
             {
-                MessageBoxResult result = MessageBox.Show("Da li sigurno želiš da izbrišeš putovanje "+selectedItem.Naziv, "Potvrda", MessageBoxButton.YesNo, MessageBoxImage.Question);
+                MessageBoxResult result = MessageBox.Show("Da li sigurno želiš da izbrišeš putovanje "+ selectedItem.Naziv, "Potvrda", MessageBoxButton.YesNo, MessageBoxImage.Question);
 
                 if (result == MessageBoxResult.Yes)
                 {
