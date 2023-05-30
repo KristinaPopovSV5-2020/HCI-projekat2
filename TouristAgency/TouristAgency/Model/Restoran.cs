@@ -22,7 +22,7 @@ namespace TouristAgency.Model
 
         }
 
-        public Restoran(string id,string naziv, string adresa, string ocena)
+        public Restoran(string id,string adresa, string naziv, string ocena)
         {
             this.id = id;
             this.naziv = naziv;

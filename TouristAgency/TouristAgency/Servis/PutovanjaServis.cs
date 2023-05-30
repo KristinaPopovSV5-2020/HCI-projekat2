@@ -65,7 +65,7 @@ namespace TouristAgency.Servis
             var documents = await Baza.RestoraniKol.Find(new BsonDocument()).ToListAsync();
             foreach (var document in documents)
             {
-                restorani.Add(new Restoran(document["_id"].AsString, document["naziv"].AsString, document["adresa"].AsString, document["ocena"].AsString));
+                restorani.Add(new Restoran(document["_id"].AsString, document["adresa"].AsString, document["naziv"].AsString, document["ocena"].AsString));
             }
             return restorani;
         }
@@ -75,8 +75,8 @@ namespace TouristAgency.Servis
             var document = new BsonDocument
             {
                 { "_id", restoran.Id },
-                { "naziv", restoran.Naziv },
                 { "adresa", restoran.Adresa },
+                { "naziv", restoran.Naziv },
                  { "ocena", restoran.Ocena }
             };
 
