@@ -14,11 +14,18 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using TouristAgency.Model;
+using TouristAgency.Servis;
 
 namespace TouristAgency.UserControls.client
 {
     public partial class detaljiPrikaz : UserControl
     {
+
+        PutovanjaServis putovanjaServis = new PutovanjaServis();
+        List<Atrakcija> atrakcijas = new List<Atrakcija>();
+        List<Smestaj> smestaji = new List<Smestaj>();
+        List<Restoran> restorani = new List<Restoran>();
+
 
         public detaljiPrikaz()
         {
@@ -29,45 +36,56 @@ namespace TouristAgency.UserControls.client
         {
             nameInput.Text = selectedItem.Naziv;
             //listaAtrakcija.ItemsSource = selectedItem.Atrakcije;
-            listaAtrakcija.ItemsSource = new List<string>
-            {
-                "New York",
-                "Paris",
-                "London",
-                "Tokyo",
-                "Rome"
-            };
-            SearchAndAddPushpin("Cara dušana 20, Subotica");
-            SearchAndAddPushpin("Cara dušana 30, Subotica");
 
+            atrakcijas = putovanjaServis.AtrakcijeZaPutovanje("123");
+            smestaji = putovanjaServis.SmestajZaPutovanje("123");
+            restorani = putovanjaServis.RestoraniZaPutovanje("123");
+            listaAtrakcija.ItemsSource = atrakcijas;
+            listaSmestaja.ItemsSource = putovanjaServis.SmestajZaPutovanje("123");
+            listaRestorana.ItemsSource = putovanjaServis.RestoraniZaPutovanje("123");
+            SearchAndAddPushpin(atrakcijas.Select(a => a.Adresa).ToList());
+            
         }
 
         private void BackButton_Click(object sender, RoutedEventArgs e)
         {
         }
 
-        private async void SearchAndAddPushpin(string address)
+        private async void SearchAndAddPushpin(List<string> adrese)
         {
-            string requestUrl = $"http://dev.virtualearth.net/REST/v1/Locations?query={address}&key=";
-
-            using (var client = new HttpClient())
+            map.Children.Clear();
+            if (adrese.Count > 0)
             {
-                var response = await client.GetAsync(requestUrl);
-                var json = await response.Content.ReadAsStringAsync();
-                var data = JsonConvert.DeserializeObject<RootObject>(json);
-
-                if (data != null && data.resourceSets.Any() && data.resourceSets.First().resources.Any())
+                int i = 0;
+                foreach(string address in adrese)
                 {
-                    var location = data.resourceSets.First().resources.First();
-                    var point = new Location(location.point.coordinates[0], location.point.coordinates[1]);
+                    i++;
+                    string requestUrl = $"http://dev.virtualearth.net/REST/v1/Locations?query={address}&key=nltGyIgw8vEO79Dc9AFY~00N7BTnXTXYeNf3EVNeDNw~AkowgGH4IsDZEM9SmtVES0nD2OD-cD9VWqNSC8e29PF4zPvYoWnCedQQgoaJiDkr";
 
-                    var pushpin = new Pushpin();
-                    pushpin.Location = point;
+                    using (var client = new HttpClient())
+                    {
+                        var response = await client.GetAsync(requestUrl);
+                        var json = await response.Content.ReadAsStringAsync();
+                        var data = JsonConvert.DeserializeObject<RootObject>(json);
 
-                    map.Children.Add(pushpin);
-                    map.SetView(point, 15);
+                        if (data != null && data.resourceSets.Any() && data.resourceSets.First().resources.Any())
+                        {
+                            var location = data.resourceSets.First().resources.First();
+                            var point = new Location(location.point.coordinates[0], location.point.coordinates[1]);
+
+                            var pushpin = new Pushpin();
+                            pushpin.Location = point;
+                            TextBlock textBlock = new TextBlock();
+                            textBlock.Text = i.ToString(); // Set the text for the pin
+                            pushpin.Content = textBlock;
+
+                            map.Children.Add(pushpin);
+                            map.SetView(point, 15);
+                        }
+                    }
                 }
             }
+            
         }
 
         public class Point
@@ -98,6 +116,21 @@ namespace TouristAgency.UserControls.client
             public string statusDescription { get; set; }
             public string traceId { get; set; }
             public List<ResourceSet> resourceSets { get; set; }
+        }
+
+        public void Smestaji_Click(object sender, RoutedEventArgs e)
+        {
+            SearchAndAddPushpin(smestaji.Select(a => a.Adresa).ToList());
+        }
+        public void Atrakcije_Click(object sender, RoutedEventArgs e)
+        {
+            SearchAndAddPushpin(atrakcijas.Select(a => a.Adresa).ToList());
+
+        }
+        public void Restorani_Click(object sender, RoutedEventArgs e)
+        {
+            SearchAndAddPushpin(restorani.Select(a => a.Adresa).ToList());
+
         }
 
 

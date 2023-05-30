@@ -24,7 +24,7 @@
                     <DataTemplate>
                         <StackPanel Orientation="Horizontal">
                             <Icon:PackIconMaterial VerticalAlignment="Center" Kind="MapMarker" Height="29" Width="36" RenderTransformOrigin="0.546,1.404"></Icon:PackIconMaterial>
-                            <TextBlock Text="{Binding}" />
+                            <TextBlock Text="{Binding Naziv}" />
                         </StackPanel>
                     </DataTemplate>
                 </ListBox.ItemTemplate>
@@ -35,8 +35,19 @@
                 <ListBox.ItemTemplate>
                     <DataTemplate>
                         <StackPanel Orientation="Horizontal">
-                            <Icon:PackIconMaterial VerticalAlignment="Center" Kind="MapMarker" Height="29" Width="36" RenderTransformOrigin="0.546,1.404"></Icon:PackIconMaterial>
-                            <TextBlock Text="{Binding}" />
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Text="{Binding Naziv}" FontWeight="Bold" FontSize="16" />
+                                <StackPanel Orientation="Horizontal">
+                                    <ItemsControl ItemsSource="{Binding Ocena}">
+                                        <ItemsControl.ItemTemplate>
+                                            <DataTemplate>
+                                                <materialDesign:PackIcon Kind="Star" Margin="0 0 2 0" />
+                                            </DataTemplate>
+                                        </ItemsControl.ItemTemplate>
+                                    </ItemsControl>
+                                </StackPanel>
+                                <TextBlock Text="{Binding TipSmestaja}" />
+                            </StackPanel>
                         </StackPanel>
                     </DataTemplate>
                 </ListBox.ItemTemplate>
@@ -47,8 +58,16 @@
                 <ListBox.ItemTemplate>
                     <DataTemplate>
                         <StackPanel Orientation="Horizontal">
-                            <Icon:PackIconMaterial VerticalAlignment="Center" Kind="MapMarker" Height="29" Width="36" RenderTransformOrigin="0.546,1.404"></Icon:PackIconMaterial>
-                            <TextBlock Text="{Binding}" />
+                            <TextBlock Text="{Binding Naziv}" FontWeight="Bold" FontSize="16" />
+                            <StackPanel Orientation="Horizontal">
+                                <ItemsControl ItemsSource="{Binding Ocena}">
+                                    <ItemsControl.ItemTemplate>
+                                        <DataTemplate>
+                                            <materialDesign:PackIcon Kind="Star" Margin="0 0 2 0" />
+                                        </DataTemplate>
+                                    </ItemsControl.ItemTemplate>
+                                </ItemsControl>
+                            </StackPanel>
                         </StackPanel>
                     </DataTemplate>
                 </ListBox.ItemTemplate>
@@ -56,11 +75,11 @@
         </StackPanel>
 
         <Grid Grid.Column="2" Background="White" Margin="10">
-            <m:Map Name="map" CredentialsProvider="" Center="47.6062,-122.3321" ZoomLevel="12" />
+            <m:Map Name="map" CredentialsProvider="nltGyIgw8vEO79Dc9AFY~00N7BTnXTXYeNf3EVNeDNw~AkowgGH4IsDZEM9SmtVES0nD2OD-cD9VWqNSC8e29PF4zPvYoWnCedQQgoaJiDkr" Center="47.6062,-122.3321" ZoomLevel="12" />
             <WrapPanel Orientation="Horizontal" VerticalAlignment="Bottom" >
-                <Button Content="Atrakcije" Style="{StaticResource MaterialDesignRaisedButton}" Margin="5" />
-                <Button Content="Smeštaji" Style="{StaticResource MaterialDesignRaisedButton}" Margin="5" />
-                <Button Content="Restorani" Click="BackButton_Click" Style="{StaticResource MaterialDesignRaisedButton}" Margin="5" />
+                <Button Content="Atrakcije" Click="Atrakcije_Click" Style="{StaticResource MaterialDesignRaisedButton}" Margin="5" />
+                <Button Content="Smeštaji" Click="Smestaji_Click" Style="{StaticResource MaterialDesignRaisedButton}" Margin="5" />
+                <Button Content="Restorani" Click="Restorani_Click"  Style="{StaticResource MaterialDesignRaisedButton}" Margin="5" />
             </WrapPanel>
             
         </Grid>

@@ -148,5 +148,41 @@ namespace TouristAgency.Servis
             DeleteResult result = Baza.SmestajiKol.DeleteOne(filter);
         }
 
+        public List<Atrakcija> AtrakcijeZaPutovanje(string id)
+        {
+            List<Atrakcija> atrakcije = new List<Atrakcija>();
+            var filter = new BsonDocument();
+            var documents = Baza.AtrakcijeKol.Find(filter).ToList();
+            foreach (var document in documents)
+            {
+                atrakcije.Add(new Atrakcija(document["_id"].AsString, document["naziv"].AsString, document["opis"].AsString, document["adresa"].AsString));
+            }
+            return atrakcije;
+        }
+
+        public List<Smestaj> SmestajZaPutovanje(string id)
+        {
+            List<Smestaj> smestaji = new List<Smestaj>();
+            var filter = new BsonDocument();
+            var documents = Baza.SmestajiKol.Find(filter).ToList();
+            foreach (var document in documents)
+            {
+                smestaji.Add(new Smestaj(document["_id"].AsString, document["naziv"].AsString, document["adresa"].AsString, (TipSmestaja)Enum.Parse(typeof(TipSmestaja), document["tipSmestaja"].AsString), document["ocena"].AsString));
+            }
+            return smestaji;
+        }
+        public List<Restoran> RestoraniZaPutovanje(string id)
+        {
+            List<Restoran> restorani = new List<Restoran>();
+            var filter = new BsonDocument();
+            var documents = Baza.SmestajiKol.Find(filter).ToList();
+            foreach (var document in documents)
+            {
+                restorani.Add(new Restoran(document["_id"].AsString, document["naziv"].AsString, document["adresa"].AsString, document["ocena"].AsString));
+            }
+            return restorani;
+        }
+
+
     }
 }
