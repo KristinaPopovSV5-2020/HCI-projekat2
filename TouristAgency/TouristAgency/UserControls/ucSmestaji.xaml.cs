@@ -92,5 +92,14 @@ namespace TouristAgency.UserControls
 
 
         }
+
+        private void PretraziSmestaje(object sender, TextChangedEventArgs e)
+        {
+            string searchText = ((TextBox)sender).Text.ToLower();
+
+            var filteredItems = smestaji.Where(item => item.Naziv.ToLower().Contains(searchText) || item.Ocena.ToLower().Contains(searchText) || item.Adresa.ToLower().Contains(searchText) || item.Id.ToLower().Contains(searchText) || item.Tip.ToString().ToLower().Contains(searchText));
+
+            smestajiDataGrid.ItemsSource = filteredItems;
+        }
     }
 }

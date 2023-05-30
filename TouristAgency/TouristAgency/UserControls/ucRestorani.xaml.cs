@@ -91,5 +91,14 @@ namespace TouristAgency.UserControls
 
 
         }
+
+        private void PretraziRestorane(object sender, TextChangedEventArgs e)
+        {
+            string searchText = ((TextBox)sender).Text.ToLower();
+
+            var filteredItems = restorani.Where(item => item.Naziv.ToLower().Contains(searchText) || item.Ocena.ToLower().Contains(searchText) || item.Adresa.ToLower().Contains(searchText) || item.Id.ToLower().Contains(searchText));
+
+            restoraniDataGrid.ItemsSource = filteredItems;
+        }
     }
 }
