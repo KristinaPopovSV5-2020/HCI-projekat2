@@ -59,6 +59,21 @@ namespace TouristAgency.Servis
             var updateResult = Baza.AtrakcijeKol.UpdateOne(filter, update);
         }
 
+        public async Task<ObservableCollection<Restoran>> FiltriranjeRestorana(string min, string max)
+        {
+            ObservableCollection<Restoran> restorani = new ObservableCollection<Restoran>();
+
+            var f2 = Builders<BsonDocument>.Filter.Gte("ocena", min) & Builders<BsonDocument>.Filter.Lte("ocena", max);
+
+            var documents = await Baza.RestoraniKol.Find(f2).ToListAsync();
+
+            foreach (var document in documents)
+            {
+                restorani.Add(new Restoran(document["_id"].AsString, document["adresa"].AsString, document["naziv"].AsString, document["ocena"].AsString));
+            }
+            return restorani;
+        }
+
         public async Task<ObservableCollection<Smestaj>> FiltriranjeSmestaja(List<string> list, string min, string max)
         {
             ObservableCollection<Smestaj> smestaji = new ObservableCollection<Smestaj>();

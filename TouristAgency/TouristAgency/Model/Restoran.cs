@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Text;
 
 using MongoDB.Bson;
@@ -48,5 +49,10 @@ namespace TouristAgency.Model
     public class RestoranArgs : EventArgs
     {
         public Restoran PovratnaVrednost { get; set; }
+    }
+
+    public class RestoraniArgs : EventArgs
+    {
+        public ObservableCollection<Restoran> PovratnaVrednost { get; set; }
     }
 }
