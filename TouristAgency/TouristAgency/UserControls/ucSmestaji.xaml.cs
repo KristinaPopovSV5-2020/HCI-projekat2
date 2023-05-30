@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Controls.Primitives;
 using System.Windows.Data;
 using System.Windows.Documents;
 using System.Windows.Input;
@@ -23,7 +24,9 @@ namespace TouristAgency.UserControls
     public partial class ucSmestaji : UserControl
     {
         ObservableCollection<Smestaj> smestaji;
+        ObservableCollection<Smestaj> trenutniSmestaji;
         PutovanjaServis putovanjaServis = new PutovanjaServis();
+        Popup popup = new Popup();
         public ucSmestaji()
         {
             InitializeComponent();
@@ -31,6 +34,7 @@ namespace TouristAgency.UserControls
             Loaded += async (sender, e) =>
             {
                 smestaji = await putovanjaServis.SviSmestajiAsync();
+                trenutniSmestaji = smestaji;
                 smestajiDataGrid.ItemsSource = smestaji;
             };
         }
@@ -89,7 +93,9 @@ namespace TouristAgency.UserControls
             ucSmestaji atr = new ucSmestaji();
             mainComponent.Children.Clear();
             mainComponent.Children.Add(atr);
-
+            popup.IsOpen = false;
+            mainComponent.Opacity = 1;
+            mainComponent.IsHitTestVisible = true;
 
         }
 
@@ -97,9 +103,48 @@ namespace TouristAgency.UserControls
         {
             string searchText = ((TextBox)sender).Text.ToLower();
 
-            var filteredItems = smestaji.Where(item => item.Naziv.ToLower().Contains(searchText) || item.Ocena.ToLower().Contains(searchText) || item.Adresa.ToLower().Contains(searchText) || item.Id.ToLower().Contains(searchText) || item.Tip.ToString().ToLower().Contains(searchText));
+            var filteredItems = trenutniSmestaji.Where(item => item.Naziv.ToLower().Contains(searchText) || item.Ocena.ToLower().Contains(searchText) || item.Adresa.ToLower().Contains(searchText) || item.Id.ToLower().Contains(searchText) || item.Tip.ToString().ToLower().Contains(searchText));
 
             smestajiDataGrid.ItemsSource = filteredItems;
+        }
+
+        private void Filtriraj(object sender, MouseButtonEventArgs e)
+        {
+            filterAtrakcije popupUserControl = new filterAtrakcije();
+
+            mainComponent.IsHitTestVisible = false;
+            mainComponent.Opacity = 0.4;
+
+            popup.Child = null;
+            popup.Child = popupUserControl;
+            popup.HorizontalOffset = 500;
+            popup.VerticalOffset = 570;
+            popup.Height = 500;
+            popup.Width = 400;
+            popup.AllowsTransparency = true;
+
+            popup.IsOpen = true;
+
+            popupUserControl.VratiSeNa_Smestaj += Vrati;
+
+            popupUserControl.Button2Clicked += async (sender,e) =>
+            {
+                await Dispatcher.InvokeAsync(() =>
+                {
+                    UcitajFiltrirano(e.PovratnaVrednost);
+                    popup.IsOpen = false;
+                    mainComponent.Opacity = 1;
+                    mainComponent.IsHitTestVisible = true;
+                });
+            };
+
+
+        }
+
+        public void UcitajFiltrirano(ObservableCollection<Smestaj> filteredList)
+        {
+            trenutniSmestaji = filteredList;
+            smestajiDataGrid.ItemsSource = trenutniSmestaji;
         }
 
     }
