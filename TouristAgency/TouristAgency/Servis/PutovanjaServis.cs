@@ -17,6 +17,11 @@ namespace TouristAgency.Servis
 
         public Baza Baza = new Baza();
 
+
+        public PutovanjaServis() { }
+
+        
+
         public async Task<ObservableCollection<Atrakcija>> SveAtrakcijeAsync()
         {
             ObservableCollection<Atrakcija> atrakcije = new ObservableCollection<Atrakcija>();
@@ -148,5 +153,8 @@ namespace TouristAgency.Servis
             DeleteResult result = Baza.SmestajiKol.DeleteOne(filter);
         }
 
+
     }
+
 }
+

@@ -46,10 +46,15 @@ namespace TouristAgency.UserControls
 
         private bool ValidateInput(string username, string password)
         {
-            if (string.IsNullOrWhiteSpace(username) || string.IsNullOrWhiteSpace(password))
+            if (string.IsNullOrWhiteSpace(username))
             {
                 txtError.Visibility = Visibility.Visible;
-                txtError.Text = "Popunite sva polja.";
+                txtError.Text = "Korisničko ime treba da bude popunjeno.";
+                return false;
+            }else if (string.IsNullOrWhiteSpace(password))
+            {
+                txtError.Visibility = Visibility.Visible;
+                txtError.Text = "Lozinka treba da bude popunjena.";
                 return false;
             }
 

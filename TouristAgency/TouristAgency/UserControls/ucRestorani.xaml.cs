@@ -33,6 +33,7 @@ namespace TouristAgency.UserControls
                 restorani = await putovanjaServis.SviRestoraniAsync();
                 restoraniDataGrid.ItemsSource = restorani;
             };
+
         }
 
         private void Obrisi_Restoran(object sender, RoutedEventArgs e)

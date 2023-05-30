@@ -13,6 +13,7 @@ namespace TouristAgency.Model
         [BsonId]
         [BsonRepresentation(BsonType.ObjectId)]
         private string id { get; set; }
+
         private string korisnickoIme;
         private string lozinka;
 

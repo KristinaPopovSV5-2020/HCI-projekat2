@@ -14,15 +14,25 @@ namespace TouristAgency.Model
         [BsonRepresentation(BsonType.ObjectId)]
         private string id { get; set; }
 
+        [BsonElement("naziv")]
         private string naziv;
+
+        [BsonElement("brojDana")]
         private string brojDana;
+
+        [BsonElement("cena")]
         private string cena;
+
+        [BsonElement("datum")]
         private DateTime datum;
 
+        [BsonElement("smestaji")]
         private List<Smestaj> smestaji;
 
+        [BsonElement("restorani")]
         private List<Restoran> restorani;
 
+        [BsonElement("adresa")]
         private List<Atrakcija> atrakcije;
 
 

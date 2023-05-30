@@ -14,7 +14,11 @@ namespace TouristAgency.Model
         [BsonRepresentation(BsonType.ObjectId)]
         private string id { get; set; }
         private string naziv;
+
         private string adresa;
+
+        private string naziv;
+        
         private string ocena;
 
         public Restoran()
@@ -25,8 +29,9 @@ namespace TouristAgency.Model
         public Restoran(string id,string adresa, string naziv, string ocena)
         {
             this.id = id;
-            this.naziv = naziv;
             this.adresa = adresa;
+            this.naziv = naziv;
+            
             this.ocena = ocena;
         }
 
