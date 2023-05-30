@@ -101,5 +101,6 @@ namespace TouristAgency.UserControls
 
             smestajiDataGrid.ItemsSource = filteredItems;
         }
+
     }
 }

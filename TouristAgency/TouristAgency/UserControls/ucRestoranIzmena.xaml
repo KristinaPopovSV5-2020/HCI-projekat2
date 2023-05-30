@@ -56,6 +56,8 @@
                             <ColumnDefinition Width="*"/>
                         </Grid.ColumnDefinitions>
 
+                        <TextBlock x:Name="txtError" Grid.Row="4" Grid.ColumnSpan="2" FontSize="22" Margin="0 -40 0 0" FontWeight="SemiBold" Foreground="BlueViolet" HorizontalAlignment="Center" Text="" Visibility="Collapsed" />
+
                         <Button Style="{StaticResource buttonMain}" Margin="0 0 10 0" Content="Odustani" Click="Vrati_Se" />
 
                         <Button Grid.Column="1" Style="{StaticResource buttonPurple}" Margin="10 0 0 0" Name="potvrdi" Click="Potvrdi"/>

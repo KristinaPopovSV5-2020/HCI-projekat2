@@ -100,5 +100,6 @@ namespace TouristAgency.UserControls
 
             restoraniDataGrid.ItemsSource = filteredItems;
         }
+
     }
 }
