@@ -17,7 +17,7 @@ namespace TouristAgency.Model
 
         private string adresa;
 
-        private string naziv;
+ 
         
         private string ocena;
 
