@@ -6,6 +6,9 @@
              xmlns:local="clr-namespace:TouristAgency.UserControls" xmlns:Icon="http://metro.mahapps.com/winfx/xaml/iconpacks"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
+    <UserControl.Resources>
+        <BooleanToVisibilityConverter x:Key="BoolToVis" />
+    </UserControl.Resources>
     <Grid Name="mainComponent">
 
         <Grid.RowDefinitions>
@@ -35,14 +38,15 @@
 
 
 
-        <TextBlock Text="Pretraži" Grid.Row="4" FontSize="25" FontWeight="SemiBold" Margin="0 0 270 0" Foreground="#121518" HorizontalAlignment="Right" VerticalAlignment="Center"/>
+        <TextBlock Text="Pretraži" Grid.Row="4" FontSize="30" FontWeight="SemiBold" Margin="0 0 270 0" Foreground="#121518" HorizontalAlignment="Right" VerticalAlignment="Center"/>
 
         <!--Filter Textbox-->
         <Grid Width="250" Height="60" HorizontalAlignment="Right" Grid.Row="4">
             <TextBlock Margin="15 0" VerticalAlignment="Center" Foreground="#B0B9C6" IsHitTestVisible="False"
-                           Panel.ZIndex="1" Text="Search in Members ..." />
+                           Panel.ZIndex="1" FontSize="20" Text="Pretrazi atrakcije"
+                       Visibility="{Binding ElementName=textBoxFilter, Path=Text.IsEmpty, Converter={StaticResource BoolToVis}}"/>
 
-            <TextBox Name="textBoxFilter" Style="{StaticResource filterTextBox}"/>
+            <TextBox Name="textBoxFilter" FontSize="20" Style="{StaticResource filterTextBox}" TextChanged="PretraziAtrakcije"/>
         </Grid>
 
         <!--Members Data Grid-->
@@ -73,7 +77,7 @@
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
                             <StackPanel Orientation="Horizontal">
-                                <Button Style="{StaticResource gridEditButton}">
+                                <Button Style="{StaticResource gridEditButton}" Click="Izmeni_Atrakciju">
                                     <Icon:PackIconMaterial Kind="PencilOutline" Style="{StaticResource gridButtonIcon}" Width="20" Height="20"/>
                                 </Button>
                                 <Button Margin="5 0 0 0" Style="{StaticResource gridRemoveButton}" Click="Obrisi_Atrakciju">

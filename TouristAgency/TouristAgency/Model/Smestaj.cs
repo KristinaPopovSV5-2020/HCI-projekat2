@@ -8,7 +8,7 @@ using MongoDB.Bson.Serialization.Attributes;
 
 namespace TouristAgency.Model
 {
-    enum TipSmestaja
+    public enum TipSmestaja
     {
         APARTMAN,
         HOTEL,
@@ -22,10 +22,14 @@ namespace TouristAgency.Model
 
         private string naziv;
         private string adresa;
+        [BsonRepresentation(BsonType.String)]
         private TipSmestaja tipSmestaja;
         private string ocena;
 
+        public Smestaj()
+        {
 
+        }
         public Smestaj(string id,string naziv, string adresa, TipSmestaja tip, string ocena)
         {
             this.id = id;
@@ -43,5 +47,10 @@ namespace TouristAgency.Model
         public TipSmestaja Tip { get => tipSmestaja; set => tipSmestaja = value; }
 
         public string Ocena { get => ocena; set => ocena = value; }
+    }
+
+    public class SmestajArgs : EventArgs
+    {
+        public Smestaj PovratnaVrednost { get; set; }
     }
 }

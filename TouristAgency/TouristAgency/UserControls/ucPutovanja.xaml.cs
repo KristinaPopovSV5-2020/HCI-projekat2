@@ -19,23 +19,22 @@ namespace TouristAgency.UserControls
     
     public partial class ucPutovanja : UserControl
     {
-        ObservableCollection<Putovanje> putovanja = new ObservableCollection<Putovanje>();
+        
+        PutovanjaServis putovanjaServis = new PutovanjaServis();
+        ObservableCollection<Putovanje> putovanja;
 
         public ucPutovanja()
         {
             InitializeComponent();
-            
-            putovanja.Add(new Putovanje("1","Putovanje1","4","4000",new DateTime()));
-            putovanja.Add(new Putovanje("2", "Putovanje2", "5", "5000", new DateTime()));
-            putovanja.Add(new Putovanje("3", "Putovanje3", "4", "6000", new DateTime()));
-            putovanja.Add(new Putovanje("4", "Putovanje4", "3", "7000", new DateTime()));
-            putovanja.Add(new Putovanje("5", "Putovanje5", "6", "1000", new DateTime()));
-            putovanja.Add(new Putovanje("6", "Putovanje6", "4", "3000", new DateTime()));
-            putovanja.Add(new Putovanje("7", "Putovanje7", "4", "4000", new DateTime()));
-            putovanja.Add(new Putovanje("8", "Putovanje8", "4", "8000", new DateTime()));
-            putovanja.Add(new Putovanje("9", "Putovanje9", "4", "4000", new DateTime()));
-            putovanja.Add(new Putovanje("10", "Putovanje10", "4", "4000", new DateTime()));
-            putovanja.Add(new Putovanje("11", "Putovanje11", "4", "4000", new DateTime()));
+
+            putovanja = new ObservableCollection<Putovanje>();
+
+            putovanja.Add(new Putovanje("1", "Naziv1", "4", "5000", new DateTime()));
+            putovanja.Add(new Putovanje("1", "Naziv1", "4", "5", new DateTime()));
+            putovanja.Add(new Putovanje("1", "Naziv1", "5", "5", new DateTime()));
+            putovanja.Add(new Putovanje("1", "Naziv1", "6", "5", new DateTime()));
+            putovanja.Add(new Putovanje("1", "Naziv1", "3", "5", new DateTime()));
+            putovanja.Add(new Putovanje("1", "Naziv1", "4", "5", new DateTime()));
 
             putovanjaDataGrid.ItemsSource = putovanja;
         }

@@ -12,7 +12,8 @@ namespace TouristAgency.Model
 
         [BsonId]
         [BsonRepresentation(BsonType.ObjectId)]
-        private string id;
+        private string id { get; set; }
+        private string naziv;
 
         private string adresa;
 
@@ -20,6 +21,10 @@ namespace TouristAgency.Model
         
         private string ocena;
 
+        public Restoran()
+        {
+
+        }
 
         public Restoran(string id,string adresa, string naziv, string ocena)
         {
@@ -38,5 +43,10 @@ namespace TouristAgency.Model
         public string Adresa { get => adresa; set => adresa = value; }
 
         public string Ocena { get => ocena; set => ocena = value; }
+    }
+
+    public class RestoranArgs : EventArgs
+    {
+        public Restoran PovratnaVrednost { get; set; }
     }
 }

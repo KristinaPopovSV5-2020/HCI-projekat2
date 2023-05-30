@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Linq;
 using System.Text;
 using System.Windows;
 using System.Windows.Controls;
@@ -12,6 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using TouristAgency.Model;
+using TouristAgency.Servis;
 
 namespace TouristAgency.UserControls
 {
@@ -20,19 +22,18 @@ namespace TouristAgency.UserControls
     /// </summary>
     public partial class ucRestorani : UserControl
     {
-        ObservableCollection<Restoran> restorani = new ObservableCollection<Restoran>();
+        ObservableCollection<Restoran> restorani;
+        PutovanjaServis putovanjaServis = new PutovanjaServis();
         public ucRestorani()
         {
             InitializeComponent();
 
-            /*restorani.Add(new Restoran("1", "Naziv1", "Lokacija1","5"));
-            restorani.Add(new Restoran("1", "Naziv1", "Lokacija1", "5"));
-            restorani.Add(new Restoran("1", "Naziv1", "Lokacija1", "5"));
-            restorani.Add(new Restoran("1", "Naziv1", "Lokacija1", "5"));
-            restorani.Add(new Restoran("1", "Naziv1", "Lokacija1", "5"));
-            restorani.Add(new Restoran("1", "Naziv1", "Lokacija1", "5"));*/
+            Loaded += async (sender, e) =>
+            {
+                restorani = await putovanjaServis.SviRestoraniAsync();
+                restoraniDataGrid.ItemsSource = restorani;
+            };
 
-            restoraniDataGrid.ItemsSource = restorani;
         }
 
         private void Obrisi_Restoran(object sender, RoutedEventArgs e)
@@ -45,7 +46,9 @@ namespace TouristAgency.UserControls
 
                 if (result == MessageBoxResult.Yes)
                 {
+                    putovanjaServis.ObrisiRestoran(selectedItem);
                     restorani.Remove(selectedItem);
+                    restoraniDataGrid.Items.Refresh();
                     MessageBox.Show($"Restoran '{selectedItem.Naziv}' je obrisan.", "Restoran obrisan", MessageBoxButton.OK, MessageBoxImage.Information);
 
                 }
@@ -53,5 +56,51 @@ namespace TouristAgency.UserControls
             }
 
         }
+
+        private void Izmeni_Restoran(object sender, RoutedEventArgs e)
+        {
+
+            Restoran selectedItem = restoraniDataGrid.SelectedItem as Restoran;
+
+            ucRestoranIzmena forma = new ucRestoranIzmena(selectedItem.Id, selectedItem.Naziv, selectedItem.Adresa, selectedItem.Ocena);
+            mainComponent.Children.Clear();
+            mainComponent.Children.Add(forma);
+
+            forma.VratiSeNa_Restoran += Vrati;
+
+
+
+
+        }
+
+        private void Dodaj_Restoran(object sender, RoutedEventArgs e)
+        {
+            ucRestoranIzmena forma = new ucRestoranIzmena();
+            mainComponent.Children.Clear();
+            mainComponent.Children.Add(forma);
+
+            forma.VratiSeNa_Restoran += Vrati;
+
+
+        }
+
+        private void Vrati(object sender, EventArgs e)
+        {
+            ucRestorani atr = new ucRestorani();
+            mainComponent.Children.Clear();
+            mainComponent.Children.Add(atr);
+
+
+        }
+
+        private void PretraziRestorane(object sender, TextChangedEventArgs e)
+        {
+            string searchText = ((TextBox)sender).Text.ToLower();
+
+            var filteredItems = restorani.Where(item => item.Naziv.ToLower().Contains(searchText) || item.Ocena.ToLower().Contains(searchText) || item.Adresa.ToLower().Contains(searchText) || item.Id.ToLower().Contains(searchText));
+
+            restoraniDataGrid.ItemsSource = filteredItems;
+        }
+
     }
 }
