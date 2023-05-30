@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using MongoDB.Bson;
 using MongoDB.Driver;
 using TouristAgency.Model;
 
@@ -11,38 +12,38 @@ namespace TouristAgency.Repozitorijum
         string connectionString = "mongodb://localhost:27017";
         private MongoClient mongoKlijent;
 
-        private IMongoCollection<Korisnik> korisniciKol;
-        private IMongoCollection<Atrakcija> atrakcijeKol;
-        private IMongoCollection<Kupljeni> kupljeniKol;
+        private IMongoCollection<BsonDocument> korisniciKol;
+        private IMongoCollection<BsonDocument> atrakcijeKol;
+        private IMongoCollection<BsonDocument> kupljeniKol;
         private IMongoCollection<Putovanje> putovanjaKol;
-        private IMongoCollection<Restoran> restoraniKol;
-        private IMongoCollection<Smestaj> smestajiKol;
+        private IMongoCollection<BsonDocument> restoraniKol;
+        private IMongoCollection<BsonDocument> smestajiKol;
 
 
         public Baza()
         {
             this.mongoKlijent = new MongoClient(connectionString);
             var database = mongoKlijent.GetDatabase("Baza");
-            this.korisniciKol = database.GetCollection<Korisnik>("Korisnici");
-            this.atrakcijeKol = database.GetCollection<Atrakcija>("Atrakcije");
-            this.kupljeniKol = database.GetCollection<Kupljeni>("Kupljeni");
+            this.korisniciKol = database.GetCollection<BsonDocument>("Korisnici");
+            this.atrakcijeKol = database.GetCollection<BsonDocument>("Atrakcije");
+            this.kupljeniKol = database.GetCollection<BsonDocument>("Kupljeni");
             this.putovanjaKol = database.GetCollection<Putovanje>("Putovanja");
-            this.restoraniKol = database.GetCollection<Restoran>("Restorani");
-            this.smestajiKol = database.GetCollection<Smestaj>("Smestaji");
+            this.restoraniKol = database.GetCollection<BsonDocument>("Restorani");
+            this.smestajiKol = database.GetCollection<BsonDocument>("Smestaji");
            
         }
 
-        public IMongoCollection<Korisnik> KorisniciiKol { get => korisniciKol; set => korisniciKol = value; }
+        public IMongoCollection<BsonDocument> KorisniciiKol { get => korisniciKol; set => korisniciKol = value; }
 
-        public IMongoCollection<Kupljeni> KupljeniKol { get => kupljeniKol; set => kupljeniKol = value; }
+        public IMongoCollection<BsonDocument> KupljeniKol { get => kupljeniKol; set => kupljeniKol = value; }
 
         public IMongoCollection<Putovanje> PutovanjaKol { get => putovanjaKol; set => putovanjaKol = value; }
 
-        public IMongoCollection<Smestaj> SmestajiKol { get => smestajiKol; set => smestajiKol = value; }
+        public IMongoCollection<BsonDocument> SmestajiKol { get => smestajiKol; set => smestajiKol = value; }
 
-        public IMongoCollection<Restoran> RestoraniKol { get => restoraniKol; set => restoraniKol = value; }
+        public IMongoCollection<BsonDocument> RestoraniKol { get => restoraniKol; set => restoraniKol = value; }
 
-        public IMongoCollection<Atrakcija> AtrakcijeKOl { get => atrakcijeKol; set => atrakcijeKol = value; }
+        public IMongoCollection<BsonDocument> AtrakcijeKol { get => atrakcijeKol; set => atrakcijeKol = value; }
 
 
     }

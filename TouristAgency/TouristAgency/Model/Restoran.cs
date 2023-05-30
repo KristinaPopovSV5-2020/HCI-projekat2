@@ -7,17 +7,20 @@ using MongoDB.Bson.Serialization.Attributes;
 
 namespace TouristAgency.Model
 {
-    class Restoran
+    public class Restoran
     {
 
         [BsonId]
         [BsonRepresentation(BsonType.ObjectId)]
         private string id { get; set; }
-
         private string naziv;
         private string adresa;
         private string ocena;
 
+        public Restoran()
+        {
+
+        }
 
         public Restoran(string id,string naziv, string adresa, string ocena)
         {
@@ -35,5 +38,10 @@ namespace TouristAgency.Model
         public string Adresa { get => adresa; set => adresa = value; }
 
         public string Ocena { get => ocena; set => ocena = value; }
+    }
+
+    public class RestoranArgs : EventArgs
+    {
+        public Restoran PovratnaVrednost { get; set; }
     }
 }

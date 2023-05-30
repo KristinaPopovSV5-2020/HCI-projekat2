@@ -22,6 +22,7 @@ namespace TouristAgency.Model
 
         private string naziv;
         private string adresa;
+        [BsonRepresentation(BsonType.String)]
         private TipSmestaja tipSmestaja;
         private string ocena;
 

@@ -1,4 +1,6 @@
-﻿using System;
+﻿using MongoDB.Bson;
+using MongoDB.Driver;
+using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Windows;
@@ -11,6 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using TouristAgency.Model;
+using TouristAgency.Servis;
 
 namespace TouristAgency.UserControls
 {
@@ -20,7 +23,7 @@ namespace TouristAgency.UserControls
     public partial class ucAtrakcijaIzmena : UserControl
     {
         public Atrakcija atrakcija = new Atrakcija();
-
+        PutovanjaServis putovanjaServis = new PutovanjaServis();
 
         public ucAtrakcijaIzmena(string id, string naziv, string opis, string adresa)
         {
@@ -39,6 +42,7 @@ namespace TouristAgency.UserControls
             naslov.Text = "Izmeni atrakciju";
             potvrdi.Content = "Izmeni";
             this.id.IsEnabled = false;
+           
 
         }
 
@@ -48,11 +52,11 @@ namespace TouristAgency.UserControls
 
             naslov.Text = "Dodaj atrakciju";
             potvrdi.Content = "Dodaj";
+            this.id.Visibility = Visibility.Hidden;
+            this.idLabela.Visibility = Visibility.Hidden;
         }
 
         public event EventHandler VratiSeNa_Atrakcije;
-        public event EventHandler<AtrakcijaArgs> Dodaj_Atrakciju;
-        public event EventHandler<AtrakcijaArgs> Izmeni_Atrakciju;
 
         private void Vrati_Se(object sender, RoutedEventArgs e)
         {
@@ -62,23 +66,22 @@ namespace TouristAgency.UserControls
 
         private void Potvrdi(object sender, RoutedEventArgs e)
         {
-            AtrakcijaArgs args = new AtrakcijaArgs();
 
-            atrakcija.Id = id.Hint;
             atrakcija.Naziv = naziv.Hint;
             atrakcija.Opis = opis.Hint;
             atrakcija.Adresa = adresa.Hint;
 
-            args.PovratnaVrednost = atrakcija;
-
             Button b = (Button)sender;
             if (b.Content.ToString() == "Dodaj")
             {
-                Dodaj_Atrakciju?.Invoke(this, args);
+                atrakcija.Id = ObjectId.GenerateNewId().ToString();
+                putovanjaServis.DodajAtrakciju(atrakcija);
+                VratiSeNa_Atrakcije?.Invoke(this, EventArgs.Empty);
             }
             else
             {
-                Izmeni_Atrakciju?.Invoke(this, args);
+                putovanjaServis.IzmeniAtrakciju(atrakcija);
+                VratiSeNa_Atrakcije?.Invoke(this, EventArgs.Empty);
                 MessageBox.Show($"Atrakcija '{atrakcija.Id}' je izmenjena.", "Atrakcija izmenjena", MessageBoxButton.OK, MessageBoxImage.Information);
             }
 
