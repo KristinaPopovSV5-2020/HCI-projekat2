@@ -35,18 +35,18 @@ namespace TouristAgency.Model
         [BsonElement("adresa")]
         private List<Atrakcija> atrakcije;
 
+        public Putovanje() { }
 
-
-        public Putovanje(string id,string naziv, string brojDana, string cena, DateTime datum)
+        public Putovanje(string id,string naziv, string brojDana, string cena, DateTime datum, List<Atrakcija> atrakcije,  List<Smestaj> smestaji, List<Restoran> restorani)
         {
             this.id = id;
             this.naziv = naziv;
             this.brojDana = brojDana;
             this.cena = cena;
             this.datum = datum;
-            this.smestaji = new List<Smestaj>();
-            this.restorani = new List<Restoran>();
-            this.atrakcije = new List<Atrakcija>();
+            this.smestaji = smestaji;
+            this.restorani = restorani;
+            this.atrakcije = atrakcije;
         }
 
         public string Id { get => id; set => id = value; }

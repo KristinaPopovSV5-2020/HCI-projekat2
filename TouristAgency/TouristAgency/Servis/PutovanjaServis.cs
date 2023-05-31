@@ -153,6 +153,26 @@ namespace TouristAgency.Servis
             DeleteResult result = Baza.SmestajiKol.DeleteOne(filter);
         }
 
+        public void DodajPutovanje(string naziv, string brDana, string cena, DateTime dateTime, ObservableCollection<Atrakcija> atrakcije, ObservableCollection<Smestaj> smestaji, ObservableCollection<Restoran> restorani)
+        {
+            var atrakcijeDocuments = atrakcije.Select(a => a.ToBsonDocument()).ToList();
+            var smestajiDocuments = smestaji.Select(s => s.ToBsonDocument()).ToList();
+            var restoraniDocuments = restorani.Select(r => r.ToBsonDocument()).ToList();
+
+            var document = new BsonDocument
+    {
+        { "naziv", naziv },
+        { "brojDana", brDana },
+        { "cena", cena },
+        { "datum", dateTime },
+        { "atrakcije", new BsonArray(atrakcijeDocuments) },
+        { "smestaji", new BsonArray(smestajiDocuments) },
+        { "restorani", new BsonArray(restoraniDocuments) }
+    };
+
+            Baza.PutovanjaKol.InsertOne(document);
+        }
+
 
     }
 
