@@ -15,7 +15,7 @@ namespace TouristAgency.Repozitorijum
         private IMongoCollection<BsonDocument> korisniciKol;
         private IMongoCollection<BsonDocument> atrakcijeKol;
         private IMongoCollection<BsonDocument> kupljeniKol;
-        private IMongoCollection<Putovanje> putovanjaKol;
+        private IMongoCollection<BsonDocument> putovanjaKol;
         private IMongoCollection<BsonDocument> restoraniKol;
         private IMongoCollection<BsonDocument> smestajiKol;
 
@@ -27,7 +27,7 @@ namespace TouristAgency.Repozitorijum
             this.korisniciKol = database.GetCollection<BsonDocument>("Korisnici");
             this.atrakcijeKol = database.GetCollection<BsonDocument>("Atrakcije");
             this.kupljeniKol = database.GetCollection<BsonDocument>("Kupljeni");
-            this.putovanjaKol = database.GetCollection<Putovanje>("Putovanja");
+            this.putovanjaKol = database.GetCollection<BsonDocument>("Putovanja");
             this.restoraniKol = database.GetCollection<BsonDocument>("Restorani");
             this.smestajiKol = database.GetCollection<BsonDocument>("Smestaji");
            
@@ -37,7 +37,7 @@ namespace TouristAgency.Repozitorijum
 
         public IMongoCollection<BsonDocument> KupljeniKol { get => kupljeniKol; set => kupljeniKol = value; }
 
-        public IMongoCollection<Putovanje> PutovanjaKol { get => putovanjaKol; set => putovanjaKol = value; }
+        public IMongoCollection<BsonDocument> PutovanjaKol { get => putovanjaKol; set => putovanjaKol = value; }
 
         public IMongoCollection<BsonDocument> SmestajiKol { get => smestajiKol; set => smestajiKol = value; }
 

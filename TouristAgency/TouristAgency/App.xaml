@@ -5,8 +5,6 @@
              StartupUri="MainWindow.xaml"
     xmlns:theme="clr-namespace:Microsoft.Windows.Themes;assembly=PresentationFramework.Aero2">
     <Application.Resources>
-
-        
         <Style x:Key="topButton" TargetType="Button">
             <Setter Property="Background" Value="Transparent" />
             <Setter Property="Foreground" Value="#6E7783" />
@@ -183,6 +181,7 @@
 
         <Style x:Key="filterTextBox" TargetType="TextBox" BasedOn="{StaticResource searchTextbox}">
             <Setter Property="Padding" Value="10 7" />
+            <Setter Property="Foreground" Value="#6C7682" />
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="{x:Type TextBoxBase}">
