@@ -1,0 +1,207 @@
+﻿<UserControl x:Class="TouristAgency.UserControls.ucNovoPutovanje"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:TouristAgency.UserControls" xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             mc:Ignorable="d" 
+             d:DesignHeight="720" d:DesignWidth="1080">
+    <UserControl.Resources>
+        <BooleanToVisibilityConverter x:Key="BoolToVis" />
+    </UserControl.Resources>
+   <Grid>
+    <Border Grid.Column="1" Padding="20" Background="White" Width="750" Height="800" CornerRadius="30" HorizontalAlignment="Center" VerticalAlignment="Center">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="350" />
+                    <ColumnDefinition  Width="350"/>
+                </Grid.ColumnDefinitions>
+
+              
+                <StackPanel Grid.Row="1" Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Center">
+                    <StackPanel>
+                        <TextBlock Text="Naziv" FontSize="15" Style="{StaticResource text}" Width="270"/>
+                        <TextBox x:Name="txtNaziv" FontSize="15" Width="270"/>
+                    </StackPanel>
+                    <StackPanel>
+                        <TextBlock Text="Cena" FontSize="15" Style="{StaticResource text}" Width="270" />
+                        <TextBox x:Name="txtCena" FontSize="15" Width="270" />
+                    </StackPanel>
+                </StackPanel>
+
+                <StackPanel Grid.Row="1" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Center" >
+                    <StackPanel  Margin="0 -15 0 0" >
+                        <TextBlock Text="Broj dana" FontSize="15" Style="{StaticResource text}" Width="270"/>
+                        <TextBox x:Name="txtBrojDana" FontSize="15" Width="270" />
+                    </StackPanel>
+                    <StackPanel>
+                        <TextBlock Text="Datum" FontSize="15" Style="{StaticResource text}" Width="270"  Margin="0 0 0 10" />
+                        <StackPanel Orientation="Horizontal">
+                            <DatePicker x:Name="datePicker" FontSize="17" Width="270" SelectedDate="{x:Null}" Height="38" >
+                                <DatePicker.Resources>
+                                    <Style TargetType="DatePickerTextBox">
+                                        <Setter Property="Text" Value="Izaberite datum" />
+                                    </Style>
+                                    <Style TargetType="Button">
+                                        <Setter Property="Width" Value="30" />
+                                        <Setter Property="Height" Value="30" />
+                                    </Style>
+                                </DatePicker.Resources>
+                            </DatePicker>
+                        </StackPanel>
+                    </StackPanel>
+                </StackPanel>
+            <!-- Atrakcije -->
+                <TextBlock Grid.Row="2" Grid.Column="0" Text="Pretraga atrakcija" FontSize="15" Style="{StaticResource text}" Margin="5 0 0 0"/>
+                <Grid Width="250" Height="60" HorizontalAlignment="Right" Grid.Row="2" Grid.Column="0" Margin="5 0 0 0"  >
+                    <TextBlock Margin="15 0" VerticalAlignment="Center" Foreground="#B0B9C6" IsHitTestVisible="False"
+                           Panel.ZIndex="1"  Width="180" Visibility="{Binding ElementName=textBoxFilter, Path=Text.IsEmpty, Converter={StaticResource BoolToVis}}"/>
+
+                    <TextBox Name="textBoxFilterAtrakcije" Style="{StaticResource filterTextBox}"  Width="180"  TextChanged="PretraziAtrakcije" />
+                </Grid>
+                <TextBlock Grid.Row="2" Grid.Column="1" Text="Izabrane atrakcije" FontSize="15" Style="{StaticResource text}" Margin="15 0 0 0"/>
+                <ListView Grid.Column="0" Grid.Row="3" x:Name="atrakcijeListView" ItemsSource="{Binding Atrakcije}"  Margin="0 0 15 0" PreviewMouseLeftButtonDown="ListView_PreviewMouseLeftButtonDownAtrakcija" MouseMove="ListView_MouseMoveAtrakcija" Height="100">
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <WrapPanel>
+                                <TextBlock Text="{Binding Naziv}" FontWeight="Bold" />
+                                <TextBlock Text=", " />
+                                <TextBlock Text="{Binding Opis}" />
+                                <TextBlock Text=" (" />
+                                <TextBlock Text="{Binding Adresa}" Cursor="Hand" />
+                                <TextBlock Text=")" />
+                            </WrapPanel>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+        
+            </ListView>
+
+                <ListView Grid.Column="1" Grid.Row="3"  ItemsSource="{Binding Atrakcije1}"  Margin="15 0 0 0"  AllowDrop="True" DragEnter="ListView_DragEnterAtrakcija" Drop="ListView_DropAtrakcija" Height="100">
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <WrapPanel>
+                                <TextBlock Text="{Binding Naziv}" FontWeight="Bold" />
+                                <TextBlock Text=", " />
+                                <TextBlock Text="{Binding Opis}" />
+                                <TextBlock Text=" (" />
+                                <TextBlock Text="{Binding Adresa}" Cursor="Hand" />
+                                <TextBlock Text=")" />
+                            </WrapPanel>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+
+                </ListView>
+            <!-- Smestaji -->
+                <TextBlock Grid.Row="4" Grid.Column="0" Text="Pretraga smeštaja" FontSize="15" Style="{StaticResource text}"  Margin="5 0 0 0"/>
+                <Grid Width="250" Height="60" HorizontalAlignment="Right" Grid.Row="4" Grid.Column="0" Margin="5 0 0 0" >
+                    <TextBlock Margin="15 0" VerticalAlignment="Center" Foreground="#B0B9C6" IsHitTestVisible="False"
+                           Panel.ZIndex="1"  Width="180" Visibility="{Binding ElementName=textBoxFilter, Path=Text.IsEmpty, Converter={StaticResource BoolToVis}}"/>
+
+                    <TextBox Name="textBoxFilterSmestaji" Style="{StaticResource filterTextBox}" Width="180" TextChanged="PretraziSmestaje" />
+                </Grid>
+                <TextBlock Grid.Row="4" Grid.Column="1" Text="Izabrani smeštaji" FontSize="15" Style="{StaticResource text}" Margin="15 0 0 0"/>
+                <ListView Grid.Column="0" Grid.Row="5"  x:Name="smestajiListView" ItemsSource="{Binding Smestaji}" Margin="0 0 15 0" PreviewMouseLeftButtonDown="ListView_PreviewMouseLeftButtonDownSmestaj" MouseMove="ListView_MouseMoveSmestaj" Height="100">
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <WrapPanel>
+                                <TextBlock Text="{Binding Naziv}" FontWeight="Bold" />
+                                <TextBlock Text=", " />
+                                <TextBlock Text="{Binding Adresa}" />
+                                <TextBlock Text="," />
+                                <TextBlock Text="{Binding Tip}" Cursor="Hand" />
+                                <TextBlock Text=", Ocena: " />
+                                <TextBlock Text="{Binding Ocena}" Cursor="Hand" />
+                            </WrapPanel>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+
+            </ListView>
+
+                <ListView Grid.Column="1" Grid.Row="5" ItemsSource="{Binding Smestaji1}"  Margin="15 0 0 0"  AllowDrop="True" DragEnter="ListView_DragEnterSmestaj" Drop="ListView_DropSmestaj" Height="100">
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <WrapPanel>
+                                <TextBlock Text="{Binding Naziv}" FontWeight="Bold" />
+                                <TextBlock Text=", " />
+                                <TextBlock Text="{Binding Adresa}" />
+                                <TextBlock Text="," />
+                                <TextBlock Text="{Binding Tip}" Cursor="Hand" />
+                                <TextBlock Text=", Ocena: " />
+                                <TextBlock Text="{Binding Ocena}" Cursor="Hand" />
+                            </WrapPanel>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+
+
+                </ListView>
+            <!-- Restorani -->
+                <TextBlock Grid.Row="6" Grid.Column="0" Text="Pretraga restorana" FontSize="15" Style="{StaticResource text}"  Margin="5 0 0 0"/>
+                <Grid Width="250" Height="60" HorizontalAlignment="Right" Grid.Row="6" Grid.Column="0"  Margin="5 0 0 0" >
+                    <TextBlock Margin="15 0" VerticalAlignment="Center" Foreground="#B0B9C6" IsHitTestVisible="False"
+                           Panel.ZIndex="1"  Width="180" Visibility="{Binding ElementName=textBoxFilter, Path=Text.IsEmpty, Converter={StaticResource BoolToVis}}"/>
+
+                    <TextBox Name="textBoxFilterRestorani" Style="{StaticResource filterTextBox}"  Width="180" TextChanged="PretraziRestorane"/>
+                </Grid>
+                <TextBlock Grid.Row="6" Grid.Column="1" Text="Izabrani restorani" FontSize="15" Style="{StaticResource text}"  Margin="15 0 0 0"/>
+                <ListView Grid.Column="0" Grid.Row="7"  x:Name="restoraniListView" ItemsSource="{Binding Restorani}"  Margin="0 0 15 0" PreviewMouseLeftButtonDown="ListView_PreviewMouseLeftButtonDownRestoran" MouseMove="ListView_MouseMoveRestoran"  VerticalContentAlignment="Top"  
+          ScrollViewer.VerticalScrollBarVisibility="Visible"
+          ScrollViewer.CanContentScroll="True" Height="100">
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <WrapPanel>
+                                <TextBlock Text="{Binding Naziv}" FontWeight="Bold" />
+                                <TextBlock Text=", " />
+                                <TextBlock Text="{Binding Adresa}" />
+                                <TextBlock Text="," />
+                                <TextBlock Text="{Binding Ocena}" Cursor="Hand" />
+                            </WrapPanel>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+
+
+                </ListView>
+
+                <ListView Grid.Column="1" Grid.Row="7" ItemsSource="{Binding Restorani1}"  Margin="15 0 0 0" AllowDrop="True" DragEnter="ListView_DragEnterRestoran" Drop="ListView_DropRestoran"  VerticalContentAlignment="Top"  
+          ScrollViewer.VerticalScrollBarVisibility="Visible"
+          ScrollViewer.CanContentScroll="False" Height="100">
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <WrapPanel>
+                                <TextBlock Text="{Binding Naziv}" FontWeight="Bold" />
+                                <TextBlock Text=", " />
+                                <TextBlock Text="{Binding Adresa}" />
+                                <TextBlock Text="," />
+                                <TextBlock Text="{Binding Ocena}" Cursor="Hand" />
+                            </WrapPanel>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+
+            </ListView>
+                <TextBlock x:Name="txtError" Grid.Row="8" Grid.ColumnSpan="2" FontSize="20"  Foreground="BlueViolet" HorizontalAlignment="Center" Text="" Visibility="Collapsed" />
+                <TextBlock x:Name="txtSucces" Grid.Row="8" Grid.ColumnSpan="2" FontSize="20"  Foreground="Green" HorizontalAlignment="Center" Text="" Visibility="Collapsed" />
+
+
+                <StackPanel Grid.Row="9" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Center"  Margin="0 20 0 0">
+                <StackPanel Orientation="Horizontal">
+                        <Button Content=" Kreiraj putovanje " Height="30" FontSize="15" Margin="0 0 20 0" Style="{StaticResource buttonPurple}"  Click="BtnKreiraj_Click" />
+                        <Button Content=" Poništi sva polja " Width="100" Height="30"  Click="BtnPonisti_Click"/>
+                </StackPanel>
+
+            </StackPanel>
+            </Grid>
+    </Border>
+</Grid>
+
+</UserControl>

@@ -13,6 +13,23 @@
                 <materialDesign:BundledTheme PrimaryColor="Blue" SecondaryColor="Purple" BaseTheme="Light" />
                 <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Defaults.xaml"/>
             </ResourceDictionary.MergedDictionaries>
+            
+        <Style x:Key="topButton" TargetType="Button">
+            <Setter Property="Background" Value="Transparent" />
+            <Setter Property="Foreground" Value="#6E7783" />
+            <Setter Property="FocusVisualStyle" Value="{x:Null}" />
+            <Setter Property="Height" Value="30" />
+            <Setter Property="Width" Value="30" />
+            <Setter Property="HorizontalAlignment" Value="Right" />
+            <Setter Property="Template" >
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Background="{TemplateBinding Background}" CornerRadius="50">
+                            <ContentPresenter VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
 
             <Style TargetType="DatePicker" x:Key="DatePickerStyle">
                 <!-- Define your custom style properties and setters here -->
@@ -192,14 +209,15 @@
             </Style>
 
 
-            <Style x:Key="filterTextBox" TargetType="TextBox" BasedOn="{StaticResource searchTextbox}">
-                <Setter Property="Padding" Value="10 7" />
-                <Setter Property="Template">
-                    <Setter.Value>
-                        <ControlTemplate TargetType="{x:Type TextBoxBase}">
-                            <Border x:Name="border" CornerRadius="7" Background="{TemplateBinding Background}" BorderThickness="1" BorderBrush="#E0E6ED" SnapsToDevicePixels="True">
-                                <ScrollViewer x:Name="PART_ContentHost" Focusable="false" HorizontalScrollBarVisibility="Hidden" VerticalScrollBarVisibility="Hidden"/>
-                            </Border>
+        <Style x:Key="filterTextBox" TargetType="TextBox" BasedOn="{StaticResource searchTextbox}">
+            <Setter Property="Padding" Value="10 7" />
+            <Setter Property="Foreground" Value="#6C7682" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type TextBoxBase}">
+                        <Border x:Name="border" CornerRadius="7" Background="{TemplateBinding Background}" BorderThickness="1" BorderBrush="#E0E6ED" SnapsToDevicePixels="True">
+                            <ScrollViewer x:Name="PART_ContentHost" Focusable="false" HorizontalScrollBarVisibility="Hidden" VerticalScrollBarVisibility="Hidden"/>
+                        </Border>
 
                             <ControlTemplate.Triggers>
                                 <Trigger Property="IsMouseOver" Value="true">
@@ -664,18 +682,61 @@
             </Style>
 
 
-            <Style x:Key="buttonPurple" TargetType="Button" BasedOn="{StaticResource buttonMain}">
-                <Setter Property="Background" Value="#6f5bde" />
-                <Setter Property="Foreground" Value="#ffffff" />
-                <Style.Triggers>
-                    <Trigger Property="IsMouseOver" Value="True">
-                        <Setter Property="Background" Value="#623ED0" />
-                        <Setter Property="Foreground" Value="#ffffff" />
-                    </Trigger>
-                </Style.Triggers>
-            </Style>
-            <!--kraj izmene-->
-        </ResourceDictionary>
+        <Style x:Key="buttonMain" TargetType="Button">
+            <Setter Property="Background" Value="#F5F7F9" />
+            <Setter Property="Foreground" Value="#363636" />
+            <Setter Property="BorderThickness" Value="0" />
+            <Setter Property="Height" Value="50" />
+            <Setter Property="FontSize" Value="25" />
+            <Setter Property="BorderBrush" Value="Black"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="FontWeight" Value="SemiBold" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Background="{TemplateBinding Background}" CornerRadius="5" Padding="5">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" Value="#c9c9c9" />
+                    <Setter Property="Foreground" Value="#161616" />
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+
+
+        <Style x:Key="buttonPurple" TargetType="Button" BasedOn="{StaticResource buttonMain}">
+            <Setter Property="Background" Value="#6f5bde" />
+            <Setter Property="Foreground" Value="#ffffff" />
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" Value="#623ED0" />
+                    <Setter Property="Foreground" Value="#ffffff" />
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+
+
+        <Style x:Key="filterDugme" TargetType="Button" BasedOn="{StaticResource buttonMain}">
+            <Setter Property="Background" Value="#6f5bde" />
+            <Setter Property="Foreground" Value="#ffffff" />
+            <Setter Property="Height" Value="40" />
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" Value="#623ED0" />
+                    <Setter Property="Foreground" Value="#ffffff" />
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+
+        <Style x:Key="filterOdustani" TargetType="Button" BasedOn="{StaticResource buttonMain}">
+            <Setter Property="Height" Value="40" />
+        </Style>
+        <!--kraj izmene-->
 
 
     </Application.Resources>

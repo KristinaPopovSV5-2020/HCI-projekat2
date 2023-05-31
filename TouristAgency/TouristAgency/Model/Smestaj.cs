@@ -1,7 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Text;
-
+using System.Windows.Input;
 using MongoDB.Bson;
 using MongoDB.Bson.Serialization.Attributes;
 
@@ -52,5 +53,10 @@ namespace TouristAgency.Model
     public class SmestajArgs : EventArgs
     {
         public Smestaj PovratnaVrednost { get; set; }
+    }
+
+    public class SmestajiArgs : EventArgs
+    {
+        public ObservableCollection<Smestaj> PovratnaVrednost { get; set; }
     }
 }

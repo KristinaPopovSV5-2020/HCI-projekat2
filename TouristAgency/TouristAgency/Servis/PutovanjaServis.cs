@@ -7,6 +7,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Controls;
 using TouristAgency.Model;
 using TouristAgency.Repozitorijum;
 
@@ -16,6 +17,11 @@ namespace TouristAgency.Servis
     {
 
         public Baza Baza = new Baza();
+
+
+        public PutovanjaServis() { }
+
+        
 
         public async Task<ObservableCollection<Atrakcija>> SveAtrakcijeAsync()
         {
@@ -53,6 +59,39 @@ namespace TouristAgency.Servis
             var updateResult = Baza.AtrakcijeKol.UpdateOne(filter, update);
         }
 
+        public async Task<ObservableCollection<Restoran>> FiltriranjeRestorana(string min, string max)
+        {
+            ObservableCollection<Restoran> restorani = new ObservableCollection<Restoran>();
+
+            var f2 = Builders<BsonDocument>.Filter.Gte("ocena", min) & Builders<BsonDocument>.Filter.Lte("ocena", max);
+
+            var documents = await Baza.RestoraniKol.Find(f2).ToListAsync();
+
+            foreach (var document in documents)
+            {
+                restorani.Add(new Restoran(document["_id"].AsString, document["adresa"].AsString, document["naziv"].AsString, document["ocena"].AsString));
+            }
+            return restorani;
+        }
+
+        public async Task<ObservableCollection<Smestaj>> FiltriranjeSmestaja(List<string> list, string min, string max)
+        {
+            ObservableCollection<Smestaj> smestaji = new ObservableCollection<Smestaj>();
+
+            var f1 = Builders<BsonDocument>.Filter.In("tipSmestaja", list);
+            var f2 = Builders<BsonDocument>.Filter.Gte("ocena", min) & Builders<BsonDocument>.Filter.Lte("ocena", max);
+            var filter = Builders<BsonDocument>.Filter.And(f1, f2);
+
+            var documents = await Baza.SmestajiKol.Find(filter).ToListAsync();
+
+            foreach (var document in documents)
+            {
+                smestaji.Add(new Smestaj(document["_id"].AsString, document["naziv"].AsString, document["adresa"].AsString, (TipSmestaja)Enum.Parse(typeof(TipSmestaja), document["tipSmestaja"].AsString), document["ocena"].AsString));
+            }
+            return smestaji;
+
+        }
+
         public void ObrisiAtrakciju(Atrakcija atrakcija)
         {
             FilterDefinition<BsonDocument> filter = Builders<BsonDocument>.Filter.Eq("_id", atrakcija.Id);
@@ -65,7 +104,7 @@ namespace TouristAgency.Servis
             var documents = await Baza.RestoraniKol.Find(new BsonDocument()).ToListAsync();
             foreach (var document in documents)
             {
-                restorani.Add(new Restoran(document["_id"].AsString, document["naziv"].AsString, document["adresa"].AsString, document["ocena"].AsString));
+                restorani.Add(new Restoran(document["_id"].AsString, document["adresa"].AsString, document["naziv"].AsString, document["ocena"].AsString));
             }
             return restorani;
         }
@@ -75,8 +114,8 @@ namespace TouristAgency.Servis
             var document = new BsonDocument
             {
                 { "_id", restoran.Id },
-                { "naziv", restoran.Naziv },
                 { "adresa", restoran.Adresa },
+                { "naziv", restoran.Naziv },
                  { "ocena", restoran.Ocena }
             };
 
@@ -182,7 +221,28 @@ namespace TouristAgency.Servis
             }
             return restorani;
         }
+        public void DodajPutovanje(string naziv, string brDana, string cena, DateTime dateTime, ObservableCollection<Atrakcija> atrakcije, ObservableCollection<Smestaj> smestaji, ObservableCollection<Restoran> restorani)
+        {
+            var atrakcijeDocuments = atrakcije.Select(a => a.ToBsonDocument()).ToList();
+            var smestajiDocuments = smestaji.Select(s => s.ToBsonDocument()).ToList();
+            var restoraniDocuments = restorani.Select(r => r.ToBsonDocument()).ToList();
+
+            var document = new BsonDocument
+    {
+        { "naziv", naziv },
+        { "brojDana", brDana },
+        { "cena", cena },
+        { "datum", dateTime },
+        { "atrakcije", new BsonArray(atrakcijeDocuments) },
+        { "smestaji", new BsonArray(smestajiDocuments) },
+        { "restorani", new BsonArray(restoraniDocuments) }
+    };
+
+            Baza.PutovanjaKol.InsertOne(document);
+        }
 
 
     }
+
 }
+

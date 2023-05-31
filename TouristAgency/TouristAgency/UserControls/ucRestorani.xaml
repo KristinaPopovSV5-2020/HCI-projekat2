@@ -7,6 +7,11 @@
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800"
              >
+
+    <UserControl.Resources>
+        <BooleanToVisibilityConverter x:Key="MyBoolToVisibilityConverter" />
+    </UserControl.Resources>
+
     <Grid Name="mainComponent">
 
         <Grid.RowDefinitions>
@@ -34,16 +39,20 @@
         <!--Seprator-->
         <Separator Height="1" Grid.Row="3" Background="#DAE2EA" Margin="0 -1 0 10"/>
 
+        <StackPanel Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Left" Grid.Row="4">
+            <Icon:PackIconMaterial Kind="Filter" Width="20" Height="20" VerticalAlignment="Center" Margin="0,0,5,0" />
+            <TextBlock  FontWeight="SemiBold" Text="Filtriraj restorane" FontSize="25" Foreground="#121518" Cursor="Hand" MouseDown="Filtriraj"/>
+        </StackPanel>
 
-
-        <TextBlock Text="Pretraži" Grid.Row="4" FontSize="25" FontWeight="SemiBold" Margin="0 0 270 0" Foreground="#121518" HorizontalAlignment="Right" VerticalAlignment="Center"/>
+        <TextBlock Text="Pretraži" Grid.Row="4" FontSize="30" FontWeight="SemiBold" Margin="0 0 270 0" Foreground="#121518" HorizontalAlignment="Right" VerticalAlignment="Center"/>
 
         <!--Filter Textbox-->
         <Grid Width="250" Height="60" HorizontalAlignment="Right" Grid.Row="4">
             <TextBlock Margin="15 0" VerticalAlignment="Center" Foreground="#B0B9C6" IsHitTestVisible="False"
-                           Panel.ZIndex="1" Text="Search in Members ..." />
+                           Panel.ZIndex="1" Text="Pretrazi restorane" FontSize="20"
+                           Visibility="{Binding ElementName=textBoxFilter, Path=Text.IsEmpty, Converter={StaticResource MyBoolToVisibilityConverter}}"/>
 
-            <TextBox Name="textBoxFilter" Style="{StaticResource filterTextBox}"/>
+            <TextBox Name="textBoxFilter" Style="{StaticResource filterTextBox}" FontSize="20" TextChanged="PretraziRestorane"/>
         </Grid>
 
         <!--Members Data Grid-->

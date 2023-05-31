@@ -74,20 +74,49 @@ namespace TouristAgency.UserControls
             Button b = (Button)sender;
             if (b.Content.ToString() == "Dodaj")
             {
-                atrakcija.Id = ObjectId.GenerateNewId().ToString();
-                putovanjaServis.DodajAtrakciju(atrakcija);
-                VratiSeNa_Atrakcije?.Invoke(this, EventArgs.Empty);
+                if (ValidateInput(atrakcija.Naziv, atrakcija.Opis, atrakcija.Adresa))
+                {
+                    atrakcija.Id = ObjectId.GenerateNewId().ToString();
+                    putovanjaServis.DodajAtrakciju(atrakcija);
+                    VratiSeNa_Atrakcije?.Invoke(this, EventArgs.Empty);
+                }
             }
             else
             {
-                putovanjaServis.IzmeniAtrakciju(atrakcija);
-                VratiSeNa_Atrakcije?.Invoke(this, EventArgs.Empty);
-                MessageBox.Show($"Atrakcija '{atrakcija.Id}' je izmenjena.", "Atrakcija izmenjena", MessageBoxButton.OK, MessageBoxImage.Information);
+                if (ValidateInput(atrakcija.Naziv, atrakcija.Opis, atrakcija.Adresa))
+                {
+                    putovanjaServis.IzmeniAtrakciju(atrakcija);
+                    VratiSeNa_Atrakcije?.Invoke(this, EventArgs.Empty);
+                    MessageBox.Show($"Atrakcija '{atrakcija.Id}' je izmenjena.", "Atrakcija izmenjena", MessageBoxButton.OK, MessageBoxImage.Information);
+
+                }
+            }
+        }
+
+        private bool ValidateInput(string naziv, string opis, string adresa)
+        {
+            if (string.IsNullOrWhiteSpace(naziv))
+            {
+                txtError.Visibility = Visibility.Visible;
+                txtError.Text = "Naziv ne sme biti prazan";
+                return false;
             }
 
-           
-           
+            if (string.IsNullOrWhiteSpace(opis))
+            {
+                txtError.Visibility = Visibility.Visible;
+                txtError.Text = "Opis ne sme biti prazan";
+                return false;
+            }
 
+            if (string.IsNullOrWhiteSpace(adresa))
+            {
+                txtError.Visibility = Visibility.Visible;
+                txtError.Text = "Adresa ne sme biti prazna";
+                return false;
+            }
+
+            return true;
         }
 
     }

@@ -78,8 +78,7 @@ namespace TouristAgency.UserControls
 
             restoran.Id = id.Hint;
             restoran.Naziv = naziv.Hint;
-            string o=ocena.SelectedItem.ToString();
-            restoran.Ocena = o[o.Length - 1].ToString();
+           
             restoran.Adresa = adresa.Hint;
 
             args.PovratnaVrednost = restoran;
@@ -87,20 +86,57 @@ namespace TouristAgency.UserControls
             Button b = (Button)sender;
             if (b.Content.ToString() == "Dodaj")
             {
-                restoran.Id = ObjectId.GenerateNewId().ToString();
-                putovanjaServis.DodajRestoran(restoran);
-                VratiSeNa_Restoran?.Invoke(this, EventArgs.Empty);
+                string oc = "";
+                if (ocena.SelectedItem != null)
+                    oc = ocena.SelectedItem.ToString();
+                if (ValidateInput(restoran.Naziv, oc, restoran.Adresa))
+                {
+                    string o = ocena.SelectedItem.ToString();
+                    restoran.Ocena = o[o.Length - 1].ToString();
+                    restoran.Id = ObjectId.GenerateNewId().ToString();
+                    putovanjaServis.DodajRestoran(restoran);
+                    VratiSeNa_Restoran?.Invoke(this, EventArgs.Empty);
+                }
+
             }
             else
             {
-                putovanjaServis.IzmeniRestoran(restoran);
-                VratiSeNa_Restoran?.Invoke(this, EventArgs.Empty);
-                MessageBox.Show($"Restoran '{restoran.Id}' je izmenjen.", "Restoran izmenjen", MessageBoxButton.OK, MessageBoxImage.Information);
+                if (ValidateInput(restoran.Naziv, restoran.Ocena.ToString(), restoran.Adresa))
+                {
+                    string o = ocena.SelectedItem.ToString();
+                    restoran.Ocena = o[o.Length - 1].ToString();
+                    putovanjaServis.IzmeniRestoran(restoran);
+                    VratiSeNa_Restoran?.Invoke(this, EventArgs.Empty);
+                    MessageBox.Show($"Restoran '{restoran.Id}' je izmenjen.", "Restoran izmenjen", MessageBoxButton.OK, MessageBoxImage.Information);
+
+                }
+            }
+        }
+
+        private bool ValidateInput(string naziv, string ocena, string adresa)
+        {
+            if (string.IsNullOrWhiteSpace(naziv))
+            {
+                txtError.Visibility = Visibility.Visible;
+                txtError.Text = "Naziv ne sme biti prazan";
+                return false;
             }
 
+            if (string.IsNullOrWhiteSpace(adresa))
+            {
+                txtError.Visibility = Visibility.Visible;
+                txtError.Text = "Adresa ne sme biti prazna";
+                return false;
+            }
 
+            if (string.IsNullOrWhiteSpace(ocena))
+            {
+                txtError.Visibility = Visibility.Visible;
+                txtError.Text = "Ocena ne sme biti prazna";
+                return false;
+            }
 
-
+            return true;
         }
     }
 }

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Text;
 
 using MongoDB.Bson;
@@ -14,7 +15,11 @@ namespace TouristAgency.Model
         [BsonRepresentation(BsonType.ObjectId)]
         private string id { get; set; }
         private string naziv;
+
         private string adresa;
+
+ 
+        
         private string ocena;
 
         public Restoran()
@@ -22,11 +27,12 @@ namespace TouristAgency.Model
 
         }
 
-        public Restoran(string id,string naziv, string adresa, string ocena)
+        public Restoran(string id,string adresa, string naziv, string ocena)
         {
             this.id = id;
-            this.naziv = naziv;
             this.adresa = adresa;
+            this.naziv = naziv;
+            
             this.ocena = ocena;
         }
 
@@ -43,5 +49,10 @@ namespace TouristAgency.Model
     public class RestoranArgs : EventArgs
     {
         public Restoran PovratnaVrednost { get; set; }
+    }
+
+    public class RestoraniArgs : EventArgs
+    {
+        public ObservableCollection<Restoran> PovratnaVrednost { get; set; }
     }
 }

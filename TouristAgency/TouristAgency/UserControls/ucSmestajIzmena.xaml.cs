@@ -87,31 +87,74 @@ namespace TouristAgency.UserControls
 
             smestaj.Id = id.Hint;
             smestaj.Naziv = naziv.Hint;
-            smestaj.Tip = (TipSmestaja)Enum.Parse(typeof(TipSmestaja), (this.tip.SelectedItem as ComboBoxItem).Content.ToString());
+           
             smestaj.Adresa = adresa.Hint;
-            string o = ocena.SelectedItem.ToString();
-            smestaj.Ocena = o[o.Length - 1].ToString();
 
             args.PovratnaVrednost = smestaj;
 
             Button b = (Button)sender;
             if (b.Content.ToString() == "Dodaj")
             {
-                smestaj.Id = ObjectId.GenerateNewId().ToString();
-                putovanjaServis.DodajSmestaj(smestaj);
-                VratiSeNa_Smestaj?.Invoke(this, EventArgs.Empty);
+                string oc = "";
+                if (ocena.SelectedItem != null)
+                    oc = ocena.SelectedItem.ToString();
+                string ts = "";
+                if (tip.SelectedItem != null)
+                    ts = tip.SelectedItem.ToString();
+                if (ValidateInput(smestaj.Naziv, ts, oc, smestaj.Adresa))
+                {
+                    smestaj.Tip = (TipSmestaja)Enum.Parse(typeof(TipSmestaja), (this.tip.SelectedItem as ComboBoxItem).Content.ToString());
+                    string o = ocena.SelectedItem.ToString();
+                    smestaj.Ocena = o[o.Length - 1].ToString();
+                    smestaj.Id = ObjectId.GenerateNewId().ToString();
+                    putovanjaServis.DodajSmestaj(smestaj);
+                    VratiSeNa_Smestaj?.Invoke(this, EventArgs.Empty);
+                }
             }
             else
             {
-                putovanjaServis.IzmeniSmestaj(smestaj);
-                VratiSeNa_Smestaj?.Invoke(this, EventArgs.Empty);
-                MessageBox.Show($"Smestaj '{smestaj.Id}' je izmenjen.", "Smestaj izmenjen", MessageBoxButton.OK, MessageBoxImage.Information);
+                if (ValidateInput(smestaj.Naziv,smestaj.Tip.ToString(), smestaj.Ocena.ToString(), smestaj.Adresa))
+                {
+                    smestaj.Tip = (TipSmestaja)Enum.Parse(typeof(TipSmestaja), (this.tip.SelectedItem as ComboBoxItem).Content.ToString());
+                    string o = ocena.SelectedItem.ToString();
+                    smestaj.Ocena = o[o.Length - 1].ToString();
+                    putovanjaServis.IzmeniSmestaj(smestaj);
+                    VratiSeNa_Smestaj?.Invoke(this, EventArgs.Empty);
+                    MessageBox.Show($"Smestaj '{smestaj.Id}' je izmenjen.", "Smestaj izmenjen", MessageBoxButton.OK, MessageBoxImage.Information);
+                }
+            }
+        }
+        private bool ValidateInput(string naziv, string tip, string ocena, string adresa)
+        {
+            if (string.IsNullOrWhiteSpace(naziv))
+            {
+                txtError.Visibility = Visibility.Visible;
+                txtError.Text = "Naziv ne sme biti prazan";
+                return false;
             }
 
+            if (string.IsNullOrWhiteSpace(tip))
+            {
+                txtError.Visibility = Visibility.Visible;
+                txtError.Text = "Tip ne sme biti prazan";
+                return false;
+            }
 
+            if (string.IsNullOrWhiteSpace(adresa))
+            {
+                txtError.Visibility = Visibility.Visible;
+                txtError.Text = "Adresa ne sme biti prazna";
+                return false;
+            }
 
+            if (string.IsNullOrWhiteSpace(ocena))
+            {
+                txtError.Visibility = Visibility.Visible;
+                txtError.Text = "Ocena ne sme biti prazna";
+                return false;
+            }
 
+            return true;
         }
-
     }
 }

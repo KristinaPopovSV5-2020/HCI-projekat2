@@ -94,5 +94,14 @@ namespace TouristAgency.UserControls
 
 
         }
+
+        private void PretraziAtrakcije(object sender, TextChangedEventArgs e)
+        {
+            string searchText = ((TextBox)sender).Text.ToLower();
+
+            var filteredItems = atrakcije.Where(item => item.Naziv.ToLower().Contains(searchText) || item.Opis.ToLower().Contains(searchText) || item.Adresa.ToLower().Contains(searchText) || item.Id.ToLower().Contains(searchText));
+
+            atrakcijeDataGrid.ItemsSource = filteredItems;
+        }
     }
 }
