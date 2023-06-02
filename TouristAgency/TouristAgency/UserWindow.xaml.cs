@@ -23,10 +23,6 @@ namespace TouristAgency
         {
             InitializeComponent();
             Loaded += MainWindow_Loaded;
-
-            prikazPutovanja putovanja = new prikazPutovanja();
-            mainComponent.Children.Add(putovanja);
-
         }
 
 

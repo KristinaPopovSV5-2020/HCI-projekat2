@@ -13,7 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using TouristAgency.Model;
-
+using TouristAgency.Servis;
 
 namespace TouristAgency.UserControls.client
 {
@@ -23,6 +23,7 @@ namespace TouristAgency.UserControls.client
     public partial class prikazPutovanja : UserControl
     {
         ObservableCollection<Putovanje> Putovanja;
+        PutovanjaServis putovanjaServis = new PutovanjaServis();
 
 
         public prikazPutovanja()
@@ -30,10 +31,8 @@ namespace TouristAgency.UserControls.client
             InitializeComponent();
             Putovanja = new ObservableCollection<Putovanje>();
 
-            Putovanja.Add(new Putovanje("1", "Ime1", "10", "10din", new DateTime().Date));
-            Putovanja.Add(new Putovanje("1", "Ime1", "10", "10din", new DateTime().Date));
-            Putovanja.Add(new Putovanje("1", "Ime1", "10", "10din", new DateTime().Date));
-            listaPutovanja.ItemsSource = Putovanja;
+            
+            listaPutovanja.ItemsSource = putovanjaServis.PronadjiPutovanja();
         }
 
 
@@ -42,14 +41,18 @@ namespace TouristAgency.UserControls.client
             if (listaPutovanja.SelectedItem != null)
             {
                 Putovanje selectedItem = listaPutovanja.SelectedItem as Putovanje;
-                detaljiPrikaz itemDetailsControl = new detaljiPrikaz();
-                containerGrid.Children.Clear();
-                containerGrid.Children.Add(itemDetailsControl);
-                itemDetailsControl.LoadItemDetails(selectedItem);
+                detaljiPrikaz.LoadItemDetails(selectedItem);
+                putovanja.Visibility = Visibility.Collapsed;
+                detalji.Visibility = Visibility.Visible;
+                detaljiPrikaz.VratiSeNa_Putovanja += Vrati;
             }
         }
 
-
+        private void Vrati(object sender, EventArgs e)
+        {
+            putovanja.Visibility = Visibility.Visible;
+            detalji.Visibility = Visibility.Collapsed;
+        }
 
     }
 }

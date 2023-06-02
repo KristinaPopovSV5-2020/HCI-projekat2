@@ -6,8 +6,11 @@
              xmlns:local="clr-namespace:TouristAgency.UserControls.client"
              mc:Ignorable="d" 
              xmlns:m="clr-namespace:Microsoft.Maps.MapControl.WPF;assembly=Microsoft.Maps.MapControl.WPF"
-             d:DesignHeight="450" d:DesignWidth="800"
+             d:DesignHeight="600" d:DesignWidth="800"
              xmlns:Icon="http://metro.mahapps.com/winfx/xaml/iconpacks" xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes">
+    <UserControl.Resources>
+        <local:IndexConverter x:Key="IndexConverter" />
+    </UserControl.Resources>
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="5*" />
@@ -17,71 +20,136 @@
         <Button VerticalAlignment="Top" Content="Back" Click="BackButton_Click" Style="{StaticResource MaterialDesignFlatButton}" Margin="5" />
         <StackPanel Grid.Column="1" Margin="10">
             <TextBlock Name="nameInput" FontSize="25" Margin="0,5,0,10" />
+            <WrapPanel Orientation="Horizontal">
+                <Icon:PackIconMaterial VerticalAlignment="Center" Kind="WalletTravel" />
+                <TextBlock Name="startInput"  FontSize="16" FontWeight="Bold" />
+            </WrapPanel>
+            <WrapPanel Orientation="Horizontal">
+                <Icon:PackIconMaterial VerticalAlignment="Center" Kind="Timelapse" />
+                <TextBlock Name="daysInput" FontSize="16" FontWeight="Bold" />
+            </WrapPanel>
+            <TextBlock/>
 
-            <TextBlock Text="Atrakcije koje možeš da posetiš" FontSize="16" FontWeight="Bold" />
-            <ListBox Name="listaAtrakcija" ItemsSource="{Binding Atrakcije}" BorderThickness="0">
-                <ListBox.ItemTemplate>
-                    <DataTemplate>
-                        <StackPanel Orientation="Horizontal">
-                            <Icon:PackIconMaterial VerticalAlignment="Center" Kind="MapMarker" Height="29" Width="36" RenderTransformOrigin="0.546,1.404"></Icon:PackIconMaterial>
-                            <TextBlock Text="{Binding Naziv}" />
-                        </StackPanel>
-                    </DataTemplate>
-                </ListBox.ItemTemplate>
-            </ListBox>
-            
-            <TextBlock Text="Smeštaji" FontSize="16" FontWeight="Bold" />
-            <ListBox Name="listaSmestaja" ItemsSource="{Binding Atrakcije}" BorderThickness="0">
-                <ListBox.ItemTemplate>
-                    <DataTemplate>
-                        <StackPanel Orientation="Horizontal">
+            <Expander Name="atrakcijeExpander" 
+              HorizontalAlignment="Left"
+              FontSize="16" FontWeight="Bold" 
+              ExpandDirection="Down" IsExpanded="False"
+                      Expanded="Expander_Expanded"
+                      Width="350">
+                <Expander.Header>
+                    <WrapPanel Orientation="Horizontal">
+                        <TextBlock Text="Atrakcije koje možeš da posetiš" FontSize="16" FontWeight="Bold" />
+                    </WrapPanel>
+                </Expander.Header>
+                
+                <ListBox Name="listaAtrakcija" ItemsSource="{Binding Atrakcije}" BorderThickness="0">
+                    <ListBox.ItemContainerStyle>
+                        <Style TargetType="ListBoxItem">
+                            <EventSetter Event="MouseLeftButtonUp" Handler="ListBoxItem_Click" />
+                        </Style>
+                    </ListBox.ItemContainerStyle>
+                    <ListBox.ItemTemplate>
+                        <DataTemplate>
                             <StackPanel Orientation="Horizontal">
-                                <TextBlock Text="{Binding Naziv}" FontWeight="Bold" FontSize="16" />
-                                <StackPanel Orientation="Horizontal">
-                                    <ItemsControl ItemsSource="{Binding Ocena}">
-                                        <ItemsControl.ItemTemplate>
-                                            <DataTemplate>
-                                                <materialDesign:PackIcon Kind="Star" Margin="0 0 2 0" />
-                                            </DataTemplate>
-                                        </ItemsControl.ItemTemplate>
-                                    </ItemsControl>
-                                </StackPanel>
-                                <TextBlock Text="{Binding TipSmestaja}" />
+                                <Icon:PackIconMaterial Foreground="BlueViolet" Kind="MapMarker" Height="29" Width="36" />
+                                <TextBlock Text="{Binding Naziv}" />
                             </StackPanel>
-                        </StackPanel>
-                    </DataTemplate>
-                </ListBox.ItemTemplate>
-            </ListBox>
-            
-            <TextBlock Text="Restorani" FontSize="16" FontWeight="Bold" />
-            <ListBox Name="listaRestorana" ItemsSource="{Binding Atrakcije}" BorderThickness="0">
-                <ListBox.ItemTemplate>
-                    <DataTemplate>
-                        <StackPanel Orientation="Horizontal">
-                            <TextBlock Text="{Binding Naziv}" FontWeight="Bold" FontSize="16" />
-                            <StackPanel Orientation="Horizontal">
-                                <ItemsControl ItemsSource="{Binding Ocena}">
-                                    <ItemsControl.ItemTemplate>
-                                        <DataTemplate>
-                                            <materialDesign:PackIcon Kind="Star" Margin="0 0 2 0" />
-                                        </DataTemplate>
-                                    </ItemsControl.ItemTemplate>
-                                </ItemsControl>
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+                </ListBox>
+            </Expander>
+            <Expander Name="smestajExpander" 
+              HorizontalAlignment="Left"
+              FontSize="16" FontWeight="Bold" 
+              ExpandDirection="Down" IsExpanded="False"
+              Expanded="Expander_Expanded"
+              Width="{Binding ActualWidth, ElementName=atrakcijeExpander}">
+                
+                <Expander.Header>
+                    <WrapPanel Orientation="Horizontal">
+                        <Icon:PackIconMaterial VerticalAlignment="Center" Foreground="LightSeaGreen" Kind="Bed" FontSize="16" />
+                        <TextBlock Text=" Smeštaji" FontSize="16" FontWeight="Bold" />
+                    </WrapPanel>
+                </Expander.Header>
+                <ListBox Name="listaSmestaja" ItemsSource="{Binding Smestaj}" BorderThickness="0">
+                    <ListBox.ItemContainerStyle>
+                        <Style TargetType="ListBoxItem">
+                            <EventSetter Event="MouseLeftButtonUp" Handler="ListBoxItem_Click" />
+                        </Style>
+                    </ListBox.ItemContainerStyle>
+                    <ListBox.ItemTemplate>
+                        <DataTemplate>
+                            <WrapPanel Orientation="Horizontal">
+                                <TextBlock VerticalAlignment="Center" Foreground="DimGray" FontSize="20" Text="{Binding RelativeSource={RelativeSource FindAncestor, 
+                                AncestorType={x:Type ListBoxItem}}, Mode=OneWay, 
+                                Converter={StaticResource IndexConverter}}"  Margin="7" />
+                                <StackPanel Orientation="Vertical" Margin="7">
+                                <WrapPanel Orientation="Horizontal">
+                                    <TextBlock Text="{Binding Naziv}" FontWeight="Bold" FontSize="16" />
+                                    <materialDesign:RatingBar FontSize="12" x:Name="smestajRating"
+                                    Style="{StaticResource ratingBar}" Value="{Binding Ocena}"/>
+
+                                </WrapPanel>
+                                <TextBlock FontSize="14" Foreground="DimGray" Text="{Binding Tip}" />
                             </StackPanel>
-                        </StackPanel>
-                    </DataTemplate>
-                </ListBox.ItemTemplate>
-            </ListBox>
+                            </WrapPanel>
+
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+                </ListBox>
+            </Expander>
+
+            <Expander Name="restoraniExpander" 
+          HorizontalAlignment="Left" 
+          FontSize="16" FontWeight="Bold" 
+          ExpandDirection="Down" IsExpanded="False"
+          Width="{Binding ActualWidth, ElementName=atrakcijeExpander}"
+          Expanded="Expander_Expanded">
+
+                <Expander.Header>
+                    <WrapPanel Orientation="Horizontal">
+                        <Icon:PackIconMaterial Foreground="LightCoral" VerticalAlignment="Center" Kind="SilverwareVariant"/>
+                        <TextBlock Text=" Restorani" FontSize="16" FontWeight="Bold" />
+                    </WrapPanel>
+                </Expander.Header>
+                <Expander.Content>
+                    <ListBox Name="listaRestorana" PreviewMouseLeftButtonDown="ListBox_PreviewMouseLeftButtonDown" ItemsSource="{Binding Restoran}" BorderThickness="0">
+                        <ListBox.ItemContainerStyle>
+                            <Style TargetType="ListBoxItem">
+                                <EventSetter Event="MouseLeftButtonUp" Handler="ListBoxItem_Click" />
+                            </Style>
+                        </ListBox.ItemContainerStyle>
+                        <ListBox.ItemTemplate>
+                            <DataTemplate>
+                                <WrapPanel Orientation="Horizontal">
+                                    <TextBlock VerticalAlignment="Center" Foreground="DimGray" FontSize="20" Text="{Binding RelativeSource={RelativeSource FindAncestor, 
+                    AncestorType={x:Type ListBoxItem}}, Mode=OneWay, 
+                    Converter={StaticResource IndexConverter}}" Margin="7" />
+                                    <StackPanel Orientation="Vertical" Margin="7">
+                                        <TextBlock Text="{Binding Naziv}" FontWeight="Bold" FontSize="16" />
+                                        <materialDesign:RatingBar x:Name="smestajRating"
+                    Style="{StaticResource ratingBar}" Value="{Binding Ocena}"/>
+                                    </StackPanel>
+                                </WrapPanel>
+
+                            </DataTemplate>
+                        </ListBox.ItemTemplate>
+                    </ListBox>
+                </Expander.Content>
+            </Expander>
+
+            <Button HorizontalAlignment="Center" Style="{StaticResource buttonPurple}" Content="Kupi" Click="Kupi_Click"></Button>
         </StackPanel>
 
         <Grid Grid.Column="2" Background="White" Margin="10">
             <m:Map Name="map" CredentialsProvider="nltGyIgw8vEO79Dc9AFY~00N7BTnXTXYeNf3EVNeDNw~AkowgGH4IsDZEM9SmtVES0nD2OD-cD9VWqNSC8e29PF4zPvYoWnCedQQgoaJiDkr" Center="47.6062,-122.3321" ZoomLevel="12" />
-            <WrapPanel Orientation="Horizontal" VerticalAlignment="Bottom" >
-                <Button Content="Atrakcije" Click="Atrakcije_Click" Style="{StaticResource MaterialDesignRaisedButton}" Margin="5" />
-                <Button Content="Smeštaji" Click="Smestaji_Click" Style="{StaticResource MaterialDesignRaisedButton}" Margin="5" />
-                <Button Content="Restorani" Click="Restorani_Click"  Style="{StaticResource MaterialDesignRaisedButton}" Margin="5" />
-            </WrapPanel>
-            
+
+            <Popup x:Name="pinPopup" PlacementTarget="{Binding ElementName=map}" Placement="Mouse" StaysOpen="False">
+                <!-- Popup content here -->
+                <TextBlock Name="popupText"  Text="Popup Content" Background="LightGray" Padding="10" />
+            </Popup>
+
+
         </Grid>
     </Grid>
 </UserControl>

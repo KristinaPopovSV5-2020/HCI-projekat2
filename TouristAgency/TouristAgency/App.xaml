@@ -10,30 +10,9 @@
 
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
-                <materialDesign:BundledTheme PrimaryColor="Blue" SecondaryColor="Purple" BaseTheme="Light" />
+                <materialDesign:BundledTheme PrimaryColor="Yellow" SecondaryColor="Blue" BaseTheme="Light" />
                 <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Defaults.xaml"/>
             </ResourceDictionary.MergedDictionaries>
-            
-        <Style x:Key="topButton" TargetType="Button">
-            <Setter Property="Background" Value="Transparent" />
-            <Setter Property="Foreground" Value="#6E7783" />
-            <Setter Property="FocusVisualStyle" Value="{x:Null}" />
-            <Setter Property="Height" Value="30" />
-            <Setter Property="Width" Value="30" />
-            <Setter Property="HorizontalAlignment" Value="Right" />
-            <Setter Property="Template" >
-                <Setter.Value>
-                    <ControlTemplate TargetType="Button">
-                        <Border Background="{TemplateBinding Background}" CornerRadius="50">
-                            <ContentPresenter VerticalAlignment="Center" HorizontalAlignment="Center"/>
-                        </Border>
-                    </ControlTemplate>
-                </Setter.Value>
-            </Setter>
-
-            <Style TargetType="DatePicker" x:Key="DatePickerStyle">
-                <!-- Define your custom style properties and setters here -->
-            </Style>
 
             <Style x:Key="topButton" TargetType="Button">
                 <Setter Property="Background" Value="Transparent" />
@@ -51,13 +30,11 @@
                         </ControlTemplate>
                     </Setter.Value>
                 </Setter>
-
-                <Style.Triggers>
-                    <Trigger Property="IsMouseOver" Value="True">
-                        <Setter Property="Background" Value="#dcdcdc" />
-                    </Trigger>
-                </Style.Triggers>
             </Style>
+            <Style TargetType="DatePicker" x:Key="DatePickerStyle">
+                <!-- Define your custom style properties and setters here -->
+            </Style>
+
 
 
             <Style x:Key="menuButton" TargetType="Button">
@@ -655,31 +632,6 @@
         </Style>
 
 
-            <Style x:Key="buttonMain" TargetType="Button">
-                <Setter Property="Background" Value="#F5F7F9" />
-                <Setter Property="Foreground" Value="#363636" />
-                <Setter Property="BorderThickness" Value="0" />
-                <Setter Property="Height" Value="50" />
-                <Setter Property="FontSize" Value="25" />
-                <Setter Property="BorderBrush" Value="Black"/>
-                <Setter Property="BorderThickness" Value="1"/>
-                <Setter Property="FontWeight" Value="SemiBold" />
-                <Setter Property="Template">
-                    <Setter.Value>
-                        <ControlTemplate TargetType="Button">
-                            <Border Background="{TemplateBinding Background}" CornerRadius="5" Padding="5">
-                                <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                            </Border>
-                        </ControlTemplate>
-                    </Setter.Value>
-                </Setter>
-                <Style.Triggers>
-                    <Trigger Property="IsMouseOver" Value="True">
-                        <Setter Property="Background" Value="#c9c9c9" />
-                        <Setter Property="Foreground" Value="#161616" />
-                    </Trigger>
-                </Style.Triggers>
-            </Style>
 
 
         <Style x:Key="buttonMain" TargetType="Button">
@@ -737,6 +689,28 @@
             <Setter Property="Height" Value="40" />
         </Style>
         <!--kraj izmene-->
+
+            <Style x:Key="ratingBar" TargetType="materialDesign:RatingBar">
+                <Setter Property="Margin" Value="10, 0, 0, 0"></Setter>
+                <Setter Property="ValueItemTemplate">
+                    <Setter.Value>
+                        <DataTemplate>
+                            <Grid>
+                                <materialDesign:PackIcon Width="24"
+                                             Height="24"
+                                             Kind="Star"
+                                             />
+                            </Grid>
+                        </DataTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style>
+
+
+
+
+
+        </ResourceDictionary>
 
 
     </Application.Resources>

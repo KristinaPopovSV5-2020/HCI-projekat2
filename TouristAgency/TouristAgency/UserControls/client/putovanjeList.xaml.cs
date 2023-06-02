@@ -23,7 +23,7 @@ namespace TouristAgency.UserControls.client
         public static readonly DependencyProperty povratakProperty =
         DependencyProperty.Register("Povratak", typeof(string), typeof(putovanjeList));
         public static readonly DependencyProperty danaProperty =
-        DependencyProperty.Register("Dana", typeof(DateTime), typeof(putovanjeList));
+        DependencyProperty.Register("Dana", typeof(string), typeof(putovanjeList));
         public static readonly DependencyProperty nazivProperty =
         DependencyProperty.Register("Naziv", typeof(string), typeof(putovanjeList));
         public static readonly DependencyProperty cenaProperty =

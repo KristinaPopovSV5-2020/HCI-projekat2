@@ -18,11 +18,11 @@
                 </Grid.ColumnDefinitions>
             <WrapPanel Orientation="Vertical" Grid.Column="0" Margin="0,0,20,0">
                     <TextBlock Style="{StaticResource MaterialDesignHeadline6TextBlock}" Text="Polazak"></TextBlock>
-                    <TextBlock Style="{StaticResource MaterialDesignHeadline5TextBlock}" Text="{Binding Datum}" ></TextBlock>
+                    <TextBlock Style="{StaticResource MaterialDesignHeadline5TextBlock}" Text="{Binding Polazak}" ></TextBlock>
                 </WrapPanel>
             <WrapPanel Orientation="Vertical" Grid.Column="1" Margin="0,0,20,0">
                     <TextBlock Style="{StaticResource MaterialDesignHeadline6TextBlock}" Text="Povratak"></TextBlock>
-                    <TextBlock Style="{StaticResource MaterialDesignHeadline5TextBlock}" Text="14. 6. 2023."></TextBlock>
+                    <TextBlock Style="{StaticResource MaterialDesignHeadline5TextBlock}" Text="{Binding Povratak}"></TextBlock>
                 </WrapPanel>
             <TextBlock Margin="0,0,0,0" Style="{StaticResource MaterialDesignHeadline5TextBlock}" Text="{Binding Naziv}" FontWeight="Bold" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Column="2"></TextBlock>
             <WrapPanel Orientation="Vertical" Grid.Column="3" Margin="0,0,20,0">

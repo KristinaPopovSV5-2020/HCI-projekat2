@@ -7,7 +7,9 @@
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="720"
              xmlns:Icon="http://metro.mahapps.com/winfx/xaml/iconpacks" xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes">
-    <Grid x:Name="containerGrid">
+    <Grid  x:Name="containerGrid">
+        
+    <Grid x:Name="putovanja">
         <Grid.RowDefinitions>
             <RowDefinition Height="auto"/>
             <RowDefinition Height="auto"/>
@@ -46,12 +48,16 @@
             </ListBox.ItemContainerStyle>
             <ListBox.ItemTemplate>
                 <DataTemplate>
-                    <local:putovanjeList Polazak="{Binding Polazak}" Dana="{Binding BrojDana}" Cena="{Binding Cena}" Naziv="{Binding Naziv}" />
+                        <local:putovanjeList Polazak="{Binding Polazak}" Povratak="{Binding Povratak}" Dana="{Binding BrojDana}" Cena="{Binding Cena}" Naziv="{Binding Naziv}" />
                 </DataTemplate>
             </ListBox.ItemTemplate>
         </ListBox>
-        <ContentControl x:Name="contentControl" Grid.Row="3" />
 
 
     </Grid>
+        <Grid x:Name="detalji" Visibility="Collapsed">
+        <local:detaljiPrikaz x:Name="detaljiPrikaz"/>
+        </Grid>
+    </Grid>
+
 </UserControl>

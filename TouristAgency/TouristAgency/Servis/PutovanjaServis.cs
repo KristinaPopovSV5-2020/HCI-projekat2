@@ -214,7 +214,7 @@ namespace TouristAgency.Servis
         {
             List<Restoran> restorani = new List<Restoran>();
             var filter = new BsonDocument();
-            var documents = Baza.SmestajiKol.Find(filter).ToList();
+            var documents = Baza.RestoraniKol.Find(filter).ToList();
             foreach (var document in documents)
             {
                 restorani.Add(new Restoran(document["_id"].AsString, document["naziv"].AsString, document["adresa"].AsString, document["ocena"].AsString));
@@ -228,18 +228,32 @@ namespace TouristAgency.Servis
             var restoraniDocuments = restorani.Select(r => r.ToBsonDocument()).ToList();
 
             var document = new BsonDocument
-    {
-        { "naziv", naziv },
-        { "brojDana", brDana },
-        { "cena", cena },
-        { "datum", dateTime },
-        { "atrakcije", new BsonArray(atrakcijeDocuments) },
-        { "smestaji", new BsonArray(smestajiDocuments) },
-        { "restorani", new BsonArray(restoraniDocuments) }
-    };
+            {
+                { "naziv", naziv },
+                { "brojDana", brDana },
+                { "cena", cena },
+                { "datum", dateTime },
+                { "atrakcije", new BsonArray(atrakcijeDocuments) },
+                { "smestaji", new BsonArray(smestajiDocuments) },
+                { "restorani", new BsonArray(restoraniDocuments) }
+            };
 
             Baza.PutovanjaKol.InsertOne(document);
         }
+
+        public List<Putovanje> PronadjiPutovanja()
+        {
+            var projection = Builders<BsonDocument>.Projection.Include("_id")
+                                                              .Include("naziv")
+                                                              .Include("brojDana")
+                                                              .Include("datum")
+                                                              .Include("cena");
+            var putovanjaDocuments = Baza.PutovanjaKol.Find(new BsonDocument()).Project(projection).ToList();
+            var putovanja = putovanjaDocuments.Select(p => BsonSerializer.Deserialize<Putovanje>(p)).ToList();
+            return putovanja;
+        }
+
+
 
 
     }
