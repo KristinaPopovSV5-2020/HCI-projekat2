@@ -1,0 +1,46 @@
+﻿<UserControl x:Class="TouristAgency.UserControls.client.prikazPutovanja"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:TouristAgency.UserControls.client"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="720"
+             xmlns:Icon="http://metro.mahapps.com/winfx/xaml/iconpacks" xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes">
+    <Grid  x:Name="containerGrid">
+        
+    <Grid x:Name="putovanja">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="auto"/>
+            </Grid.RowDefinitions>
+
+            <TextBlock Name="test"  Text="Predstojeća putovanja" Grid.Row="2" FontSize="40" FontWeight="SemiBold" Foreground="#121518" HorizontalAlignment="Left" Margin="0, 15, 0, 30"/>
+        <ListBox Name="listaPutovanja" Grid.Row="3" HorizontalAlignment="Center" SelectionChanged="ItemListBox_SelectionChanged">
+            <ListBox.ItemContainerStyle>
+                    <Style TargetType="ListBoxItem">
+                        <Setter Property="BorderThickness" Value="1" />
+                        <Setter Property="BorderBrush" Value="LightGray" />
+                        <Setter Property="Margin" Value="0, 0, 0, 10" />
+                    </Style>
+                </ListBox.ItemContainerStyle>
+            <ListBox.ItemTemplate>
+                
+                <DataTemplate>
+                        <local:putovanjeList Polazak="{Binding Polazak}" Povratak="{Binding Povratak}" Dana="{Binding BrojDana}" Cena="{Binding Cena}" Naziv="{Binding Naziv}" />
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
+
+
+    </Grid>
+        <Grid x:Name="detalji" Visibility="Collapsed">
+        </Grid>
+    </Grid>
+
+</UserControl>

@@ -32,7 +32,7 @@ namespace TouristAgency.Model
         [BsonElement("restorani")]
         private List<Restoran> restorani;
 
-        [BsonElement("adresa")]
+        [BsonElement("atrakcije")]
         private List<Atrakcija> atrakcije;
 
         public Putovanje() { }
@@ -49,6 +49,15 @@ namespace TouristAgency.Model
             this.atrakcije = atrakcije;
         }
 
+        public Putovanje(string id, string naziv, string brojDana, string cena, DateTime datum)
+        {
+            this.id = id;
+            this.naziv = naziv;
+            this.brojDana = brojDana;
+            this.cena = cena;
+            this.datum = datum;
+        }
+
         public string Id { get => id; set => id = value; }
 
         public string Naziv { get => naziv; set => naziv = value; }
@@ -59,13 +68,15 @@ namespace TouristAgency.Model
 
         public DateTime Datum { get => datum; set => datum = value; }
 
+        public string Polazak { get => datum.ToShortDateString(); }
+        public string Povratak { get => datum.AddDays(int.Parse(brojDana)).ToShortDateString(); }
+
+
         public List<Smestaj> Smestaji { get => smestaji; set => smestaji = value; }
 
         public List<Restoran> Restorani { get => restorani; set => restorani = value; }
 
         public List<Atrakcija> Atrakcije { get => atrakcije; set => atrakcije = value; }
-
-
-
+        
     }
 }

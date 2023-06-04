@@ -1,0 +1,35 @@
+﻿<UserControl x:Class="TouristAgency.UserControls.client.putovanjeList"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:TouristAgency.UserControls.client"
+             mc:Ignorable="d" d:DesignWidth="720" Height="72"
+             Margin="15">
+        <Border>
+            <Grid Width="864">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="auto"></ColumnDefinition>
+                    <ColumnDefinition Width="auto"></ColumnDefinition>
+                    <ColumnDefinition Width="40*"></ColumnDefinition>
+                    <ColumnDefinition Width="auto"></ColumnDefinition>
+                    <ColumnDefinition Width="auto"></ColumnDefinition>
+                    <ColumnDefinition Width="auto"></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+            <WrapPanel Orientation="Vertical" Grid.Column="0" Margin="0,0,20,0">
+                    <TextBlock Style="{StaticResource MaterialDesignHeadline6TextBlock}" Text="Polazak"></TextBlock>
+                    <TextBlock Style="{StaticResource MaterialDesignHeadline5TextBlock}" Text="{Binding Polazak}" ></TextBlock>
+                </WrapPanel>
+            <WrapPanel Orientation="Vertical" Grid.Column="1" Margin="0,0,20,0">
+                    <TextBlock Style="{StaticResource MaterialDesignHeadline6TextBlock}" Text="Povratak"></TextBlock>
+                    <TextBlock Style="{StaticResource MaterialDesignHeadline5TextBlock}" Text="{Binding Povratak}"></TextBlock>
+                </WrapPanel>
+            <TextBlock Margin="0,0,0,0" Style="{StaticResource MaterialDesignHeadline5TextBlock}" Text="{Binding Naziv}" FontWeight="Bold" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Column="2"></TextBlock>
+            <WrapPanel Orientation="Vertical" Grid.Column="3" Margin="0,0,20,0">
+                    <TextBlock Style="{StaticResource MaterialDesignHeadline6TextBlock}" Text="sada od"></TextBlock>
+                    <TextBlock Style="{StaticResource MaterialDesignHeadline5TextBlock}" Text="{Binding Cena}"></TextBlock>
+                </WrapPanel>
+            <Button Margin="10,0,0,0" Grid.Column="4" VerticalAlignment="Center" Content="Pogledaj" Style="{StaticResource buttonPurple}"></Button>
+            </Grid>
+        </Border>
+</UserControl>

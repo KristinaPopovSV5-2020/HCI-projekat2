@@ -9,10 +9,13 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="BingMapsRESTToolkit" Version="1.1.4" />
     <PackageReference Include="MahApps.Metro.IconPacks.Material" Version="4.11.0" />
-    <PackageReference Include="MaterialDesignThemes" Version="4.1.0" />
+    <PackageReference Include="MaterialDesignThemes" Version="4.9.0" />
+    <PackageReference Include="Microsoft.Maps.MapControl.WPF" Version="1.0.0.3" />
     <PackageReference Include="MongoDB.Bson" Version="2.19.1" />
     <PackageReference Include="MongoDB.Driver" Version="2.19.1" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
   </ItemGroup>
 
 </Project>
