@@ -22,5 +22,18 @@ namespace TouristAgency.UserControls.client
         {
             InitializeComponent();
         }
+
+        public event EventHandler Odjava;
+        public event EventHandler Putovanja;
+
+        private void Odjava_Click(object sender, RoutedEventArgs e)
+        {
+            Odjava.Invoke(this, e);
+        }
+
+        private void Putovanja_Click(object sender, RoutedEventArgs e)
+        {
+            Putovanja.Invoke(this, e);
+        }
     }
 }

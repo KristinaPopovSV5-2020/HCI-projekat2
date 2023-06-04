@@ -26,11 +26,23 @@ namespace TouristAgency.UserControls
         }
 
         public event EventHandler LoginClick;
+        public event EventHandler RegistracijaClick;
+        public event EventHandler PutovanjaClick;
 
 
         private void Prijava_click(object sender, RoutedEventArgs e)
         {
             LoginClick?.Invoke(this, EventArgs.Empty);
+        }
+
+        private void Registracija_Click(object sender, RoutedEventArgs e)
+        {
+            RegistracijaClick?.Invoke(this, EventArgs.Empty);
+        }
+
+        private void Putovanja_Click(object sender, RoutedEventArgs e)
+        {
+            PutovanjaClick?.Invoke(this, EventArgs.Empty);
         }
 
 

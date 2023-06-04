@@ -23,6 +23,7 @@ namespace TouristAgency.UserControls
     /// </summary>
     public partial class ucNovoPutovanje : UserControl
     {
+        public event EventHandler VratiSeNa_Putovanja;
         Point startPointAtrakcija = new Point();
         Point startPointSmestaj = new Point();
         Point startPointRestoran = new Point();
@@ -346,6 +347,7 @@ namespace TouristAgency.UserControls
                 txtSucces.Visibility = Visibility.Visible;
                 txtSucces.Text = "Uspešno ste se kreirali putovanje.";
 
+                VratiSeNa_Putovanja.Invoke(this, e);
             }
 
             KreirajClicked?.Invoke(this, e);

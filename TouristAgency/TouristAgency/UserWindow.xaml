@@ -39,7 +39,8 @@
 
                 <StackPanel Orientation="Horizontal" Grid.Column="0">
                     <!-- Title -->
-                    <TextBlock Text="Turistički agent" Margin="15,0" VerticalAlignment="Center" Foreground="White" FontSize="25"/>
+                    <Icon:PackIconMaterial Kind="HomeFloorA" Foreground="#EC8236" Width="25" Height="25" Style="{StaticResource menuButtonIcon}"/>
+                    <TextBlock Text="Turistički agent" Margin="-10,0" VerticalAlignment="Center" Foreground="White" FontSize="25"/>
                 </StackPanel>
 
                 <!-- Minimize button -->
@@ -57,7 +58,7 @@
                 </Button>
             </Grid>
             <!--Left Menu-->
-            <Grid Grid.Row="1" Name="menu">
+            <Grid Grid.Row="1" Name="menu" Background="#EC8236">
 
                 <Border  Background="#EC8236">
                     <local1:loggedOut x:Name="loggedOut"></local1:loggedOut>

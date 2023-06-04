@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Linq;
 using System.Text;
 using System.Windows;
 using System.Windows.Controls;
@@ -19,23 +20,19 @@ namespace TouristAgency.UserControls
     
     public partial class ucPutovanja : UserControl
     {
-        ObservableCollection<Putovanje> putovanja = new ObservableCollection<Putovanje>();
+        PutovanjaServis putovanjaServis = new PutovanjaServis();
+        ObservableCollection<Putovanje> putovanja;
+
 
         public ucPutovanja()
         {
             InitializeComponent();
-            
-            /*putovanja.Add(new Putovanje("1","Putovanje1","4","4000",new DateTime()));
-            putovanja.Add(new Putovanje("2", "Putovanje2", "5", "5000", new DateTime()));
-            putovanja.Add(new Putovanje("3", "Putovanje3", "4", "6000", new DateTime()));
-            putovanja.Add(new Putovanje("4", "Putovanje4", "3", "7000", new DateTime()));
-            putovanja.Add(new Putovanje("5", "Putovanje5", "6", "1000", new DateTime()));
-            putovanja.Add(new Putovanje("6", "Putovanje6", "4", "3000", new DateTime()));
-            putovanja.Add(new Putovanje("7", "Putovanje7", "4", "4000", new DateTime()));
-            putovanja.Add(new Putovanje("8", "Putovanje8", "4", "8000", new DateTime()));
-            putovanja.Add(new Putovanje("9", "Putovanje9", "4", "4000", new DateTime()));
-            putovanja.Add(new Putovanje("10", "Putovanje10", "4", "4000", new DateTime()));
-            putovanja.Add(new Putovanje("11", "Putovanje11", "4", "4000", new DateTime()));*/
+
+            Loaded += async (sender, e) =>
+            {
+                putovanja = new ObservableCollection<Putovanje>(putovanjaServis.PronadjiPutovanja());
+                putovanjaDataGrid.ItemsSource = putovanja;
+            };
 
             putovanjaDataGrid.ItemsSource = putovanja;
         }
@@ -56,6 +53,37 @@ namespace TouristAgency.UserControls
                 }
 
             }
+
+        }
+
+        private void Dodaj_Putovanje(object sender, RoutedEventArgs e)
+        {
+            ucNovoPutovanje forma = new ucNovoPutovanje();
+            mainComponent.Children.Clear();
+            mainComponent.Children.Add(forma);
+
+            forma.VratiSeNa_Putovanja += Vrati;
+
+
+        }
+
+
+        private void PretraziPutovanja(object sender, TextChangedEventArgs e)
+        {
+            string searchText = ((TextBox)sender).Text.ToLower();
+
+            var filteredItems = putovanja.Where(item => item.Naziv.ToLower().Contains(searchText) || item.BrojDana.ToLower().Contains(searchText) || item.Datum.ToShortDateString().ToLower().Contains(searchText) || item.Id.ToLower().Contains(searchText) || item.Cena.ToString().ToLower().Contains(searchText));
+
+            putovanjaDataGrid.ItemsSource = filteredItems;
+        }
+
+
+        private void Vrati(object sender, EventArgs e)
+        {
+            ucPutovanja puto = new ucPutovanja();
+            mainComponent.Children.Clear();
+            mainComponent.Children.Add(puto);
+
 
         }
     }

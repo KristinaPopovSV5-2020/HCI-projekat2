@@ -14,12 +14,14 @@ using TouristAgency.Servis;
 
 namespace TouristAgency.UserControls
 {
+ 
     /// <summary>
     /// Interaction logic for ucPrijava.xaml
     /// </summary>
     public partial class ucPrijava : UserControl
     {
-        public event RoutedEventHandler LoginClicked;
+        public event EventHandler<string> LoginClicked;
+        public event EventHandler RegistracijaClicked;
         KorisnikServis KorisnikServis = new KorisnikServis();
 
         public ucPrijava()
@@ -35,12 +37,15 @@ namespace TouristAgency.UserControls
 
             bool isCredentialsValid = ValidateInput(username, password);
 
+            string res = "";
+
             if (isCredentialsValid)
             {
                 txtError.Visibility = Visibility.Collapsed;
+                res=KorisnikServis.Prijava(username, password);
             }
            
-            LoginClicked?.Invoke(this, e);
+            LoginClicked?.Invoke(this, res);
         }
 
 
@@ -58,7 +63,7 @@ namespace TouristAgency.UserControls
                 return false;
             }
 
-            if (!KorisnikServis.Prijava(username, password))
+            if (KorisnikServis.Prijava(username, password)=="")
             {
                 txtError.Visibility = Visibility.Visible;
                 txtError.Text = "Neispravno korisničko ime ili lozinka.";
@@ -66,6 +71,11 @@ namespace TouristAgency.UserControls
             }
 
             return true;
+        }
+
+        public void Registracija(object sender, EventArgs e)
+        {
+            RegistracijaClicked.Invoke(this, e);
         }
     }
 }

@@ -103,5 +103,8 @@ namespace TouristAgency.UserControls
 
             atrakcijeDataGrid.ItemsSource = filteredItems;
         }
+
+
+        
     }
 }

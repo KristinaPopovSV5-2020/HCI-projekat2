@@ -34,12 +34,12 @@
                     <TextBox x:Name="txtUsername"   Grid.Column="1" Grid.Row="0" FontSize="20" />
                     <PasswordBox x:Name="txtPassword"  Grid.Column="1" Grid.Row="1"/>
 
-                    <TextBlock x:Name="txtError" Grid.Row="4" Grid.ColumnSpan="2" FontSize="20" Margin="-90"  Foreground="BlueViolet" HorizontalAlignment="Center" Text="" Visibility="Collapsed" />
+                    <TextBlock x:Name="txtError" Grid.Row="4" Grid.ColumnSpan="2" FontSize="20" Margin="-90"  Foreground="#EB7623" HorizontalAlignment="Center" Text="" Visibility="Collapsed" />
 
                     <Button x:Name="btnLogin" Grid.Row="3" Grid.ColumnSpan="2" FontSize="20" HorizontalAlignment="Center" Margin="0 40 0 0" Style="{StaticResource buttonPurple}" Content=" Prijavi se "  Click="BtnLogin_Click"/>
 
                     <TextBlock Grid.Row="4" Grid.ColumnSpan="2" FontSize="20" HorizontalAlignment="Center" Margin="0,15"> Ukoliko nemate nalog, kliknite na </TextBlock>
-                    <TextBlock Grid.Row="5"  Grid.ColumnSpan="2" FontSize="22"  TextDecorations="Underline" HorizontalAlignment="Center" Foreground="BlueViolet">Kreiraj nalog</TextBlock>
+                    <TextBlock Grid.Row="5"  Grid.ColumnSpan="2" FontSize="22"  TextDecorations="Underline" HorizontalAlignment="Center" Foreground="#EB7623" Cursor="Hand" MouseDown="Registracija">Kreiraj nalog</TextBlock>
                 </Grid>
             </Grid>
         </Border>

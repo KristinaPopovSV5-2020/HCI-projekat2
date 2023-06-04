@@ -131,7 +131,7 @@
 
 
             <Style x:Key="addButton" TargetType="Button">
-                <Setter Property="Background" Value="#6f5bde" />
+                <Setter Property="Background" Value="#8ac926" />
                 <Setter Property="Foreground" Value="#ffffff" />
                 <Setter Property="FocusVisualStyle" Value="{x:Null}" />
                 <Setter Property="Height" Value="50" />
@@ -152,7 +152,7 @@
 
                 <Style.Triggers>
                     <Trigger Property="IsMouseOver" Value="True">
-                        <Setter Property="Background" Value="#7B5CD6" />
+                        <Setter Property="Background" Value="#79AF21" />
                         <Setter Property="Foreground" Value="#ffffff" />
                     </Trigger>
                 </Style.Triggers>
@@ -180,7 +180,7 @@
 
                 <Style.Triggers>
                     <Trigger Property="IsMouseOver" Value="True">
-                        <Setter Property="BorderBrush" Value="#784FF2" />
+                        <Setter Property="BorderBrush" Value="#EB7623" />
                     </Trigger>
                 </Style.Triggers>
             </Style>
@@ -228,7 +228,7 @@
 
                 <Style.Triggers>
                     <Trigger Property="IsMouseOver" Value="True">
-                        <Setter Property="Background" Value="#6f5bde" />
+                        <Setter Property="Background" Value="#79AF21" />
                         <Setter Property="Foreground" Value="#ffffff" />
                     </Trigger>
                 </Style.Triggers>
@@ -243,8 +243,8 @@
 
 
             <Style x:Key="gridEditButton" TargetType="Button">
-                <Setter Property="Background" Value="#6f5bde" />
-                <Setter Property="BorderBrush" Value="#4A148C" />
+                <Setter Property="Background" Value="#8ac926" />
+                <Setter Property="BorderBrush" Value="#79AF21" />
                 <Setter Property="Width" Value="40"/>
                 <Setter Property="Height" Value="40"/>
                 <Setter Property="Foreground" Value="#ffffff" />
@@ -261,7 +261,7 @@
                 </Setter>
                 <Style.Triggers>
                     <Trigger Property="IsMouseOver" Value="True">
-                        <Setter Property="Background" Value="#6f5bde" />
+                        <Setter Property="Background" Value="#79AF21" />
                     </Trigger>
                 </Style.Triggers>
             </Style>
@@ -420,11 +420,11 @@
 
                 <Style.Triggers>
                     <Trigger Property="IsMouseOver" Value="True">
-                        <Setter Property="Background" Value="#623ED0"/>
+                        <Setter Property="Background" Value="#79AF21"/>
                         <Setter Property="Foreground" Value="#ffffff"/>
                     </Trigger>
                     <Trigger Property="IsSelected" Value="True">
-                        <Setter Property="Background" Value="#623ED0"/>
+                        <Setter Property="Background" Value="#79AF21"/>
                         <Setter Property="Foreground" Value="#ffffff"/>
                     </Trigger>
                     <MultiTrigger>
@@ -533,7 +533,7 @@
                                 </Trigger>
                                 <Trigger Property="IsMouseOver" Value="true">
                                     <Setter Property="Background" TargetName="checkBoxBorder" Value="{StaticResource OptionMark.MouseOver.Background}"/>
-                                    <Setter Property="BorderBrush" TargetName="checkBoxBorder" Value="#9575CD"/>
+                                    <Setter Property="BorderBrush" TargetName="checkBoxBorder" Value="#79AF21"/>
                                     <Setter Property="Fill" TargetName="optionMark" Value="{StaticResource OptionMark.MouseOver.Glyph}"/>
                                     <Setter Property="Fill" TargetName="indeterminateMark" Value="{StaticResource OptionMark.MouseOver.Glyph}"/>
                                 </Trigger>
@@ -545,7 +545,7 @@
                                 </Trigger>
                                 <Trigger Property="IsPressed" Value="true">
                                     <Setter Property="Background" TargetName="checkBoxBorder" Value="{StaticResource OptionMark.Pressed.Background}"/>
-                                    <Setter Property="BorderBrush" TargetName="checkBoxBorder" Value="#9575CD"/>
+                                    <Setter Property="BorderBrush" TargetName="checkBoxBorder" Value="#79AF21"/>
                                     <Setter Property="Fill" TargetName="optionMark" Value="{StaticResource OptionMark.Pressed.Glyph}"/>
                                     <Setter Property="Fill" TargetName="indeterminateMark" Value="{StaticResource OptionMark.Pressed.Glyph}"/>
                                 </Trigger>
@@ -674,12 +674,12 @@
 
 
         <Style x:Key="filterDugme" TargetType="Button" BasedOn="{StaticResource buttonMain}">
-            <Setter Property="Background" Value="#6f5bde" />
+                <Setter Property="Background" Value="#8ac926" />
             <Setter Property="Foreground" Value="#ffffff" />
             <Setter Property="Height" Value="40" />
             <Style.Triggers>
                 <Trigger Property="IsMouseOver" Value="True">
-                    <Setter Property="Background" Value="#623ED0" />
+                        <Setter Property="Background" Value="#79AF21" />
                     <Setter Property="Foreground" Value="#ffffff" />
                 </Trigger>
             </Style.Triggers>

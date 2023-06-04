@@ -17,7 +17,7 @@ namespace TouristAgency.Servis
 
         
 
-        public bool Prijava(string korisnickoIme, string lozinka)
+        public string Prijava(string korisnickoIme, string lozinka)
         {
 
 
@@ -27,11 +27,14 @@ namespace TouristAgency.Servis
 
             if (rezultat != null)
             {
-                return true;
+                if (korisnickoIme == "goran")
+                    return "goran";
+                else
+                    return "korisnik";
             }
             else
             {
-                return false;
+                return "";
             }
 
         }

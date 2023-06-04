@@ -19,20 +19,20 @@
             <StackPanel DockPanel.Dock="Top" >
                 <Button Style="{StaticResource menuButton}" Click="Prijava_click">
                     <StackPanel Orientation="Horizontal">
-                        <Icon:PackIconMaterial Kind="HomeVariant" Style="{StaticResource menuButtonIcon}"/>
+                        <Icon:PackIconMaterial Kind="AccountCircle" Style="{StaticResource menuButtonIcon}"/>
                         <TextBlock Text="Prijava"/>
                     </StackPanel>
                 </Button>
-                <Button Style="{StaticResource menuButton}">
+                <Button Style="{StaticResource menuButton}" Click="Registracija_Click">
                     <StackPanel Orientation="Horizontal">
-                        <Icon:PackIconMaterial Kind="CalendarClock" Style="{StaticResource menuButtonIcon}"/>
+                        <Icon:PackIconMaterial Kind="AccountCheck" Style="{StaticResource menuButtonIcon}"/>
                         <TextBlock Text="Registracija"/>
                     </StackPanel>
                 </Button>
                 <Separator Margin="25" Background="#E46B15" Height="0.8"/>
-                <Button Style="{StaticResource menuButton}">
+                <Button Style="{StaticResource menuButton}" Click="Putovanja_Click">
                     <StackPanel Orientation="Horizontal">
-                        <Icon:PackIconMaterial Kind="HomeVariant" Style="{StaticResource menuButtonIcon}"/>
+                        <Icon:PackIconMaterial Kind="WalletTravel" Style="{StaticResource menuButtonIcon}"/>
                         <TextBlock Text="Putovanja"/>
                     </StackPanel>
                 </Button>

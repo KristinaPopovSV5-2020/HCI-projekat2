@@ -9,6 +9,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using TouristAgency.Model;
 using TouristAgency.UserControls;
 using TouristAgency.UserControls.client;
 
@@ -25,6 +26,8 @@ namespace TouristAgency
             InitializeComponent();
             Loaded += MainWindow_Loaded;
             loggedOut.LoginClick += Prijava_click;
+            loggedOut.RegistracijaClick += Registracija_Click;
+            loggedOut.PutovanjaClick += PrikazPutovanja;
         }
 
 
@@ -82,30 +85,113 @@ namespace TouristAgency
                 this.WindowState = WindowState.Normal;
         }
 
-        private void Atrakcije_Click(object sender, RoutedEventArgs e)
+        private void Atrakcije_Click(object sender, EventArgs e)
         {
+            ucAtrakcije atrakcije = new ucAtrakcije();
+            mainComponent.Children.Clear();
+            mainComponent.Children.Add(atrakcije);
         }
 
-        private void Smestaji_Click(object sender, RoutedEventArgs e)
+        private void Smestaji_Click(object sender, EventArgs e)
         {
+            ucSmestaji smestaji = new ucSmestaji();
+            mainComponent.Children.Clear();
+            mainComponent.Children.Add(smestaji);
         }
 
-        private void Restorani_Click(object sender, RoutedEventArgs e)
+        private void Restorani_Click(object sender, EventArgs e)
         {
+            ucRestorani restorani = new ucRestorani();
+            mainComponent.Children.Clear();
+            mainComponent.Children.Add(restorani);
         }
 
-        private void Putovanja_Click(object sender, RoutedEventArgs e)
+        private void Putovanja_Click(object sender, EventArgs e)
         {
+            ucPutovanja putovanja = new ucPutovanja();
+            mainComponent.Children.Clear();
+            mainComponent.Children.Add(putovanja);
         }
+    
 
-        private void Prijava_click(object sender, EventArgs e)
+    private void Prijava_click(object sender, EventArgs e)
         {
             ucPrijava prijava = new ucPrijava();
             mainComponent.Children.Clear();
             mainComponent.Children.Add(prijava);
+
+            prijava.LoginClicked += UcitajProzor;
+            prijava.RegistracijaClicked += Registracija_Click;
+        }
+
+        private void Registracija_Click(object sender, EventArgs e)
+        {
+            ucRegistracija registracija = new ucRegistracija();
+            mainComponent.Children.Clear();
+            mainComponent.Children.Add(registracija);
+            registracija.RegistracijaClicked += Prijava_click;
         }
 
 
-}
+
+        private void UcitajProzor(object sender, string e)
+    {
+        if (e == "goran")
+        {
+            agentMenu agentMenu = new agentMenu();
+            agentMenu.Atrakcije += Atrakcije_Click;
+            agentMenu.Putovanja += Putovanja_Click;
+            agentMenu.Smestaji += Smestaji_Click;
+            agentMenu.Restorani += Restorani_Click;
+            agentMenu.Odjava += Odjava_Click;
+            menu.Children.Clear();
+            menu.Children.Add(agentMenu);
+
+            ucPutovanja putovanja = new ucPutovanja();
+            mainComponent.Children.Clear();
+            mainComponent.Children.Add(putovanja);
+
+        }
+        else if (e == "korisnik")
+        {
+            logged logged = new logged();
+            logged.Odjava += Odjava_Click;
+            logged.Putovanja += PrikazPutovanja;
+            menu.Children.Clear();
+            menu.Children.Add(logged);
+
+            prikazPutovanja putovanja = new prikazPutovanja();
+            mainComponent.Children.Clear();
+            mainComponent.Children.Add(putovanja);
+        }
+    }
+
+
+    private void Odjava_Click(object sender, EventArgs e)
+    {
+            loggedOut loggedOut = new loggedOut();
+            menu.Children.Clear();
+            menu.Children.Add(loggedOut);
+
+            prikazPutovanja putovanja = new prikazPutovanja();
+            mainComponent.Children.Clear();
+            mainComponent.Children.Add(putovanja);
+
+            loggedOut.LoginClick += Prijava_click;
+            loggedOut.RegistracijaClick += Registracija_Click;
+            loggedOut.PutovanjaClick += PrikazPutovanja;
+
+            
+
+        }
+
+        private void PrikazPutovanja(object sender,EventArgs e)
+        {
+            prikazPutovanja putovanja = new prikazPutovanja();
+            mainComponent.Children.Clear();
+            mainComponent.Children.Add(putovanja);
+        }
+
+    }
 
 }
