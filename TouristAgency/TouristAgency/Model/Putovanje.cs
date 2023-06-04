@@ -32,7 +32,7 @@ namespace TouristAgency.Model
         [BsonElement("restorani")]
         private List<Restoran> restorani;
 
-        [BsonElement("adresa")]
+        [BsonElement("atrakcije")]
         private List<Atrakcija> atrakcije;
 
         public Putovanje() { }

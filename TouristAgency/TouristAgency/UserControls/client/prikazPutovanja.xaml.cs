@@ -41,6 +41,9 @@ namespace TouristAgency.UserControls.client
             if (listaPutovanja.SelectedItem != null)
             {
                 Putovanje selectedItem = listaPutovanja.SelectedItem as Putovanje;
+                detalji.Children.Clear();
+                detaljiPrikaz detaljiPrikaz = new detaljiPrikaz();
+                detalji.Children.Add(detaljiPrikaz);
                 detaljiPrikaz.LoadItemDetails(selectedItem);
                 putovanja.Visibility = Visibility.Collapsed;
                 detalji.Visibility = Visibility.Visible;
@@ -51,6 +54,7 @@ namespace TouristAgency.UserControls.client
         private void Vrati(object sender, EventArgs e)
         {
             putovanja.Visibility = Visibility.Visible;
+            listaPutovanja.SelectedItem = null;
             detalji.Visibility = Visibility.Collapsed;
         }
 

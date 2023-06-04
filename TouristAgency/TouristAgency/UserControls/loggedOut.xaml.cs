@@ -10,6 +10,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using TouristAgency.Servis;
 
 namespace TouristAgency.UserControls
 {
@@ -18,9 +19,20 @@ namespace TouristAgency.UserControls
     /// </summary>
     public partial class loggedOut : UserControl
     {
+        KorisnikServis korisnikServis = new KorisnikServis();
         public loggedOut()
         {
             InitializeComponent();
         }
+
+        public event EventHandler LoginClick;
+
+
+        private void Prijava_click(object sender, RoutedEventArgs e)
+        {
+            LoginClick?.Invoke(this, EventArgs.Empty);
+        }
+
+
     }
 }

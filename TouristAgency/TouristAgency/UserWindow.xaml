@@ -4,7 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:TouristAgency.UserControls.client"
-        xmlns:Icon="http://metro.mahapps.com/winfx/xaml/iconpacks"
+        xmlns:Icon="http://metro.mahapps.com/winfx/xaml/iconpacks" xmlns:local1="clr-namespace:TouristAgency.UserControls"
         mc:Ignorable="d"
         Height="720" Width="1080" WindowStyle="None">
 
@@ -30,7 +30,7 @@
                 <RowDefinition Height="94*"/>
             </Grid.RowDefinitions>
 
-            <Grid Grid.Row="0" Background="#180f38" Grid.ColumnSpan="2">
+            <Grid Grid.Row="0" Background="#03122B" Grid.ColumnSpan="2">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*" />
                     <ColumnDefinition Width="Auto" />
@@ -57,16 +57,19 @@
                 </Button>
             </Grid>
             <!--Left Menu-->
-            <Grid Grid.Row="1">
+            <Grid Grid.Row="1" Name="menu">
 
-                <Border  Background="#6f5bde">
-                    <local:logged></local:logged>
+                <Border  Background="#EC8236">
+                    <local1:loggedOut x:Name="loggedOut"></local1:loggedOut>
                 </Border>
 
             </Grid>
 
             <!--Main Section-->
             <Grid Name="mainComponent" Grid.Column="1" Grid.Row="1" Margin="30 20 20 20">
+                <local:prikazPutovanja></local:prikazPutovanja>
+            </Grid>
+            <Grid Name="kupljena" Visibility="Collapsed" Grid.Column="1" Grid.Row="1" Margin="30 20 20 20">
                 <local:prikazPutovanja></local:prikazPutovanja>
             </Grid>
         </Grid>

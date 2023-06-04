@@ -17,7 +17,9 @@
             <ColumnDefinition Width="45*" />
             <ColumnDefinition Width="50*" />
         </Grid.ColumnDefinitions>
-        <Button VerticalAlignment="Top" Content="Back" Click="BackButton_Click" Style="{StaticResource MaterialDesignFlatButton}" Margin="5" />
+        <Button VerticalAlignment="Top" Margin="0, 15, 0 , 0" Background="Transparent" BorderBrush="Transparent" Click="BackButton_Click">
+            <Icon:PackIconMaterial Kind="ArrowLeftBold"/>
+        </Button>
         <StackPanel Grid.Column="1" Margin="10">
             <TextBlock Name="nameInput" FontSize="25" Margin="0,5,0,10" />
             <WrapPanel Orientation="Horizontal">
@@ -33,7 +35,7 @@
             <Expander Name="atrakcijeExpander" 
               HorizontalAlignment="Left"
               FontSize="16" FontWeight="Bold" 
-              ExpandDirection="Down" IsExpanded="False"
+              ExpandDirection="Down" IsExpanded="True"
                       Expanded="Expander_Expanded"
                       Width="350">
                 <Expander.Header>
@@ -51,7 +53,7 @@
                     <ListBox.ItemTemplate>
                         <DataTemplate>
                             <StackPanel Orientation="Horizontal">
-                                <Icon:PackIconMaterial Foreground="BlueViolet" Kind="MapMarker" Height="29" Width="36" />
+                                <Icon:PackIconMaterial Foreground="#EC8236" Kind="MapMarker" Height="29" Width="36" />
                                 <TextBlock Text="{Binding Naziv}" />
                             </StackPanel>
                         </DataTemplate>
@@ -108,7 +110,7 @@
 
                 <Expander.Header>
                     <WrapPanel Orientation="Horizontal">
-                        <Icon:PackIconMaterial Foreground="LightCoral" VerticalAlignment="Center" Kind="SilverwareVariant"/>
+                        <Icon:PackIconMaterial Foreground="BlueViolet" VerticalAlignment="Center" Kind="SilverwareVariant"/>
                         <TextBlock Text=" Restorani" FontSize="16" FontWeight="Bold" />
                     </WrapPanel>
                 </Expander.Header>

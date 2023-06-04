@@ -56,7 +56,7 @@
 
                 <Style.Triggers>
                     <Trigger Property="IsMouseOver" Value="True">
-                        <Setter Property="Background" Value="#623ED0" />
+                        <Setter Property="Background" Value="#EB7623" />
                         <Setter Property="Foreground" Value="#ffffff" />
                     </Trigger>
                 </Style.Triggers>
@@ -662,11 +662,11 @@
 
 
         <Style x:Key="buttonPurple" TargetType="Button" BasedOn="{StaticResource buttonMain}">
-            <Setter Property="Background" Value="#6f5bde" />
+                <Setter Property="Background" Value="#8ac926" />
             <Setter Property="Foreground" Value="#ffffff" />
             <Style.Triggers>
                 <Trigger Property="IsMouseOver" Value="True">
-                    <Setter Property="Background" Value="#623ED0" />
+                        <Setter Property="Background" Value="#79AF21" />
                     <Setter Property="Foreground" Value="#ffffff" />
                 </Trigger>
             </Style.Triggers>
@@ -692,6 +692,7 @@
 
             <Style x:Key="ratingBar" TargetType="materialDesign:RatingBar">
                 <Setter Property="Margin" Value="10, 0, 0, 0"></Setter>
+                <Setter Property="IsReadOnly" Value="True"></Setter>
                 <Setter Property="ValueItemTemplate">
                     <Setter.Value>
                         <DataTemplate>

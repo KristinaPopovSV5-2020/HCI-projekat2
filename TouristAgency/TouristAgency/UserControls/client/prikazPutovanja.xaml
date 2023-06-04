@@ -10,43 +10,27 @@
     <Grid  x:Name="containerGrid">
         
     <Grid x:Name="putovanja">
-        <Grid.RowDefinitions>
-            <RowDefinition Height="auto"/>
-            <RowDefinition Height="auto"/>
-            <RowDefinition Height="auto"/>
-            <RowDefinition Height="auto"/>
-            <RowDefinition Height="auto"/>
-            <RowDefinition Height="*"/>
-            <RowDefinition Height="auto"/>
-        </Grid.RowDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="auto"/>
+            </Grid.RowDefinitions>
 
-        <WrapPanel HorizontalAlignment="Center" Orientation="Horizontal" Grid.Row="1" Width="614">
-            <Icon:PackIconMaterial VerticalAlignment="Center" Kind="MapMarker" Height="29" Width="36" RenderTransformOrigin="0.546,1.404"></Icon:PackIconMaterial>
-            <TextBox x:Name="locationInput" Width="172" Height="25" />
-            <Icon:PackIconMaterial VerticalAlignment="Center" Kind="CalendarClock"></Icon:PackIconMaterial>
-            <DatePicker x:Name="dateInput"  Style="{StaticResource DatePickerStyle}"  />
-            <Icon:PackIconMaterial VerticalAlignment="Center" Kind="CashMultiple"></Icon:PackIconMaterial>
-            <TextBox x:Name="moneyInput" Width="158" />
-            <Button Width="100" Style="{StaticResource MaterialDesignRaisedAccentButton}">
-                <StackPanel Orientation="Horizontal">
-                    <materialDesign:PackIcon VerticalAlignment="Center" Kind="Magnify" Margin="0,0,5,0" />
-                    <TextBlock Text="Traži" />
-                </StackPanel>
-            </Button>
-        </WrapPanel>
-
-
-
-        <TextBlock Name="test"  Text="Predstojeća putovanja" Grid.Row="2" FontSize="40" FontWeight="SemiBold" Foreground="#121518" HorizontalAlignment="Left"/>
+            <TextBlock Name="test"  Text="Predstojeća putovanja" Grid.Row="2" FontSize="40" FontWeight="SemiBold" Foreground="#121518" HorizontalAlignment="Left" Margin="0, 15, 0, 30"/>
         <ListBox Name="listaPutovanja" Grid.Row="3" HorizontalAlignment="Center" SelectionChanged="ItemListBox_SelectionChanged">
             <ListBox.ItemContainerStyle>
-                <Style TargetType="ListBoxItem">
-                    <Setter Property="BorderThickness" Value="1" />
-                    <Setter Property="BorderBrush" Value="LightGray" />
-                    <Setter Property="Margin" Value="0, 0, 0, 10" />
-                </Style>
-            </ListBox.ItemContainerStyle>
+                    <Style TargetType="ListBoxItem">
+                        <Setter Property="BorderThickness" Value="1" />
+                        <Setter Property="BorderBrush" Value="LightGray" />
+                        <Setter Property="Margin" Value="0, 0, 0, 10" />
+                    </Style>
+                </ListBox.ItemContainerStyle>
             <ListBox.ItemTemplate>
+                
                 <DataTemplate>
                         <local:putovanjeList Polazak="{Binding Polazak}" Povratak="{Binding Povratak}" Dana="{Binding BrojDana}" Cena="{Binding Cena}" Naziv="{Binding Naziv}" />
                 </DataTemplate>
@@ -56,7 +40,6 @@
 
     </Grid>
         <Grid x:Name="detalji" Visibility="Collapsed">
-        <local:detaljiPrikaz x:Name="detaljiPrikaz"/>
         </Grid>
     </Grid>
 

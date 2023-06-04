@@ -13,26 +13,31 @@
             <TextBlock Text="Dobrodošli" Foreground="White" FontSize="30" FontWeight="SemiBold" DockPanel.Dock="Top" Margin="5 50 0 10" TextAlignment="Center"/>
 
             <!--Menu Seprator-->
-            <Separator Margin="25" Background="#7E5FDC" DockPanel.Dock="Top" Height="0.8"/>
+            <Separator Margin="25" Background="#E46B15" DockPanel.Dock="Top" Height="0.8"/>
 
             <!--Menu Buttons-->
             <StackPanel DockPanel.Dock="Top" >
-                <Button Style="{StaticResource menuButton}">
+                <Button Style="{StaticResource menuButton}" Click="Prijava_click">
                     <StackPanel Orientation="Horizontal">
                         <Icon:PackIconMaterial Kind="HomeVariant" Style="{StaticResource menuButtonIcon}"/>
-                        <TextBlock Text="Uloguj se"/>
+                        <TextBlock Text="Prijava"/>
                     </StackPanel>
                 </Button>
-
                 <Button Style="{StaticResource menuButton}">
                     <StackPanel Orientation="Horizontal">
                         <Icon:PackIconMaterial Kind="CalendarClock" Style="{StaticResource menuButtonIcon}"/>
-                        <TextBlock Text="Registruj se"/>
+                        <TextBlock Text="Registracija"/>
+                    </StackPanel>
+                </Button>
+                <Separator Margin="25" Background="#E46B15" Height="0.8"/>
+                <Button Style="{StaticResource menuButton}">
+                    <StackPanel Orientation="Horizontal">
+                        <Icon:PackIconMaterial Kind="HomeVariant" Style="{StaticResource menuButtonIcon}"/>
+                        <TextBlock Text="Putovanja"/>
                     </StackPanel>
                 </Button>
 
             </StackPanel>
-
         </DockPanel>
     </Grid>
 </UserControl>

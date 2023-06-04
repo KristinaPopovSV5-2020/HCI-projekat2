@@ -37,21 +37,25 @@ namespace TouristAgency.UserControls.client
             //restoraniExpander.PreviewMouseLeftButtonUp += Restorani_Click;
         }
 
-        internal void LoadItemDetails(Putovanje selectedItem)
+        internal async void LoadItemDetails(Putovanje selectedItem)
         {
             nameInput.Text = selectedItem.Naziv;
             daysInput.Text = " Broj dana: "+ selectedItem.BrojDana;
             startInput.Text = " Polazak: " + selectedItem.Polazak;
             //listaAtrakcija.ItemsSource = selectedItem.Atrakcije;
 
-            atrakcijas = putovanjaServis.AtrakcijeZaPutovanje("123");
-            smestaji = putovanjaServis.SmestajZaPutovanje("123");
-            restorani = putovanjaServis.RestoraniZaPutovanje("123");
+            atrakcijas = selectedItem.Atrakcije;
+            smestaji = selectedItem.Smestaji;
+            restorani = selectedItem.Restorani;
             listaAtrakcija.ItemsSource = atrakcijas;
             listaSmestaja.ItemsSource = smestaji;
             listaRestorana.ItemsSource = restorani;
-            //SearchAndAddPushpin(atrakcijas.Select(a => a.Adresa).ToList());
-            
+            Canvas group2 = new Canvas();
+            await SearchAndAddPushpin(atrakcijas.Select(a => a.Adresa).ToList());
+            await SearchAndAddPushpin(smestaji.Select(a => a.Adresa).ToList(), 1);
+            await SearchAndAddPushpin(restorani.Select(a => a.Adresa).ToList(), 2);
+
+
         }
 
         public event EventHandler VratiSeNa_Putovanja;
@@ -93,11 +97,13 @@ namespace TouristAgency.UserControls.client
             int pinIndex = -1;
             if (selectedItem is Restoran)
             {
-                pinIndex = listaRestorana.Items.IndexOf(selectedItem);
+                pinIndex = atrakcijas.Count + smestaji.Count;
+                pinIndex += listaRestorana.Items.IndexOf(selectedItem);
             }
             else if (selectedItem is Smestaj)
             {
-                pinIndex = listaSmestaja.Items.IndexOf(selectedItem);
+                pinIndex = atrakcijas.Count;
+                pinIndex += listaSmestaja.Items.IndexOf(selectedItem);
             }
             else if (selectedItem is Atrakcija)
             {
@@ -108,7 +114,6 @@ namespace TouristAgency.UserControls.client
             {
                 var pin = map.Children[pinIndex] as Pushpin;
                 var pinLocation = new Location(pin.Location.Latitude, pin.Location.Longitude);
-
                 // Set the map view to the selected pin location
                 map.SetView(pinLocation, 15);
             }
@@ -118,9 +123,8 @@ namespace TouristAgency.UserControls.client
 
 
 
-        private async void SearchAndAddPushpin(List<string> adrese, int list = 0)
+        private async Task SearchAndAddPushpin(List<string> adrese, int list = 0)
         {
-            map.Children.Clear();
             if (adrese.Count > 0)
             {
                 int i = 0;
@@ -143,7 +147,7 @@ namespace TouristAgency.UserControls.client
                             var pushpin = new Pushpin();
                             if (list == 0)
                             {
-                                pushpin.Background = new SolidColorBrush(Colors.BlueViolet);
+                                pushpin.Background = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#EC8236"));
                                 pushpin.Tag = atrakcijas[i].Naziv + "\n" + atrakcijas[i].Adresa;
                             }
                             else if (list == 1)
@@ -153,7 +157,7 @@ namespace TouristAgency.UserControls.client
                             }
                             else
                             {
-                                pushpin.Background = new SolidColorBrush(Colors.LightCoral);
+                                pushpin.Background = new SolidColorBrush(Colors.BlueViolet);
                                 pushpin.Tag = restorani[i].Naziv + "\n" + restorani[i].Adresa;
                             }
                             pushpin.Location = point;
@@ -164,17 +168,21 @@ namespace TouristAgency.UserControls.client
 
                             pushpin.MouseEnter += Pin_MouseEnter;
                             pushpin.MouseLeave += Pin_MouseLeaveAsync;
+                            Console.WriteLine(pushpin.Tag.ToString());
                             map.Children.Add(pushpin);
-
                         }
                     }
                 }
-                var w = new Pushpin().Width;
-                var h = new Pushpin().Height;
-                var margin = new Thickness(w / 2, h, w / 2, 0);
+                if (list == 2)
+                {
+                    var w = new Pushpin().Width;
+                    var h = new Pushpin().Height;
+                    var margin = new Thickness(w / 2, h, w / 2, 0);
 
-                map.SetView(locations, margin, 0);
+                    map.SetView(locations, margin, 0);
+                }
             }
+
             
         }
 
@@ -210,7 +218,7 @@ namespace TouristAgency.UserControls.client
 
         private void Expander_Expanded(object sender, RoutedEventArgs e)
         {
-            Expander expander = sender as Expander;
+            /*Expander expander = sender as Expander;
 
             if (expander.IsExpanded)
             {
@@ -226,7 +234,7 @@ namespace TouristAgency.UserControls.client
                 {
                     SearchAndAddPushpin(restorani.Select(a => a.Adresa).ToList(), 2);
                 }
-            }
+            }*/
         }
 
         private void ListBox_PreviewMouseLeftButtonDown(object sender, MouseButtonEventArgs e)

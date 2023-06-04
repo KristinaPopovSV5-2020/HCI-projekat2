@@ -13,7 +13,7 @@
             <TextBlock Text="Pogledajte" Foreground="White" FontSize="30" FontWeight="SemiBold" DockPanel.Dock="Top" Margin="5 50 0 10" TextAlignment="Center"/>
 
             <!--Menu Seprator-->
-            <Separator Margin="25" Background="#7E5FDC" DockPanel.Dock="Top" Height="0.8"/>
+            <Separator Margin="25" Background="#E46B15" DockPanel.Dock="Top" Height="0.8"/>
 
             <!--Menu Buttons-->
             <StackPanel DockPanel.Dock="Top" >
@@ -36,7 +36,7 @@
             <Button Style="{StaticResource menuButton}" VerticalAlignment="Bottom" DockPanel.Dock="Bottom" Margin="15 0 15 20">
                 <StackPanel Orientation="Horizontal">
                     <Icon:PackIconMaterial Kind="Logout" Style="{StaticResource menuButtonIcon}"/>
-                    <TextBlock Text="Logout"/>
+                    <TextBlock Text="Odjava"/>
                 </StackPanel>
             </Button>
 

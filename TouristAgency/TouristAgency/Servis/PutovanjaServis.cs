@@ -243,13 +243,8 @@ namespace TouristAgency.Servis
 
         public List<Putovanje> PronadjiPutovanja()
         {
-            var projection = Builders<BsonDocument>.Projection.Include("_id")
-                                                              .Include("naziv")
-                                                              .Include("brojDana")
-                                                              .Include("datum")
-                                                              .Include("cena");
-            var putovanjaDocuments = Baza.PutovanjaKol.Find(new BsonDocument()).Project(projection).ToList();
-            var putovanja = putovanjaDocuments.Select(p => BsonSerializer.Deserialize<Putovanje>(p)).ToList();
+            var documents = Baza.PutovanjaKol.Find(_ => true).ToList();
+            var putovanja = documents.Select(p => BsonSerializer.Deserialize<Putovanje>(p)).ToList();
             return putovanja;
         }
 

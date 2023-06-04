@@ -9,6 +9,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using TouristAgency.UserControls;
 using TouristAgency.UserControls.client;
 
 
@@ -23,6 +24,7 @@ namespace TouristAgency
         {
             InitializeComponent();
             Loaded += MainWindow_Loaded;
+            loggedOut.LoginClick += Prijava_click;
         }
 
 
@@ -94,6 +96,13 @@ namespace TouristAgency
 
         private void Putovanja_Click(object sender, RoutedEventArgs e)
         {
+        }
+
+        private void Prijava_click(object sender, EventArgs e)
+        {
+            ucPrijava prijava = new ucPrijava();
+            mainComponent.Children.Clear();
+            mainComponent.Children.Add(prijava);
         }
 
 
