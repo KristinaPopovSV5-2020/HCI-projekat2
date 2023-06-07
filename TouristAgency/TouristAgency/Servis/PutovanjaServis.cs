@@ -248,6 +248,17 @@ namespace TouristAgency.Servis
             return putovanja;
         }
 
+        public void KupiPutovanje(string username,  Putovanje putovanje)
+        {
+            var kupljeni = new Kupljeni
+            {
+                Username = username,
+                Putovanje = putovanje
+            };
+
+            Baza.KupljeniKol.InsertOne(kupljeni.ToBsonDocument());
+        }
+
 
 
 

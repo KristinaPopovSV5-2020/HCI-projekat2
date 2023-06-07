@@ -9,24 +9,15 @@ namespace TouristAgency.Model
     class Kupljeni
     {
         [BsonId]
-        [BsonRepresentation(BsonType.ObjectId)] 
-        private string id { get; set; }
+        [BsonRepresentation(BsonType.ObjectId)]
+        public string id { get; set; }
 
-        private Korisnik korisnik;
+        private string username;
 
         private Putovanje putovanje;
 
 
-        public Kupljeni(string id, Korisnik korisnik, Putovanje putovanje)
-        {
-            this.id = id;
-            this.korisnik = korisnik;
-            this.putovanje = putovanje;
-        }
-
-        public string Id { get => id; set => id = value; }
-
-        public Korisnik Korisnik { get => korisnik; set => korisnik = value; }
+        public string Username { get => username; set => username = value; }
 
         public Putovanje Putovanje { get => putovanje; set => putovanje = value; }
     }

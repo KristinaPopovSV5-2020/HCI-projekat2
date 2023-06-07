@@ -10,6 +10,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using TouristAgency.Model;
 
 namespace TouristAgency.UserControls.client
 {
@@ -58,6 +59,13 @@ namespace TouristAgency.UserControls.client
         public putovanjeList()
         {
             InitializeComponent();
+        }
+
+        public event EventHandler<Putovanje> PogledajClicked;
+        internal void Pogledaj_Click(object sender, RoutedEventArgs e)
+        {
+            Putovanje selectedItem = this.DataContext as Putovanje;
+            PogledajClicked?.Invoke(this, selectedItem);
         }
     }
 }

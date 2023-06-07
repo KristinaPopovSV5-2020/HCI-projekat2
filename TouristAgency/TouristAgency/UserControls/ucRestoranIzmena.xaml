@@ -9,10 +9,10 @@
              d:DesignHeight="720" d:DesignWidth="1080"
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              xmlns:materialDesignConverters="clr-namespace:MaterialDesignThemes.Wpf.Converters;assembly=MaterialDesignThemes.Wpf"
-             Margin="100">
+             >
 
     <Grid>
-        <Border Grid.Column="1" Padding="20" Background="White" Width="800" Height="650" CornerRadius="30" HorizontalAlignment="Center" VerticalAlignment="Center">
+        <Border Grid.Column="1" Background="White" Width="800" Height="650" CornerRadius="30" HorizontalAlignment="Center" VerticalAlignment="Center">
             <Grid Width="600" Height="800">
                 <TextBlock HorizontalAlignment="Center" FontSize="40" Margin="50" FontWeight="SemiBold" Name="naslov"></TextBlock>
                 <Grid HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0 -100 0 0">
@@ -33,12 +33,12 @@
                     </Grid.RowDefinitions>
 
                     <TextBlock Grid.Row="0" Text="Naziv" Style="{StaticResource text}"/>
-                    <TextBlock Grid.Row="1" Text="Adresa" Style="{StaticResource text}"/>
-                    <TextBlock Grid.Row="2" Text="Ocena" Style="{StaticResource text}"/>
+                    <TextBlock Grid.Row="2" Text="Adresa" Style="{StaticResource text}"/>
+                    <TextBlock Grid.Row="4" Text="Ocena" Style="{StaticResource text}"/>
 
-                    <uc:ucInput Grid.Column="1" Grid.Row="0" Hint="" x:Name="naziv"/>
-                    <uc:ucInput Grid.Column="1" Grid.Row="1" Hint="" x:Name="adresa"/>
-                    <ComboBox  Grid.Column="1" Grid.Row="2" x:Name="ocena" Foreground="#868686" Margin="0 5 0 0"  BorderThickness="0" Height="30" FontSize="20" Width="270" Background="#e6e6e6">
+                    <uc:ucInput Grid.ColumnSpan="2" Grid.Row="1" Hint="" x:Name="naziv"/>
+                    <uc:ucInput Grid.ColumnSpan="2"  Grid.Row="3" Hint="" x:Name="adresa"/>
+                    <ComboBox Grid.ColumnSpan="2"   Grid.Row="5" x:Name="ocena" Foreground="#868686" Margin="0 5 0 0"  BorderThickness="0" Height="30" FontSize="20" Background="#e6e6e6">
                         <ComboBoxItem FontSize="15" Content="1" />
                         <ComboBoxItem FontSize="15" Content="2" />
                         <ComboBoxItem FontSize="15" Content="3" />

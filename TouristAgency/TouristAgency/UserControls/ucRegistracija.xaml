@@ -7,10 +7,10 @@
              mc:Ignorable="d" 
              d:DesignHeight="720" d:DesignWidth="1080">
     <Grid>
-        <Border Grid.Column="1" Padding="20" Background="White" Width="800" Height="650" CornerRadius="30" HorizontalAlignment="Center" VerticalAlignment="Center">
-            <Grid Width="800" Height="800" VerticalAlignment="Center">
-                <TextBlock HorizontalAlignment="Center" FontSize="40" Margin="100" FontWeight="SemiBold">Registruj se</TextBlock>
-                <Grid HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0 -90 0 0">
+        <Border Grid.Column="1" Background="White" Width="800" Height="650" CornerRadius="30" HorizontalAlignment="Center" VerticalAlignment="Center">
+            <Grid Width="800" Height="800" VerticalAlignment="Center" HorizontalAlignment="Center">
+                <TextBlock HorizontalAlignment="Center" FontSize="40" Margin="130" FontWeight="SemiBold">Registruj se</TextBlock>
+                <Grid HorizontalAlignment="Center" VerticalAlignment="Center">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="200"/>
                         <ColumnDefinition Width="270"/>
@@ -36,7 +36,7 @@
                     <TextBlock x:Name="txtError" Grid.Row="3" Grid.ColumnSpan="2" FontSize="20"   Foreground="BlueViolet" HorizontalAlignment="Center" Text="" Visibility="Collapsed" />
                     <TextBlock x:Name="txtSucces" Grid.Row="3" Grid.ColumnSpan="2" FontSize="20"  Foreground="green" HorizontalAlignment="Center" Text="" Visibility="Collapsed"/>
 
-                    <Button x:Name="btnRegistracija" Grid.Row="4" Grid.ColumnSpan="2" FontSize="24" HorizontalAlignment="Center" Margin="0 40 0 0" Style="{StaticResource buttonPurple}" Content=" Potvrdi " Click="BtnRegistracija_Click"/>
+                    <Button x:Name="btnRegistracija" Grid.Row="4" Grid.ColumnSpan="2" FontSize="24" HorizontalAlignment="Center" Margin="0 70 0 0" Style="{StaticResource buttonPurple}" Content=" Potvrdi " Click="BtnRegistracija_Click"/>
                 </Grid>
             </Grid>
         </Border>

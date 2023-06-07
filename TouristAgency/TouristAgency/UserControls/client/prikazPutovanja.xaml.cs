@@ -58,5 +58,6 @@ namespace TouristAgency.UserControls.client
             detalji.Visibility = Visibility.Collapsed;
         }
 
+
     }
 }

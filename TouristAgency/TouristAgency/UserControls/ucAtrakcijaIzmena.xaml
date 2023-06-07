@@ -6,7 +6,7 @@
              xmlns:uc="clr-namespace:TouristAgency.UserControls"
              mc:Ignorable="d" 
              d:DesignHeight="720" d:DesignWidth="1080"
-             Margin="100">
+             >
     <Grid>
         <Border Grid.Column="1" Padding="20" Background="White" Width="800" Height="650" CornerRadius="30" HorizontalAlignment="Center" VerticalAlignment="Center">
             <Grid Width="600" Height="800">

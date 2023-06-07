@@ -29,7 +29,8 @@
                     <TextBlock Style="{StaticResource MaterialDesignHeadline6TextBlock}" Text="sada od"></TextBlock>
                     <TextBlock Style="{StaticResource MaterialDesignHeadline5TextBlock}" Text="{Binding Cena}"></TextBlock>
                 </WrapPanel>
-            <Button Margin="10,0,0,0" Grid.Column="4" VerticalAlignment="Center" Content="Pogledaj" Style="{StaticResource buttonPurple}"></Button>
+            <Button Margin="10,0,0,0" IsHitTestVisible="False" Grid.Column="4" VerticalAlignment="Center" Click="Pogledaj_Click" Content="Pogledaj" Style="{StaticResource buttonPurple}">
+            </Button>
             </Grid>
         </Border>
 </UserControl>

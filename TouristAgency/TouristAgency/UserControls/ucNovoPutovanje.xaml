@@ -195,8 +195,8 @@
 
                 <StackPanel Grid.Row="9" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Center"  Margin="0 20 0 0">
                 <StackPanel Orientation="Horizontal">
-                        <Button Content=" Kreiraj putovanje " Height="30" FontSize="15" Margin="0 0 20 0" Style="{StaticResource buttonPurple}"  Click="BtnKreiraj_Click" />
-                        <Button Content=" Poništi sva polja " Width="100" Height="30"  Click="BtnPonisti_Click"/>
+                        <Button Content="Odustani" Height="30" Margin="10"  FontSize="15" Click="BtnPonisti_Click" Style="{StaticResource buttonMain}"/>
+                        <Button Content=" Dodaj " Height="30" FontSize="15" Margin="0 0 20 0" Style="{StaticResource buttonPurple}"  Click="BtnKreiraj_Click" />
                 </StackPanel>
 
             </StackPanel>

@@ -7,7 +7,7 @@ using MongoDB.Bson.Serialization.Attributes;
 
 namespace TouristAgency.Model
 {
-    class Putovanje
+    public class Putovanje
     {
 
         [BsonId]

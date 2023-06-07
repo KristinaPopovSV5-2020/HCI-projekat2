@@ -8,13 +8,10 @@ using System.Net.Http;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Controls.Primitives;
 using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 using TouristAgency.Model;
 using TouristAgency.Servis;
 
@@ -27,6 +24,8 @@ namespace TouristAgency.UserControls.client
         List<Atrakcija> atrakcijas = new List<Atrakcija>();
         List<Smestaj> smestaji = new List<Smestaj>();
         List<Restoran> restorani = new List<Restoran>();
+        private Putovanje putovanje;
+        Popup popup = new Popup();
 
 
         public detaljiPrikaz()
@@ -39,8 +38,9 @@ namespace TouristAgency.UserControls.client
 
         internal async void LoadItemDetails(Putovanje selectedItem)
         {
+            putovanje = selectedItem;
             nameInput.Text = selectedItem.Naziv;
-            daysInput.Text = " Broj dana: "+ selectedItem.BrojDana;
+            daysInput.Text = " Broj dana: " + selectedItem.BrojDana;
             startInput.Text = " Polazak: " + selectedItem.Polazak;
             //listaAtrakcija.ItemsSource = selectedItem.Atrakcije;
 
@@ -129,7 +129,7 @@ namespace TouristAgency.UserControls.client
             {
                 int i = 0;
                 List<Location> locations = new List<Location>();
-                foreach(string address in adrese)
+                foreach (string address in adrese)
                 {
                     string requestUrl = $"http://dev.virtualearth.net/REST/v1/Locations?query={address}&key=nltGyIgw8vEO79Dc9AFY~00N7BTnXTXYeNf3EVNeDNw~AkowgGH4IsDZEM9SmtVES0nD2OD-cD9VWqNSC8e29PF4zPvYoWnCedQQgoaJiDkr";
 
@@ -168,7 +168,6 @@ namespace TouristAgency.UserControls.client
 
                             pushpin.MouseEnter += Pin_MouseEnter;
                             pushpin.MouseLeave += Pin_MouseLeaveAsync;
-                            Console.WriteLine(pushpin.Tag.ToString());
                             map.Children.Add(pushpin);
                         }
                     }
@@ -183,7 +182,7 @@ namespace TouristAgency.UserControls.client
                 }
             }
 
-            
+
         }
 
         public class Point
@@ -248,13 +247,78 @@ namespace TouristAgency.UserControls.client
 
         public void Kupi_Click(object sender, RoutedEventArgs e)
         {
+            kupovinaPotvrda popupUserControl = new kupovinaPotvrda(putovanje);
+
+            mainComponent.IsHitTestVisible = false;
+            mainComponent.Opacity = 0.4;
+
+            popup.Child = null;
+            popup.Child = popupUserControl;
+            double screenWidth = SystemParameters.PrimaryScreenWidth;
+            double screenHeight = SystemParameters.PrimaryScreenHeight;
+            double popupWidth = 400;
+            double popupHeight = 350;
+
+            double horizontalOffset = (screenWidth - popupWidth) / 2;
+            double verticalOffset = (screenHeight - popupHeight) / 2;
+
+            popup.Placement = PlacementMode.Center;
+            popup.HorizontalOffset = horizontalOffset;
+            popup.VerticalOffset = verticalOffset;
+            popup.Width = popupWidth;
+            popup.Height = popupHeight;
+            popup.AllowsTransparency = true;
+
+            popup.IsOpen = true;
+            popupUserControl.VratiSeNa_Detalji += Ugasi;
+            popupUserControl.PotvrdiClicked += PotvrdiKupovinu;
+
+
+
         }
         private void ListBox_PreviewMouseDown(object sender, MouseButtonEventArgs e)
         {
             e.Handled = true;
         }
 
+        private void Ugasi(object sender, EventArgs e)
+        {
+            popup.IsOpen = false;
+            mainComponent.Opacity = 1;
+            mainComponent.IsHitTestVisible = true;
 
+        }
+        private void PotvrdiKupovinu(object sender, EventArgs e)
+        {
+            popup.IsOpen = false;
+            mainComponent.Opacity = 1;
+            mainComponent.IsHitTestVisible = true;
+            putovanjaServis.KupiPutovanje("masa", putovanje);
+            OkModule popupUserControl = new OkModule("Kupili ste putovanje", "Vaše kupovine možete pogledati u odeljku rezervacije. Vidimo se uskoro.");
+
+            mainComponent.IsHitTestVisible = false;
+            mainComponent.Opacity = 0.4;
+
+            popup.Child = null;
+            popup.Child = popupUserControl;
+            double screenWidth = SystemParameters.PrimaryScreenWidth;
+            double screenHeight = SystemParameters.PrimaryScreenHeight;
+            double popupWidth = 400;
+            double popupHeight = 200;
+
+            double horizontalOffset = (screenWidth - popupWidth) / 2;
+            double verticalOffset = (screenHeight - popupHeight) / 2;
+
+            popup.Placement = PlacementMode.Center;
+            popup.HorizontalOffset = horizontalOffset;
+            popup.VerticalOffset = verticalOffset;
+            popup.Width = popupWidth;
+            popup.Height = popupHeight;
+            popup.AllowsTransparency = true;
+
+            popup.IsOpen = true;
+            popupUserControl.PotvrdiClicked += Ugasi;
+        }
 
 
 

@@ -11,7 +11,7 @@
     <UserControl.Resources>
         <local:IndexConverter x:Key="IndexConverter" />
     </UserControl.Resources>
-    <Grid>
+    <Grid x:Name="mainComponent">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="5*" />
             <ColumnDefinition Width="45*" />
@@ -21,14 +21,14 @@
             <Icon:PackIconMaterial Kind="ArrowLeftBold"/>
         </Button>
         <StackPanel Grid.Column="1" Margin="10">
-            <TextBlock Name="nameInput" FontSize="25" Margin="0,5,0,10" />
-            <WrapPanel Orientation="Horizontal">
+            <TextBlock Name="nameInput" FontWeight="Bold" FontSize="25" Margin="0,5,0,10" />
+            <WrapPanel Margin="0, 5, 0, 10" Orientation="Horizontal">
                 <Icon:PackIconMaterial VerticalAlignment="Center" Kind="WalletTravel" />
-                <TextBlock Name="startInput"  FontSize="16" FontWeight="Bold" />
+                <TextBlock Name="startInput"  FontSize="16" FontWeight="SemiBold" />
             </WrapPanel>
             <WrapPanel Orientation="Horizontal">
                 <Icon:PackIconMaterial VerticalAlignment="Center" Kind="Timelapse" />
-                <TextBlock Name="daysInput" FontSize="16" FontWeight="Bold" />
+                <TextBlock Name="daysInput" FontSize="16" FontWeight="SemiBold" />
             </WrapPanel>
             <TextBlock/>
 
@@ -140,8 +140,11 @@
                 </Expander.Content>
             </Expander>
 
-            <Button HorizontalAlignment="Center" Style="{StaticResource buttonPurple}" Content="Kupi" Click="Kupi_Click"></Button>
         </StackPanel>
+        <Grid Grid.ColumnSpan="2" VerticalAlignment="Bottom" Margin="0, 0, 0, 30"> 
+            <Button HorizontalAlignment="Center" Style="{StaticResource buttonPurple}" Content="  Kupi  " Click="Kupi_Click"></Button>
+        </Grid>
+
 
         <Grid Grid.Column="2" Background="White" Margin="10">
             <m:Map Name="map" CredentialsProvider="nltGyIgw8vEO79Dc9AFY~00N7BTnXTXYeNf3EVNeDNw~AkowgGH4IsDZEM9SmtVES0nD2OD-cD9VWqNSC8e29PF4zPvYoWnCedQQgoaJiDkr" Center="47.6062,-122.3321" ZoomLevel="12" />
