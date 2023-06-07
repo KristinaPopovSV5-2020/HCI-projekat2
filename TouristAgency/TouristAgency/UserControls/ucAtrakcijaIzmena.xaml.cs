@@ -29,19 +29,16 @@ namespace TouristAgency.UserControls
         {
             InitializeComponent();
 
-            this.id.Hint = id;
             this.naziv.Hint = naziv;
             this.opis.Hint = opis;
             this.adresa.Hint = adresa;
 
-            atrakcija.Id = this.id.Hint;
             atrakcija.Naziv = this.naziv.Hint;
             atrakcija.Opis = this.opis.Hint;
             atrakcija.Adresa = this.adresa.Hint;
 
             naslov.Text = "Izmeni atrakciju";
             potvrdi.Content = "Izmeni";
-            this.id.IsEnabled = false;
            
 
         }
@@ -52,8 +49,6 @@ namespace TouristAgency.UserControls
 
             naslov.Text = "Dodaj atrakciju";
             potvrdi.Content = "Dodaj";
-            this.id.Visibility = Visibility.Hidden;
-            this.idLabela.Visibility = Visibility.Hidden;
         }
 
         public event EventHandler VratiSeNa_Atrakcije;

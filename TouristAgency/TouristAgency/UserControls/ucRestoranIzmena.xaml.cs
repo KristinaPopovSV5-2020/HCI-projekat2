@@ -38,18 +38,15 @@ namespace TouristAgency.UserControls
                 }
             }
 
-            this.id.Hint = id;
             this.naziv.Hint = naziv;
             this.adresa.Hint = adresa;
 
-            restoran.Id = this.id.Hint;
             restoran.Naziv = this.naziv.Hint;
             restoran.Ocena = this.ocena.SelectedItem.ToString();
             restoran.Adresa = this.adresa.Hint;
 
             naslov.Text = "Izmeni restoran";
             potvrdi.Content = "Izmeni";
-            this.id.IsEnabled = false;
            
 
         }
@@ -60,8 +57,6 @@ namespace TouristAgency.UserControls
 
             naslov.Text = "Dodaj restoran";
             potvrdi.Content = "Dodaj";
-            this.id.Visibility = Visibility.Hidden;
-            this.idLabela.Visibility = Visibility.Hidden;
         }
 
         public event EventHandler VratiSeNa_Restoran;
@@ -76,7 +71,6 @@ namespace TouristAgency.UserControls
         {
             RestoranArgs args = new RestoranArgs();
 
-            restoran.Id = id.Hint;
             restoran.Naziv = naziv.Hint;
            
             restoran.Adresa = adresa.Hint;

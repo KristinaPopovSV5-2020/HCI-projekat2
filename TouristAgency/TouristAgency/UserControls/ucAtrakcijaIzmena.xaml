@@ -11,7 +11,7 @@
         <Border Grid.Column="1" Padding="20" Background="White" Width="800" Height="650" CornerRadius="30" HorizontalAlignment="Center" VerticalAlignment="Center">
             <Grid Width="600" Height="800">
                 <TextBlock HorizontalAlignment="Center" FontSize="40" Margin="50" FontWeight="SemiBold" Name="naslov"></TextBlock>
-                <Grid HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0 -100 0 0">
+                <Grid HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0 -200 0 0">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="150"/>
                         <ColumnDefinition Width="270"/>
@@ -28,15 +28,12 @@
                         <RowDefinition Height="auto"/>
                     </Grid.RowDefinitions>
 
-                    <TextBlock Grid.Row="0" Text="Id" Style="{StaticResource text}" Name="idLabela"/>
-                    <TextBlock Grid.Row="1" Text="Naziv" Style="{StaticResource text}"/>
+                    <TextBlock Grid.Row="0" Text="Naziv" Style="{StaticResource text}"/>
+                    <uc:ucInput Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="2" Hint="" x:Name="naziv"/>
                     <TextBlock Grid.Row="2" Text="Opis" Style="{StaticResource text}"/>
-                    <TextBlock Grid.Row="3" Text="Adresa" Style="{StaticResource text}"/>
-
-                    <uc:ucInput Grid.Column="1" Grid.Row="0" Hint="" x:Name="id"/>
-                    <uc:ucInput Grid.Column="1" Grid.Row="1" Hint="" x:Name="naziv"/>
-                    <uc:ucInput Grid.Column="1" Grid.Row="2" Hint="" x:Name="opis"/>
-                    <uc:ucInput Grid.Column="1" Grid.Row="3" Hint="" x:Name="adresa"/>
+                    <uc:ucInput Grid.Column="0" Grid.Row="3" Grid.ColumnSpan="2" Hint="" x:Name="opis"/>
+                    <TextBlock Grid.Row="4" Text="Adresa" Style="{StaticResource text}"/>
+                    <uc:ucInput Grid.Column="0" Grid.Row="5" Grid.ColumnSpan="2" Hint="" x:Name="adresa"/>
 
 
                     <Grid Grid.Column="1" Grid.Row="7" Margin="0 40 0 0">

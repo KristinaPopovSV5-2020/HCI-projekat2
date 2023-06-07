@@ -16,6 +16,6 @@
         <TextBlock Margin="10 0" VerticalAlignment="Center" Foreground="#868686" IsHitTestVisible="False" Panel.ZIndex="1" FontSize="20"
                    Text="{Binding Path=Hint,ElementName=input, Mode=TwoWay}"
                    Visibility="{Binding ElementName=textBox, Path=Text.IsEmpty, Converter={StaticResource MyBoolToVisibilityConverter}}" />
-        <TextBox Name="textBox" FontSize="20" TextChanged="Promenjen_Text" />
+        <TextBox Name="textBox" FontSize="20" TextChanged="Promenjen_Text" Background="#e6e6e6"/>
     </Grid>
 </UserControl>

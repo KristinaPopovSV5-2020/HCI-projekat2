@@ -46,11 +46,9 @@ namespace TouristAgency.UserControls
                 }
             }
 
-            this.id.Hint = id;
             this.naziv.Hint = naziv;
             this.adresa.Hint = adresa;
 
-            smestaj.Id = this.id.Hint;
             smestaj.Naziv = this.naziv.Hint;
             smestaj.Tip = (TipSmestaja)Enum.Parse(typeof(TipSmestaja), (this.tip.SelectedItem as ComboBoxItem).Content.ToString());
             smestaj.Adresa = this.adresa.Hint;
@@ -58,7 +56,6 @@ namespace TouristAgency.UserControls
 
             naslov.Text = "Izmeni smestaj";
             potvrdi.Content = "Izmeni";
-            this.id.IsEnabled = false;
             
 
         }
@@ -68,8 +65,6 @@ namespace TouristAgency.UserControls
 
             naslov.Text = "Dodaj smestaj";
             potvrdi.Content = "Dodaj";
-            this.id.Visibility = Visibility.Hidden;
-            this.idLabela.Visibility = Visibility.Hidden;
         }
 
 
@@ -85,7 +80,6 @@ namespace TouristAgency.UserControls
         {
             SmestajArgs args = new SmestajArgs();
 
-            smestaj.Id = id.Hint;
             smestaj.Naziv = naziv.Hint;
            
             smestaj.Adresa = adresa.Hint;
