@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Text;
 using TouristAgency.Model;
 using TouristAgency.Repozitorijum;
+using TouristAgency.UserControls;
 
 namespace TouristAgency.Servis
 {
@@ -27,10 +28,14 @@ namespace TouristAgency.Servis
 
             if (rezultat != null)
             {
-                if (korisnickoIme == "goran")
+                if (korisnickoIme == "goran") { 
+                    UserSession.CurrentUser = "goran";
                     return "goran";
-                else
+                }
+                else {
+                    UserSession.CurrentUser = korisnickoIme;
                     return "korisnik";
+                }
             }
             else
             {

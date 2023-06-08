@@ -43,7 +43,7 @@
                         <TextBlock Text="Atrakcije koje možeš da posetiš" FontSize="16" FontWeight="Bold" />
                     </WrapPanel>
                 </Expander.Header>
-                
+
                 <ListBox Name="listaAtrakcija" ItemsSource="{Binding Atrakcije}" BorderThickness="0">
                     <ListBox.ItemContainerStyle>
                         <Style TargetType="ListBoxItem">
@@ -66,7 +66,7 @@
               ExpandDirection="Down" IsExpanded="False"
               Expanded="Expander_Expanded"
               Width="{Binding ActualWidth, ElementName=atrakcijeExpander}">
-                
+
                 <Expander.Header>
                     <WrapPanel Orientation="Horizontal">
                         <Icon:PackIconMaterial VerticalAlignment="Center" Foreground="LightSeaGreen" Kind="Bed" FontSize="16" />
@@ -86,14 +86,14 @@
                                 AncestorType={x:Type ListBoxItem}}, Mode=OneWay, 
                                 Converter={StaticResource IndexConverter}}"  Margin="7" />
                                 <StackPanel Orientation="Vertical" Margin="7">
-                                <WrapPanel Orientation="Horizontal">
-                                    <TextBlock Text="{Binding Naziv}" FontWeight="Bold" FontSize="16" />
-                                    <materialDesign:RatingBar FontSize="12" x:Name="smestajRating"
+                                    <WrapPanel Orientation="Horizontal">
+                                        <TextBlock Text="{Binding Naziv}" FontWeight="Bold" FontSize="16" />
+                                        <materialDesign:RatingBar FontSize="12" x:Name="smestajRating"
                                     Style="{StaticResource ratingBar}" Value="{Binding Ocena}"/>
 
-                                </WrapPanel>
-                                <TextBlock FontSize="14" Foreground="DimGray" Text="{Binding Tip}" />
-                            </StackPanel>
+                                    </WrapPanel>
+                                    <TextBlock FontSize="14" Foreground="DimGray" Text="{Binding Tip}" />
+                                </StackPanel>
                             </WrapPanel>
 
                         </DataTemplate>
@@ -141,8 +141,8 @@
             </Expander>
 
         </StackPanel>
-        <Grid Grid.ColumnSpan="2" VerticalAlignment="Bottom" Margin="0, 0, 0, 30"> 
-            <Button HorizontalAlignment="Center" Style="{StaticResource buttonPurple}" Content="  Kupi  " Click="Kupi_Click"></Button>
+        <Grid Grid.ColumnSpan="2" VerticalAlignment="Bottom" Margin="0, 0, 0, 30">
+            <Button Name="rezervisiBtn" HorizontalAlignment="Center" Style="{StaticResource buttonPurple}" Content="  Rezerviši  " Click="Kupi_Click" Height="50" VerticalAlignment="Bottom"></Button>
         </Grid>
 
 

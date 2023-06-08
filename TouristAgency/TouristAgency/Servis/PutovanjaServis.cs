@@ -2,6 +2,7 @@
 using MongoDB.Bson.Serialization;
 using MongoDB.Driver;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
@@ -10,6 +11,8 @@ using System.Threading.Tasks;
 using System.Windows.Controls;
 using TouristAgency.Model;
 using TouristAgency.Repozitorijum;
+using MongoDB.Driver.Linq;
+
 
 namespace TouristAgency.Servis
 {
@@ -47,6 +50,7 @@ namespace TouristAgency.Servis
             Baza.AtrakcijeKol.InsertOne(document);
         }
 
+        
         public void IzmeniAtrakciju(Atrakcija atrakcija)
         {
             var filter = Builders<BsonDocument>.Filter.Eq("_id", atrakcija.Id);
@@ -252,11 +256,27 @@ namespace TouristAgency.Servis
         {
             var kupljeni = new Kupljeni
             {
+                id = ObjectId.GenerateNewId().ToString(),
                 Username = username,
                 Putovanje = putovanje
             };
 
             Baza.KupljeniKol.InsertOne(kupljeni.ToBsonDocument());
+        }
+        public List<Putovanje> PronadjiRezervacije(string username)
+        {
+
+            var documents = Baza.KupljeniKol.Find(_ => true).ToList();
+            var rezervacije = documents.Select(p => BsonSerializer.Deserialize<Kupljeni>(p)).ToList();
+            List<Putovanje> putovanja = new List<Putovanje>();
+            foreach (var rezervacija in rezervacije)
+            {
+
+                if (rezervacija.Username == username)
+                    putovanja.Add(rezervacija.Putovanje);
+                
+            }
+            return putovanja;
         }
 
 

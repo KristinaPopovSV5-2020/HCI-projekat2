@@ -24,6 +24,7 @@ namespace TouristAgency.UserControls.client
     {
         ObservableCollection<Putovanje> Putovanja;
         PutovanjaServis putovanjaServis = new PutovanjaServis();
+        public event EventHandler LoginForm;
 
 
         public prikazPutovanja()
@@ -34,6 +35,14 @@ namespace TouristAgency.UserControls.client
             
             listaPutovanja.ItemsSource = putovanjaServis.PronadjiPutovanja();
         }
+        public prikazPutovanja(string username)
+        {
+            InitializeComponent();
+            Putovanja = new ObservableCollection<Putovanje>();
+
+            listaPutovanja.ItemsSource = putovanjaServis.PronadjiRezervacije(username);
+            this.title.Text = "Vaše rezervacije";
+        }
 
 
         private void ItemListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -43,11 +52,15 @@ namespace TouristAgency.UserControls.client
                 Putovanje selectedItem = listaPutovanja.SelectedItem as Putovanje;
                 detalji.Children.Clear();
                 detaljiPrikaz detaljiPrikaz = new detaljiPrikaz();
+                if (this.title.Text == "Vaše rezervacije") {
+                    detaljiPrikaz = new detaljiPrikaz(true);
+                }
                 detalji.Children.Add(detaljiPrikaz);
                 detaljiPrikaz.LoadItemDetails(selectedItem);
                 putovanja.Visibility = Visibility.Collapsed;
                 detalji.Visibility = Visibility.Visible;
                 detaljiPrikaz.VratiSeNa_Putovanja += Vrati;
+                detaljiPrikaz.LoginClick += CallLoginForm;
             }
         }
 
@@ -56,6 +69,11 @@ namespace TouristAgency.UserControls.client
             putovanja.Visibility = Visibility.Visible;
             listaPutovanja.SelectedItem = null;
             detalji.Visibility = Visibility.Collapsed;
+        }
+
+        private void CallLoginForm(object sender, EventArgs e)
+        {
+            LoginForm?.Invoke(this, EventArgs.Empty);
         }
 
 

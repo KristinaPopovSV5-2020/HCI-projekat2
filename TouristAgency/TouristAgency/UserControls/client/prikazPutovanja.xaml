@@ -20,7 +20,7 @@
                 <RowDefinition Height="auto"/>
             </Grid.RowDefinitions>
 
-            <TextBlock Name="test"  Text="Predstojeća putovanja" Grid.Row="2" FontSize="40" FontWeight="SemiBold" Foreground="#121518" HorizontalAlignment="Left" Margin="0, 15, 0, 30"/>
+            <TextBlock Name="title"  Text="Predstojeća putovanja" Grid.Row="2" FontSize="40" FontWeight="SemiBold" Foreground="#121518" HorizontalAlignment="Left" Margin="0, 15, 0, 30"/>
         <ListBox Name="listaPutovanja" Grid.Row="3" HorizontalAlignment="Center" SelectionChanged="ItemListBox_SelectionChanged">
             <ListBox.ItemContainerStyle>
                     <Style TargetType="ListBoxItem">

@@ -26,14 +26,18 @@ namespace TouristAgency.UserControls.client
         List<Restoran> restorani = new List<Restoran>();
         private Putovanje putovanje;
         Popup popup = new Popup();
+        public event EventHandler LoginClick;
 
 
         public detaljiPrikaz()
         {
             InitializeComponent();
-            //atrakcijeExpander.PreviewMouseLeftButtonUp += Atrakcije_Click;
-            //smestajExpander.PreviewMouseLeftButtonUp += Smestaji_Click;
-            //restoraniExpander.PreviewMouseLeftButtonUp += Restorani_Click;
+        }
+
+        public detaljiPrikaz(bool hide)
+        {
+            InitializeComponent();
+            this.rezervisiBtn.Visibility = Visibility.Collapsed;
         }
 
         internal async void LoadItemDetails(Putovanje selectedItem)
@@ -247,6 +251,12 @@ namespace TouristAgency.UserControls.client
 
         public void Kupi_Click(object sender, RoutedEventArgs e)
         {
+
+            if (UserSession.CurrentUser == null)
+            {
+                LoginClick?.Invoke(this, EventArgs.Empty);
+                return;
+            }
             kupovinaPotvrda popupUserControl = new kupovinaPotvrda(putovanje);
 
             mainComponent.IsHitTestVisible = false;
@@ -276,6 +286,7 @@ namespace TouristAgency.UserControls.client
 
 
         }
+
         private void ListBox_PreviewMouseDown(object sender, MouseButtonEventArgs e)
         {
             e.Handled = true;
@@ -293,7 +304,7 @@ namespace TouristAgency.UserControls.client
             popup.IsOpen = false;
             mainComponent.Opacity = 1;
             mainComponent.IsHitTestVisible = true;
-            putovanjaServis.KupiPutovanje("masa", putovanje);
+            putovanjaServis.KupiPutovanje(UserSession.CurrentUser, putovanje);
             OkModule popupUserControl = new OkModule("Kupili ste putovanje", "Vaše kupovine možete pogledati u odeljku rezervacije. Vidimo se uskoro.");
 
             mainComponent.IsHitTestVisible = false;

@@ -68,7 +68,7 @@
 
             <!--Main Section-->
             <Grid Name="mainComponent" Grid.Column="1" Grid.Row="1" Margin="30 20 20 20">
-                <local:prikazPutovanja></local:prikazPutovanja>
+                <local:prikazPutovanja x:Name="prikaz"></local:prikazPutovanja>
             </Grid>
             <Grid Name="kupljena" Visibility="Collapsed" Grid.Column="1" Grid.Row="1" Margin="30 20 20 20">
                 <local:prikazPutovanja></local:prikazPutovanja>

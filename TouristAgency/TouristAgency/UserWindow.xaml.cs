@@ -28,6 +28,8 @@ namespace TouristAgency
             loggedOut.LoginClick += Prijava_click;
             loggedOut.RegistracijaClick += Registracija_Click;
             loggedOut.PutovanjaClick += PrikazPutovanja;
+            this.prikaz.LoginForm += Prijava_click;
+
         }
 
 
@@ -157,6 +159,7 @@ namespace TouristAgency
             logged logged = new logged();
             logged.Odjava += Odjava_Click;
             logged.Putovanja += PrikazPutovanja;
+            logged.Rezervacije += PrikazRezervacija;
             menu.Children.Clear();
             menu.Children.Add(logged);
 
@@ -176,18 +179,25 @@ namespace TouristAgency
             prikazPutovanja putovanja = new prikazPutovanja();
             mainComponent.Children.Clear();
             mainComponent.Children.Add(putovanja);
+            putovanja.LoginForm += Prijava_click;
+
 
             loggedOut.LoginClick += Prijava_click;
             loggedOut.RegistracijaClick += Registracija_Click;
             loggedOut.PutovanjaClick += PrikazPutovanja;
-
-            
 
         }
 
         private void PrikazPutovanja(object sender,EventArgs e)
         {
             prikazPutovanja putovanja = new prikazPutovanja();
+            mainComponent.Children.Clear();
+            mainComponent.Children.Add(putovanja);
+            putovanja.LoginForm += Prijava_click;
+        }
+        private void PrikazRezervacija(object sender,EventArgs e)
+        {
+            prikazPutovanja putovanja = new prikazPutovanja(UserSession.CurrentUser);
             mainComponent.Children.Clear();
             mainComponent.Children.Add(putovanja);
         }
