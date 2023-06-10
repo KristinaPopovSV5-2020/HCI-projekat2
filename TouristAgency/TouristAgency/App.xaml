@@ -188,6 +188,7 @@
 
         <Style x:Key="filterTextBox" TargetType="TextBox" BasedOn="{StaticResource searchTextbox}">
             <Setter Property="Padding" Value="10 7" />
+                <Setter Property="Height" Value="25"></Setter>
             <Setter Property="Foreground" Value="#6C7682" />
             <Setter Property="Template">
                 <Setter.Value>
@@ -570,8 +571,16 @@
                 <Setter Property="Foreground" Value="#363636" />
                 <Setter Property="VerticalAlignment" Value="Center" />
                 <Setter Property="FontWeight" Value="SemiBold" />
-                <Setter Property="FontSize" Value="25" />
+                <Setter Property="FontSize" Value="25"/>
             </Style>
+
+
+     
+            <Style TargetType="ListView" x:Key="BlackBorderListViewStyle">
+                <Setter Property="BorderBrush" Value="Black" />
+                <Setter Property="BorderThickness" Value="1" />
+            </Style>
+            
 
 
             <Style TargetType="TextBox">
@@ -579,10 +588,11 @@
                 <Setter Property="Foreground" Value="#767676" />
                 <Setter Property="BorderThickness" Value="1" />
                 <Setter Property="BorderBrush" Value="#F5F7F9" />
-                <Setter Property="FontSize" Value="12" />
+                <Setter Property="FontSize" Value="17" />
                 <Setter Property="Padding" Value="10 10" />
                 <Setter Property="VerticalAlignment" Value="Center" />
                 <Setter Property="Margin" Value="0 10" />
+                <Setter Property="Height" Value="30"/>
                 <Setter Property="Template">
                     <Setter.Value>
                         <ControlTemplate TargetType="{x:Type TextBoxBase}">
