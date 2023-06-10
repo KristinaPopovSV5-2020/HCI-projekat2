@@ -132,22 +132,24 @@ namespace TouristAgency.UserControls
         {
             if (string.IsNullOrWhiteSpace(naziv))
             {
-                txtError.Visibility = Visibility.Visible;
-                txtError.Text = "Naziv ne sme biti prazan";
+                txtErrorNaziv.Visibility = Visibility.Visible;
+                txtErrorNaziv.Text = "Naziv ne sme biti prazan";
                 return false;
             }
 
             if (string.IsNullOrWhiteSpace(adresa))
             {
-                txtError.Visibility = Visibility.Visible;
-                txtError.Text = "Adresa ne sme biti prazna";
+                txtErrorNaziv.Visibility = Visibility.Collapsed;
+                txtErrorAdresa.Visibility = Visibility.Visible;
+                txtErrorAdresa.Text = "Adresa ne sme biti prazna";
                 return false;
             }
 
             if (string.IsNullOrWhiteSpace(ocena))
             {
-                txtError.Visibility = Visibility.Visible;
-                txtError.Text = "Ocena ne sme biti prazna";
+                txtErrorAdresa.Visibility = Visibility.Collapsed;
+                txtErrorOcena.Visibility = Visibility.Visible;
+                txtErrorOcena.Text = "Ocena ne sme biti prazna";
                 return false;
             }
 

@@ -26,25 +26,36 @@
                         <RowDefinition Height="auto"/>
                         <RowDefinition Height="auto"/>
                         <RowDefinition Height="auto"/>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="auto"/>
+                        
                     </Grid.RowDefinitions>
 
                     <TextBlock Grid.Row="0" Text="Naziv" Style="{StaticResource text}"/>
                     <uc:ucInput Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="2" Hint="" x:Name="naziv"/>
-                    <TextBlock Grid.Row="2" Text="Opis" Style="{StaticResource text}"/>
-                    <uc:ucInput Grid.Column="0" Grid.Row="3" Grid.ColumnSpan="2" Hint="" x:Name="opis"/>
-                    <TextBlock Grid.Row="4" Text="Adresa" Style="{StaticResource text}"/>
-                    <uc:ucInput Grid.Column="0" Grid.Row="5" Grid.ColumnSpan="2" Hint="" x:Name="adresa"/>
+                    <TextBlock x:Name="txtErrorNaziv" Grid.Row="3" Grid.ColumnSpan="2" FontSize="22"  FontWeight="SemiBold" Foreground="BlueViolet" HorizontalAlignment="Center" Text="NAziv" Visibility="Collapsed" />
 
 
-                    <Grid Grid.Column="1" Grid.Row="7" Margin="0 40 0 0">
+                    <TextBlock Grid.Row="3" Text="Opis" Style="{StaticResource text}"/>
+                    <uc:ucInput Grid.Column="0" Grid.Row="4" Grid.ColumnSpan="2" Hint="" x:Name="opis"/>
+                    <TextBlock x:Name="txtErrorOpis" Grid.Row="5" Grid.ColumnSpan="2" FontSize="22" FontWeight="SemiBold" Foreground="BlueViolet" HorizontalAlignment="Center" Text="OPIS" Visibility="Collapsed" />
+
+
+                    <TextBlock Grid.Row="6" Text="Adresa" Style="{StaticResource text}"/>
+                    <uc:ucInput Grid.Column="0" Grid.Row="7" Grid.ColumnSpan="2" Hint="" x:Name="adresa"/>
+                    <TextBlock x:Name="txtErrorAdresa" Grid.Row="8" Grid.ColumnSpan="2" FontSize="22"  FontWeight="SemiBold" Foreground="BlueViolet" HorizontalAlignment="Center" Text="DRESA" Visibility="Collapsed" />
+
+
+
+
+                    <Grid Grid.Column="1" Grid.Row="9" Margin="0 40 0 0">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="*"/>
                             <ColumnDefinition Width="*"/>
                         </Grid.ColumnDefinitions>
 
-                        <TextBlock x:Name="txtError" Grid.Row="4" Grid.ColumnSpan="2" FontSize="22" Margin="0 -40 0 0" FontWeight="SemiBold" Foreground="BlueViolet" HorizontalAlignment="Center" Text="" Visibility="Collapsed" />
-
-                        <Button Style="{StaticResource buttonMain}" Margin="0 0 10 0" Content="Odustani" Click="Vrati_Se" />
+                         <Button Style="{StaticResource buttonMain}" Margin="0 0 10 0" Content="Odustani" Click="Vrati_Se" />
 
                         <Button Grid.Column="1" Style="{StaticResource buttonPurple}" Margin="10 0 0 0" Name="potvrdi" Click="Potvrdi"/>
                     </Grid>

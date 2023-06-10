@@ -33,10 +33,11 @@ namespace TouristAgency.UserControls
 
             bool isCredentialsValid = ValidateInput(username, password, coPassword);
 
+
             if (isCredentialsValid)
             {
                 txtError.Visibility = Visibility.Collapsed;
-                 KorisnikServis.Registracija(username, password);
+                KorisnikServis.Registracija(username, password);
                 txtSucces.Visibility = Visibility.Visible;
                 txtSucces.Text = "Uspešno ste se registrovali.";
 
@@ -50,36 +51,36 @@ namespace TouristAgency.UserControls
         {
             if (string.IsNullOrWhiteSpace(username) )
             {
-                txtError.Visibility = Visibility.Visible;
+                txtErrorUsername.Visibility = Visibility.Visible;
                 txtError.Text = "Korisničko ime treba da bude popunjeno.";
                 return false;
             }else if (string.IsNullOrWhiteSpace(password))
             {
-                txtError.Visibility = Visibility.Visible;
-                txtError.Text = "Lozinka treba da bude popunjena.";
+                txtErrorPassword.Visibility = Visibility.Visible;
+                txtErrorPassword.Text = "Lozinka treba da bude popunjena.";
                 return false;
 
             }
             else if (string.IsNullOrWhiteSpace(coPassword))
             {
-                txtError.Visibility = Visibility.Visible;
-                txtError.Text = "Potvrda lozinke treba da bude popunjena.";
+                txtErrorCoPassword.Visibility = Visibility.Visible;
+                txtErrorCoPassword.Text = "Potvrda lozinke treba da bude popunjena.";
                 return false;
 
             }
 
             if (!password.Equals(coPassword))
             {
-                txtError.Visibility = Visibility.Visible;
-                txtError.Text = "Lozinke se ne poklapaju.";
+                txtErrorCoPassword.Visibility = Visibility.Visible;
+                txtErrorCoPassword.Text = "Lozinke se ne poklapaju.";
                 return false;
 
             }
 
             if (KorisnikServis.ProveraKorisnickogImena(username))
             {
-                txtError.Visibility = Visibility.Visible;
-                txtError.Text = "Korisničko ime je zauzeto. Unesite drugo.";
+                txtErrorUsername.Visibility = Visibility.Visible;
+                txtErrorUsername.Text = "Korisničko ime je zauzeto. Unesite drugo.";
                 return false;
             }
            

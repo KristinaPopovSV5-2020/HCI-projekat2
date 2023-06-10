@@ -26,17 +26,23 @@
                     </Grid.RowDefinitions>
 
                     <TextBlock Grid.Row="0" Text="Korisničko ime" Style="{StaticResource text}"/>
-                    <TextBlock Grid.Row="1" Text="Lozinka" Style="{StaticResource text}"/>
-                    <TextBlock Grid.Row="2" Text="Potvrda lozinke" Style="{StaticResource text}"/>
+                    <TextBlock Grid.Row="2" Text="Lozinka" Style="{StaticResource text}"/>
+                    <TextBlock Grid.Row="4" Text="Potvrda lozinke" Style="{StaticResource text}"/>
 
                     <TextBox x:Name="txtUsername"   Grid.Column="1" Grid.Row="0" FontSize="20" />
-                    <PasswordBox x:Name="txtPassword"  Grid.Column="1" Grid.Row="1"/>
-                    <PasswordBox x:Name="txtCoPassword"  Grid.Column="1" Grid.Row="2"/>
+                    <PasswordBox x:Name="txtPassword"  Grid.Column="1" Grid.Row="2"/>
+                    <PasswordBox x:Name="txtCoPassword"  Grid.Column="1" Grid.Row="4"/>
+                    <TextBlock x:Name="txtErrorUsername" Grid.Row="1" Grid.Column="1" FontSize="17"  Foreground="BlueViolet" HorizontalAlignment="Center" Text="hnoffa" Visibility="Collapsed" />
 
-                    <TextBlock x:Name="txtError" Grid.Row="3" Grid.ColumnSpan="2" FontSize="20"   Foreground="BlueViolet" HorizontalAlignment="Center" Text="" Visibility="Collapsed" />
-                    <TextBlock x:Name="txtSucces" Grid.Row="3" Grid.ColumnSpan="2" FontSize="20"  Foreground="green" HorizontalAlignment="Center" Text="" Visibility="Collapsed"/>
+                    <TextBlock x:Name="txtErrorPassword" Grid.Row="3" Grid.Column="1" FontSize="17"  Foreground="BlueViolet" HorizontalAlignment="Center" Text="nvljnvl" Visibility="Collapsed" />
 
-                    <Button x:Name="btnRegistracija" Grid.Row="4" Grid.ColumnSpan="2" FontSize="24" HorizontalAlignment="Center" Margin="0 70 0 0" Style="{StaticResource buttonPurple}" Content=" Potvrdi " Click="BtnRegistracija_Click"/>
+                    <TextBlock x:Name="txtErrorCoPassword" Grid.Row="5" Grid.Column="1" FontSize="17"  Foreground="BlueViolet" HorizontalAlignment="Center" Text="vbkvj" Visibility="Collapsed" />
+
+
+                    <TextBlock x:Name="txtError" Grid.Row="6" Grid.ColumnSpan="2" FontSize="20"   Foreground="BlueViolet" HorizontalAlignment="Center" Text="" Visibility="Collapsed" />
+                    <TextBlock x:Name="txtSucces" Grid.Row="7" Grid.ColumnSpan="2" FontSize="20"  Foreground="green" HorizontalAlignment="Center" Text="" Visibility="Collapsed"/>
+
+                    <Button x:Name="btnRegistracija" Grid.Row="8" Grid.ColumnSpan="2" FontSize="24" HorizontalAlignment="Center" Margin="0 70 0 0" Style="{StaticResource buttonPurple}" Content=" Potvrdi " Click="BtnRegistracija_Click"/>
                 </Grid>
             </Grid>
         </Border>
