@@ -14,23 +14,16 @@ using System.Windows.Shapes;
 namespace TouristAgency.UserControls
 {
     /// <summary>
-    /// Interaction logic for OkModule.xaml
+    /// Interaction logic for YesNoModule.xaml
     /// </summary>
-    public partial class OkModule : UserControl
+    public partial class YesNoModule : UserControl
     {
         public event EventHandler PotvrdiClicked;
+        public event EventHandler OdustaniClicked;
 
-        public OkModule(string uspesnost, string poruka)
+        public YesNoModule(string poruka)
         {
             InitializeComponent();
-            this.uspesnost.Text = uspesnost;
-            this.poruka.Text = poruka;
-        }
-
-        public OkModule(string poruka)
-        {
-            InitializeComponent();
-            this.odustani.Visibility = Visibility.Collapsed;
             this.poruka.Text = poruka;
         }
 
@@ -39,6 +32,12 @@ namespace TouristAgency.UserControls
             PotvrdiClicked?.Invoke(this, EventArgs.Empty);
         }
 
+        public void Odustani(object sender, RoutedEventArgs e)
+        {
+            OdustaniClicked?.Invoke(this, EventArgs.Empty);
+        }
+
 
     }
 }
+

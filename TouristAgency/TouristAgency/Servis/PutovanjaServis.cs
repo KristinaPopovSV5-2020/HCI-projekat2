@@ -50,7 +50,6 @@ namespace TouristAgency.Servis
             Baza.AtrakcijeKol.InsertOne(document);
         }
 
-        
         public void IzmeniAtrakciju(Atrakcija atrakcija)
         {
             var filter = Builders<BsonDocument>.Filter.Eq("_id", atrakcija.Id);
@@ -252,6 +251,8 @@ namespace TouristAgency.Servis
             return putovanja;
         }
 
+
+
         public void KupiPutovanje(string username,  Putovanje putovanje)
         {
             var kupljeni = new Kupljeni
@@ -263,7 +264,7 @@ namespace TouristAgency.Servis
 
             Baza.KupljeniKol.InsertOne(kupljeni.ToBsonDocument());
         }
-        public List<Putovanje> PronadjiRezervacije(string username)
+        public List<Putovanje> PronadjiKupovine(string username)
         {
 
             var documents = Baza.KupljeniKol.Find(_ => true).ToList();
@@ -278,9 +279,61 @@ namespace TouristAgency.Servis
             }
             return putovanja;
         }
+        public List<Putovanje> PronadjiPopularneKupovine()
+        {
+            var documents = Baza.KupljeniKol.Find(_ => true).ToList();
+            var rezervacije = documents.Select(p => BsonSerializer.Deserialize<Kupljeni>(p)).ToList();
+            List<Putovanje> kupljeni = new List<Putovanje>();
+            foreach (var k in rezervacije)
+            {
+                kupljeni.Add(k.Putovanje);
 
+            }
+            var mostOccurringIds = kupljeni
+                .GroupBy(p => p.Id)
+                .OrderByDescending(g => g.Count())
+                .Select(g => g.Key)
+                .Take(3)
+                .ToList();
 
+            var kupljeniSet = new HashSet<Putovanje>(kupljeni);
 
+            var mostOccurringPutovanja = kupljeniSet
+                .Where(p => mostOccurringIds.Contains(p.Id))
+                .GroupBy(p => p.Id)
+                .Select(g => g.First())
+                .Take(3)
+                .ToList();
+            return mostOccurringPutovanja;
+        }
+
+        public List<Putovanje> PronadjiRezervacije(string username)
+        {
+
+            var documents = Baza.RezervacijekOL.Find(_ => true).ToList();
+            var rezervacije = documents.Select(p => BsonSerializer.Deserialize<Kupljeni>(p)).ToList();
+            List<Putovanje> putovanja = new List<Putovanje>();
+            foreach (var rezervacija in rezervacije)
+            {
+
+                if (rezervacija.Username == username)
+                    putovanja.Add(rezervacija.Putovanje);
+
+            }
+            return putovanja;
+        }
+
+        public void RezervisiPutovanje(string username, Putovanje putovanje)
+        {
+            var rez = new Kupljeni
+            {
+                id = ObjectId.GenerateNewId().ToString(),
+                Username = username,
+                Putovanje = putovanje
+            };
+
+            Baza.RezervacijekOL.InsertOne(rez.ToBsonDocument());
+        }
 
     }
 

@@ -117,7 +117,7 @@
                 <Expander.Content>
                     <ListBox Name="listaRestorana" PreviewMouseLeftButtonDown="ListBox_PreviewMouseLeftButtonDown" ItemsSource="{Binding Restoran}" BorderThickness="0">
                         <ListBox.ItemContainerStyle>
-                            <Style TargetType="ListBoxItem">
+                            <Style TargetType="ListBoxItem" BasedOn="{StaticResource ListViewContainerStyle}">
                                 <EventSetter Event="MouseLeftButtonUp" Handler="ListBoxItem_Click" />
                             </Style>
                         </ListBox.ItemContainerStyle>
@@ -142,7 +142,12 @@
 
         </StackPanel>
         <Grid Grid.ColumnSpan="2" VerticalAlignment="Bottom" Margin="0, 0, 0, 30">
-            <Button Name="rezervisiBtn" HorizontalAlignment="Center" Style="{StaticResource buttonPurple}" Content="  Rezerviši  " Click="Kupi_Click" Height="50" VerticalAlignment="Bottom"></Button>
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+
+                <Button x:Name="rezervisiBtn" Margin="5" Style="{StaticResource buttonPurple}" Content=" Rezerviši " Click="Kupi_Click" Height="50" VerticalAlignment="Bottom"></Button>
+                <Button x:Name="kupiBtn" Margin="5" Style="{StaticResource buttonPurple}" Content="  Kupi  " Click="Kupi_Click" Height="50" VerticalAlignment="Bottom"></Button>
+
+            </StackPanel>
         </Grid>
 
 

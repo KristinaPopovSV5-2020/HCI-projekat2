@@ -1,21 +1,21 @@
-﻿<UserControl x:Class="TouristAgency.UserControls.OkModule"
+﻿<UserControl x:Class="TouristAgency.UserControls.YesNoModule"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:TouristAgency.UserControls"
              mc:Ignorable="d" 
-             d:DesignHeight="180" d:DesignWidth="400">
+              d:DesignHeight="180" d:DesignWidth="400">
     <Border Background="White" BorderBrush="Gray" BorderThickness="0.5"  CornerRadius="20">
         <Grid Margin="25">
             <StackPanel Orientation="Vertical">
                 <TextBlock  x:Name="uspesnost" FontSize="25"></TextBlock>
                 <TextBlock TextWrapping="Wrap" TextTrimming="None" x:Name="poruka" FontSize="15"></TextBlock>
             </StackPanel>
-            
-            <Button HorizontalAlignment="Left" VerticalAlignment="Bottom" FontSize="17" Height="40" Content="Ne" Style="{StaticResource buttonMain}" Click="Potvrdi" Margin="180 0 0 0" Name="odustani" Width="80"/>
 
-            <Button HorizontalAlignment="Right" VerticalAlignment="Bottom" FontSize="17" Foreground="Black" Content="Ok" Style="{StaticResource filterDugme}" Click="Potvrdi" Margin="10 0 0 0" Name="potvrdi" Width="80"/>
+            <Button HorizontalAlignment="Left" VerticalAlignment="Bottom" FontSize="17" Height="40" Content="Ne" Style="{StaticResource buttonMain}" Click="Odustani" Margin="180 0 0 0" Name="odustani" Width="80"/>
+
+            <Button HorizontalAlignment="Right" VerticalAlignment="Bottom" FontSize="17" Foreground="Black" Content="Da" Style="{StaticResource filterDugme}" Click="Potvrdi" Margin="10 0 0 0" Name="potvrdi" Width="80"/>
         </Grid>
     </Border>
 </UserControl>

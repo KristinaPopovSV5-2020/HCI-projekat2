@@ -27,6 +27,8 @@ namespace TouristAgency.UserControls
         ObservableCollection<Restoran> trenutniRestorani;
         PutovanjaServis putovanjaServis = new PutovanjaServis();
         Popup popup = new Popup();
+        Popup popup1 = new Popup();
+        Restoran zaBrisanje;
         public ucRestorani()
         {
             InitializeComponent();
@@ -43,22 +45,68 @@ namespace TouristAgency.UserControls
         private void Obrisi_Restoran(object sender, RoutedEventArgs e)
         {
             Restoran selectedItem = restoraniDataGrid.SelectedItem as Restoran;
+            zaBrisanje = selectedItem;
 
             if (selectedItem != null)
             {
-                MessageBoxResult result = MessageBox.Show("Da li sigurno želiš da izbrišeš restoran " + selectedItem.Naziv, "Potvrda", MessageBoxButton.YesNo, MessageBoxImage.Question);
+                YesNoModule popupUserControl = new YesNoModule("Da li sigurno želiš da izbrišeš restoran " + selectedItem.Naziv);
 
-                if (result == MessageBoxResult.Yes)
-                {
-                    putovanjaServis.ObrisiRestoran(selectedItem);
-                    restorani.Remove(selectedItem);
-                    restoraniDataGrid.Items.Refresh();
-                    MessageBox.Show($"Restoran '{selectedItem.Naziv}' je obrisan.", "Restoran obrisan", MessageBoxButton.OK, MessageBoxImage.Information);
+                mainComponent.IsHitTestVisible = false;
+                mainComponent.Opacity = 0.4;
 
-                }
+                popup.Child = null;
+                popup.Child = popupUserControl;
+                popup.HorizontalOffset = 500;
+                popup.VerticalOffset = 570;
+                popup.Height = 180;
+                popup.Width = 400;
+                popup.AllowsTransparency = true;
+
+                popup.IsOpen = true;
+
+                popupUserControl.PotvrdiClicked += Obrisi;
+                popupUserControl.OdustaniClicked += Odustani;
+                //MessageBoxResult result = MessageBox.Show("Da li sigurno želiš da izbrišeš restoran " + selectedItem.Naziv, "Potvrda", MessageBoxButton.YesNo, MessageBoxImage.Question);
 
             }
 
+        }
+
+        public void Obrisi(object sender,EventArgs e)
+        {
+            putovanjaServis.ObrisiRestoran(zaBrisanje);
+            restorani.Remove(zaBrisanje);
+            restoraniDataGrid.Items.Refresh();
+
+            popup.IsOpen = false;
+
+            OkModule popupUserControl = new OkModule("Resotran " + zaBrisanje.Naziv + " je obrisan.");
+
+            popup1.Child = null;
+            popup1.Child = popupUserControl;
+            popup1.HorizontalOffset = 500;
+            popup1.VerticalOffset = 570;
+            popup1.Height = 180;
+            popup1.Width = 400;
+            popup1.AllowsTransparency = true;
+
+            popup1.IsOpen = true;
+
+            popupUserControl.PotvrdiClicked += Zatvori;
+        }
+
+        public void Zatvori(object sender, EventArgs e)
+        {
+            popup1.IsOpen = false;
+            mainComponent.IsHitTestVisible = true;
+            mainComponent.Opacity = 1;
+        }
+
+        public void Odustani(object sender, EventArgs e)
+        {
+            popup.IsOpen = false;
+            mainComponent.IsHitTestVisible = true;
+            mainComponent.Opacity = 1;
         }
 
         private void Izmeni_Restoran(object sender, RoutedEventArgs e)

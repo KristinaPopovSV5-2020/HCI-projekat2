@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Controls.Primitives;
 using System.Windows.Data;
 using System.Windows.Documents;
 using System.Windows.Input;
@@ -24,6 +25,7 @@ namespace TouristAgency.UserControls
     {
         public Atrakcija atrakcija = new Atrakcija();
         PutovanjaServis putovanjaServis = new PutovanjaServis();
+        Popup popup = new Popup();
 
         public ucAtrakcijaIzmena(string id, string naziv, string opis, string adresa)
         {
@@ -81,11 +83,34 @@ namespace TouristAgency.UserControls
                 if (ValidateInput(atrakcija.Naziv, atrakcija.Opis, atrakcija.Adresa))
                 {
                     putovanjaServis.IzmeniAtrakciju(atrakcija);
+                   
+
+                    OkModule popupUserControl = new OkModule("Atrakcija "+atrakcija.Naziv+" je izmenjena.");
+                 
+                    
+                    popup.Child = null;
+                    popup.Child = popupUserControl;
+                    popup.HorizontalOffset = 500;
+                    popup.VerticalOffset = 570;
+                    popup.Height = 180;
+                    popup.Width = 400;
+                    popup.AllowsTransparency = true;
+
+                    popup.IsOpen = true;
+
+                    popupUserControl.PotvrdiClicked += Zatvori;
+
                     VratiSeNa_Atrakcije?.Invoke(this, EventArgs.Empty);
-                    MessageBox.Show($"Atrakcija '{atrakcija.Id}' je izmenjena.", "Atrakcija izmenjena", MessageBoxButton.OK, MessageBoxImage.Information);
+
+                    // MessageBox.Show($"Atrakcija '{atrakcija.Id}' je izmenjena.", "Atrakcija izmenjena", MessageBoxButton.OK, MessageBoxImage.Information);
 
                 }
             }
+        }
+
+        public void Zatvori(object sender, EventArgs e)
+        {
+            popup.IsOpen = false;
         }
 
         private bool ValidateInput(string naziv, string opis, string adresa)
