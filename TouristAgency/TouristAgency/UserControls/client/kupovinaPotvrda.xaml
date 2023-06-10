@@ -19,7 +19,7 @@
                 <RowDefinition Height="Auto" />
             </Grid.RowDefinitions>
             <StackPanel Margin="15" Orientation="Vertical" VerticalAlignment="Center">
-                <TextBlock Grid.Row="0" Text="Potvrdi rezervaciju?" FontSize="25" FontWeight="Bold" Margin="0 5 0 10" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                <TextBlock Grid.Row="0" Text="Potvrdi rezervaciju" x:Name="title" FontSize="25" FontWeight="Bold" Margin="0 5 0 10" VerticalAlignment="Center" HorizontalAlignment="Center"/>
                 <TextBlock Margin="5" Grid.Row="1"  FontSize="15" Text="Naziv" FontWeight="Bold"/>
                 <TextBlock Margin="5" Grid.Column="0"  FontSize="15"  Grid.Row="2" Grid.ColumnSpan="2" x:Name="naziv"/>
                 <TextBlock Margin="5" Grid.Row="3"  FontSize="15" Text="Datum polaska" FontWeight="Bold"/>

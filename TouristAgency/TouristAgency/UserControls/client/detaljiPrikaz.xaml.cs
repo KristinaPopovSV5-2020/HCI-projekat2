@@ -34,12 +34,27 @@ namespace TouristAgency.UserControls.client
             InitializeComponent();
         }
 
-        public detaljiPrikaz(bool hide)
+        public detaljiPrikaz(bool prikaziKupiBtn)
         {
             InitializeComponent();
-            this.rezervisiBtn.Visibility = Visibility.Collapsed;
+            if (!prikaziKupiBtn)
+            {
+                hideBothButtons();
+            } else
+            {
+                hideRezButton();
+            }
         }
 
+        public void hideBothButtons()
+        {
+            hideRezButton();
+            kupiBtn.Visibility = Visibility.Collapsed;
+        }
+        public void hideRezButton()
+        {
+            this.rezervisiBtn.Visibility = Visibility.Collapsed;
+        }
         internal async void LoadItemDetails(Putovanje selectedItem)
         {
             putovanje = selectedItem;
@@ -54,7 +69,6 @@ namespace TouristAgency.UserControls.client
             listaAtrakcija.ItemsSource = atrakcijas;
             listaSmestaja.ItemsSource = smestaji;
             listaRestorana.ItemsSource = restorani;
-            Canvas group2 = new Canvas();
             await SearchAndAddPushpin(atrakcijas.Select(a => a.Adresa).ToList());
             await SearchAndAddPushpin(smestaji.Select(a => a.Adresa).ToList(), 1);
             await SearchAndAddPushpin(restorani.Select(a => a.Adresa).ToList(), 2);
@@ -251,12 +265,19 @@ namespace TouristAgency.UserControls.client
 
         public void Kupi_Click(object sender, RoutedEventArgs e)
         {
-
             if (UserSession.CurrentUser == null)
             {
                 LoginClick?.Invoke(this, EventArgs.Empty);
                 return;
             }
+            Button button = sender as Button;
+
+            if (button.Name=="kupiBtn")
+            {
+                kupovina();
+                return;
+            }
+
             kupovinaPotvrda popupUserControl = new kupovinaPotvrda(putovanje);
 
             mainComponent.IsHitTestVisible = false;
@@ -281,10 +302,39 @@ namespace TouristAgency.UserControls.client
 
             popup.IsOpen = true;
             popupUserControl.VratiSeNa_Detalji += Ugasi;
+            popupUserControl.PotvrdiClicked += PotvrdiRezervaciju;
+
+
+
+        }
+
+        private void kupovina()
+        {
+            kupovinaPotvrda popupUserControl = new kupovinaPotvrda(putovanje);
+            popupUserControl.title.Text = "Potvrdi kupovinu";
+            mainComponent.IsHitTestVisible = false;
+            mainComponent.Opacity = 0.4;
+
+            popup.Child = null;
+            popup.Child = popupUserControl;
+            double screenWidth = SystemParameters.PrimaryScreenWidth;
+            double screenHeight = SystemParameters.PrimaryScreenHeight;
+            double popupWidth = 400;
+            double popupHeight = 350;
+
+            double horizontalOffset = (screenWidth - popupWidth) / 2;
+            double verticalOffset = (screenHeight - popupHeight) / 2;
+
+            popup.Placement = PlacementMode.Center;
+            popup.HorizontalOffset = horizontalOffset;
+            popup.VerticalOffset = verticalOffset;
+            popup.Width = popupWidth;
+            popup.Height = popupHeight;
+            popup.AllowsTransparency = true;
+
+            popup.IsOpen = true;
+            popupUserControl.VratiSeNa_Detalji += Ugasi;
             popupUserControl.PotvrdiClicked += PotvrdiKupovinu;
-
-
-
         }
 
         private void ListBox_PreviewMouseDown(object sender, MouseButtonEventArgs e)
@@ -305,7 +355,38 @@ namespace TouristAgency.UserControls.client
             mainComponent.Opacity = 1;
             mainComponent.IsHitTestVisible = true;
             putovanjaServis.KupiPutovanje(UserSession.CurrentUser, putovanje);
-            OkModule popupUserControl = new OkModule("Kupili ste putovanje", "Vaše kupovine možete pogledati u odeljku rezervacije. Vidimo se uskoro.");
+            OkModule popupUserControl = new OkModule("Kupili ste putovanje", "Kupili ste putovanje. Vaše kupovine možete pogledati u odeljku istorija kupovine. Srećan put!");
+
+            mainComponent.IsHitTestVisible = false;
+            mainComponent.Opacity = 0.4;
+
+            popup.Child = null;
+            popup.Child = popupUserControl;
+            double screenWidth = SystemParameters.PrimaryScreenWidth;
+            double screenHeight = SystemParameters.PrimaryScreenHeight;
+            double popupWidth = 400;
+            double popupHeight = 200;
+
+            double horizontalOffset = (screenWidth - popupWidth) / 2;
+            double verticalOffset = (screenHeight - popupHeight) / 2;
+
+            popup.Placement = PlacementMode.Center;
+            popup.HorizontalOffset = horizontalOffset;
+            popup.VerticalOffset = verticalOffset;
+            popup.Width = popupWidth;
+            popup.Height = popupHeight;
+            popup.AllowsTransparency = true;
+
+            popup.IsOpen = true;
+            popupUserControl.PotvrdiClicked += Ugasi;
+        }
+        private void PotvrdiRezervaciju(object sender, EventArgs e)
+        {
+            popup.IsOpen = false;
+            mainComponent.Opacity = 1;
+            mainComponent.IsHitTestVisible = true;
+            putovanjaServis.RezervisiPutovanje(UserSession.CurrentUser, putovanje);
+            OkModule popupUserControl = new OkModule("Rezervisali ste putovanje", "Vaše rezervacije možete pogledati u odeljku rezervacije.");
 
             mainComponent.IsHitTestVisible = false;
             mainComponent.Opacity = 0.4;

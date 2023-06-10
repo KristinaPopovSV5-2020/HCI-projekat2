@@ -26,6 +26,7 @@ namespace TouristAgency.UserControls.client
         public event EventHandler Odjava;
         public event EventHandler Putovanja;
         public event EventHandler Rezervacije;
+        public event EventHandler Kupljeni;
 
         private void Odjava_Click(object sender, RoutedEventArgs e)
         {
@@ -39,6 +40,11 @@ namespace TouristAgency.UserControls.client
         private void Rezervacije_Click(object sender, RoutedEventArgs e)
         {
             Rezervacije.Invoke(this, e);
+        }
+
+        private void Kupljeni_Click(object sender, RoutedEventArgs e)
+        {
+            Kupljeni.Invoke(this, e);
         }
     }
 }

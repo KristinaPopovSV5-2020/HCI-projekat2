@@ -14,6 +14,8 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using TouristAgency.Model;
 using TouristAgency.Servis;
+using System.Linq;
+
 
 namespace TouristAgency.UserControls.client
 {
@@ -22,7 +24,9 @@ namespace TouristAgency.UserControls.client
     /// </summary>
     public partial class prikazPutovanja : UserControl
     {
-        ObservableCollection<Putovanje> Putovanja;
+        List<Putovanje> ucitanaPutovanja = new List<Putovanje>();
+        List<Putovanje> popularnaPutovanja = new List<Putovanje>();
+
         PutovanjaServis putovanjaServis = new PutovanjaServis();
         public event EventHandler LoginForm;
 
@@ -30,18 +34,36 @@ namespace TouristAgency.UserControls.client
         public prikazPutovanja()
         {
             InitializeComponent();
-            Putovanja = new ObservableCollection<Putovanje>();
+            ucitanaPutovanja = putovanjaServis.PronadjiPutovanja();
+            listaPutovanja.ItemsSource = ucitanaPutovanja;
 
-            
-            listaPutovanja.ItemsSource = putovanjaServis.PronadjiPutovanja();
+            izdvajamo.Visibility = Visibility.Visible;
         }
-        public prikazPutovanja(string username)
+
+        private void PronadjiPopularneKupovine()
+        {
+            ucitanaPutovanja = putovanjaServis.PronadjiPopularneKupovine();
+        }
+        public prikazPutovanja(string username, string v)
         {
             InitializeComponent();
-            Putovanja = new ObservableCollection<Putovanje>();
+            izdvajamo.Visibility = Visibility.Collapsed;
+            if (v=="rez")
+            {
+                ucitanaPutovanja = putovanjaServis.PronadjiRezervacije(username);
+                listaPutovanja.ItemsSource = ucitanaPutovanja;
+                this.title.Text = "Vaše rezervacije";
+            } else
+            {
+                ucitanaPutovanja = putovanjaServis.PronadjiKupovine(username);
+                listaPutovanja.ItemsSource = ucitanaPutovanja;
+                this.title.Text = "Vaša istorija kupovine";
+            }
+            if (ucitanaPutovanja.Count == 0) {
+                this.title.Text = "Nismo pronašli nijedan rezultat.";
+            }
 
-            listaPutovanja.ItemsSource = putovanjaServis.PronadjiRezervacije(username);
-            this.title.Text = "Vaše rezervacije";
+
         }
 
 
@@ -54,6 +76,9 @@ namespace TouristAgency.UserControls.client
                 detaljiPrikaz detaljiPrikaz = new detaljiPrikaz();
                 if (this.title.Text == "Vaše rezervacije") {
                     detaljiPrikaz = new detaljiPrikaz(true);
+                } else if(this.title.Text == "Vaša istorija kupovine")
+                {
+                    detaljiPrikaz = new detaljiPrikaz(false);
                 }
                 detalji.Children.Add(detaljiPrikaz);
                 detaljiPrikaz.LoadItemDetails(selectedItem);
@@ -76,6 +101,25 @@ namespace TouristAgency.UserControls.client
             LoginForm?.Invoke(this, EventArgs.Empty);
         }
 
+        private void PretraziPutovanja(object sender, TextChangedEventArgs e)
+        {
+            string searchText = ((TextBox)sender).Text.ToLower();
 
+            var filteredItems = ucitanaPutovanja.Where(item => item.Naziv.ToLower().Contains(searchText) || item.BrojDana.ToLower().Contains(searchText) || item.Datum.ToShortDateString().ToLower().Contains(searchText) || item.Id.ToLower().Contains(searchText) || item.Cena.ToString().ToLower().Contains(searchText));
+
+            listaPutovanja.ItemsSource = filteredItems;
+        }
+
+        private void izdvajamo_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
+        {
+            PronadjiPopularneKupovine();
+            listaPutovanja.ItemsSource = ucitanaPutovanja;
+        }
+
+        private void title_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
+        {
+            ucitanaPutovanja = putovanjaServis.PronadjiPutovanja();
+            listaPutovanja.ItemsSource = ucitanaPutovanja;
+        }
     }
 }
