@@ -244,6 +244,23 @@ namespace TouristAgency.Servis
             Baza.PutovanjaKol.InsertOne(document);
         }
 
+        public void IzmeniPutovanje(string id, string naziv, string brDana, string cena, DateTime dateTime, ObservableCollection<Atrakcija> atrakcije, ObservableCollection<Smestaj> smestaji, ObservableCollection<Restoran> restorani)
+        {
+
+            var filter = Builders<BsonDocument>.Filter.Eq("_id", id);
+
+            var update = Builders<BsonDocument>.Update
+                .Set("naziv", naziv)
+                .Set("brojDana", brDana)
+                .Set("cena", cena)
+                .Set("datum", dateTime)
+                .Set("atrakcije", new BsonArray(atrakcije))
+                .Set("smestaji", new BsonArray(smestaji))
+                .Set("restorani", new BsonArray(restorani));
+
+            var updateResult = Baza.PutovanjaKol.UpdateOne(filter, update);
+        }
+
         public List<Putovanje> PronadjiPutovanja()
         {
             var documents = Baza.PutovanjaKol.Find(_ => true).ToList();

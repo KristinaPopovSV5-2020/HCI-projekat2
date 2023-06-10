@@ -26,6 +26,8 @@ namespace TouristAgency.UserControls
     public partial class ucNovoPutovanje : UserControl, INotifyPropertyChanged
     {
         public event EventHandler VratiSeNa_Putovanja;
+        public bool flagIzmeni = false;
+        public string idIzmene = "";
 
         Point startPointAtrakcija = new Point();
         Point startPointSmestaj = new Point();
@@ -129,13 +131,33 @@ namespace TouristAgency.UserControls
         {
             InitializeComponent();
             DataContext = this;
+            flagIzmeni = false;
             Loaded += ucNovoPutovanje_Loaded;
 
 
         }
 
+        public ucNovoPutovanje(String id, String naziv, string cena, string brDana, string datum, ObservableCollection<Atrakcija> atrakcije, ObservableCollection<Smestaj> smestaji, ObservableCollection<Restoran> restorani)
+        {
+            InitializeComponent();
+            DataContext = this;
+            Loaded += ucNovoPutovanje_Loaded;
+            atrakcije1 = atrakcije;
+            smestaji1 = smestaji;
+            restorani1 = restorani;
+            txtNaziv.Text = naziv;
+            txtCena.Text = cena;
+            txtbrDana.Text = brDana;
+            datePicker.Text = datum;
+            flagIzmeni = true;
+            idIzmene = id;
+            
 
-        
+
+        }
+
+
+
 
         private void ListView_PreviewMouseLeftButtonDownAtrakcija(object sender, MouseButtonEventArgs e)
         {
@@ -423,8 +445,17 @@ namespace TouristAgency.UserControls
                 popup.IsOpen = true;
 
 
-                popupUserControl.PotvrdiClicked += dodaj;
-                popupUserControl.OdustaniClicked += Zatvori;
+                if (flagIzmeni)
+                {
+                    popupUserControl.PotvrdiClicked += izmeni;
+                    popupUserControl.OdustaniClicked += Zatvori;
+
+                }
+                else
+                {
+                    popupUserControl.PotvrdiClicked += dodaj;
+                    popupUserControl.OdustaniClicked += Zatvori;
+                }
                 
                 
 
@@ -464,6 +495,32 @@ namespace TouristAgency.UserControls
             txtErrorSmestaji.Text = "";
             txtErrorRestorani.Visibility = Visibility.Visible;
             txtErrorRestorani.Text = "";
+
+        }
+
+        public void izmeni(object sender, EventArgs eventArgs)
+        {
+            string naziv = txtNaziv.Text;
+            string brDana = txtbrDana.Text;
+            string cena = txtCena.Text;
+            string datum = datePicker.Text;
+            putovanjaServis.IzmeniPutovanje(idIzmene, naziv, brDana, cena, DateTime.ParseExact(datum, "dd/MM/yyyy", CultureInfo.InvariantCulture), Atrakcije1, Smestaji1, Restorani1);
+            myUserControl.IsHitTestVisible = true;
+            popup.IsOpen = false;
+            OkModule okModule = new OkModule("Uspešno ste izmenili  " + naziv + " putovanje");
+            popup1.Child = null;
+            popup1.Child = okModule;
+            popup1.HorizontalOffset = 600;
+            popup1.VerticalOffset = 300;
+            popup1.Height = 180;
+            popup1.Width = 400;
+            popup1.AllowsTransparency = true;
+
+            popup1.IsOpen = true;
+
+
+            okModule.PotvrdiClicked += ZatvoriOk;
+
 
         }
 
