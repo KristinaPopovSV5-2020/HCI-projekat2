@@ -8,14 +8,22 @@
               d:DesignHeight="180" d:DesignWidth="400">
     <Border Background="White" BorderBrush="Gray" BorderThickness="0.5"  CornerRadius="20">
         <Grid Margin="25">
-            <StackPanel Orientation="Vertical">
-                <TextBlock  x:Name="uspesnost" FontSize="25"></TextBlock>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="150px"/>
+                <ColumnDefinition Width="150px"/>
+            </Grid.ColumnDefinitions>
+
+            <StackPanel Orientation="Vertical" Grid.Column="0" Grid.ColumnSpan="2">
+                <TextBlock x:Name="uspesnost" FontSize="25"></TextBlock>
                 <TextBlock TextWrapping="Wrap" TextTrimming="None" x:Name="poruka" FontSize="15"></TextBlock>
             </StackPanel>
 
-            <Button HorizontalAlignment="Left" VerticalAlignment="Bottom" FontSize="17" Height="40" Content="Ne" Style="{StaticResource buttonMain}" Click="Odustani" Margin="180 0 0 0" Name="odustani" Width="80"/>
+          
 
-            <Button HorizontalAlignment="Right" VerticalAlignment="Bottom" FontSize="17" Foreground="Black" Content="Da" Style="{StaticResource filterDugme}" Click="Potvrdi" Margin="10 0 0 0" Name="potvrdi" Width="80"/>
+            <Button Grid.Column="1" HorizontalAlignment="Right" VerticalAlignment="Bottom" FontSize="17" Height="40" Content="Ne" Style="{StaticResource buttonMain}" Click="Odustani" Margin="10 0" Name="odustani" Width="80"/>
+
+            <Button Grid.Column="2" HorizontalAlignment="Left" VerticalAlignment="Bottom" FontSize="17" Foreground="Black" Content="Da" Style="{StaticResource filterDugme}" Click="Potvrdi" Margin="10 0" Name="potvrdi" Width="80"/>
         </Grid>
     </Border>
 </UserControl>

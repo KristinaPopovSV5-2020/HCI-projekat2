@@ -5,7 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:TouristAgency.UserControls" xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              mc:Ignorable="d" 
-             d:DesignHeight="720" d:DesignWidth="1080">
+             d:DesignHeight="720" d:DesignWidth="1080" x:Name="myUserControl">
     <UserControl.Resources>
         <BooleanToVisibilityConverter x:Key="BoolToVis" />
     </UserControl.Resources>
@@ -78,7 +78,6 @@
                 <StackPanel Grid.Row="7" Grid.Column="0" Grid.ColumnSpan="2" VerticalAlignment="Center" HorizontalAlignment="Center" Width="400px" >
                     <TextBox x:Name="txtCena" FontSize="15"  />
                         <TextBlock x:Name="txtErrorCena" FontSize="12"  Foreground="BlueViolet" HorizontalAlignment="Center" Text="cdfvsg" Visibility="Collapsed" />
-
                     </StackPanel>
                 <TextBlock FontSize="12" Width="400px"  Text="Datum" Grid.Row="8" Grid.Column="0" Grid.ColumnSpan="2" Style="{StaticResource text}" Margin="0 0 0 5"/>
                     <StackPanel Grid.Row="9" Grid.Column="0" Grid.ColumnSpan="2" VerticalAlignment="Center" HorizontalAlignment="Center" Width="400px" Margin="0 0 0 10" >
@@ -292,7 +291,7 @@
 
                     <StackPanel Grid.Row="22" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Center"  Margin="0 20 0 0">
                     <StackPanel Orientation="Horizontal">
-                        <Button Content="Odustani" Height="30" Margin="10"  FontSize="15" Click="BtnPonisti_Click" Style="{StaticResource buttonMain}"/>
+                        <Button Content="Nazad" Height="30" Margin="10"  FontSize="15" Click="BtnPonisti_Click" Style="{StaticResource buttonMain}"/>
                         <Button Content=" Dodaj " Height="30" FontSize="15" Margin="0 0 20 0" Style="{StaticResource buttonPurple}"  Click="BtnKreiraj_Click" />
                     </StackPanel>
 
