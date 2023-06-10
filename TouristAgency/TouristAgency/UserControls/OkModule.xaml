@@ -12,9 +12,7 @@
                 <TextBlock  x:Name="uspesnost" FontSize="25"></TextBlock>
                 <TextBlock TextWrapping="Wrap" TextTrimming="None" x:Name="poruka" FontSize="15"></TextBlock>
             </StackPanel>
-            
-            <Button HorizontalAlignment="Left" VerticalAlignment="Bottom" FontSize="17" Height="40" Content="Ne" Style="{StaticResource buttonMain}" Click="Potvrdi" Margin="180 0 0 0" Name="odustani" Width="80"/>
-
+          
             <Button HorizontalAlignment="Right" VerticalAlignment="Bottom" FontSize="17" Foreground="Black" Content="Ok" Style="{StaticResource filterDugme}" Click="Potvrdi" Margin="10 0 0 0" Name="potvrdi" Width="80"/>
         </Grid>
     </Border>

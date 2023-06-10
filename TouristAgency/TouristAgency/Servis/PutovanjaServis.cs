@@ -53,14 +53,38 @@ namespace TouristAgency.Servis
         public void IzmeniAtrakciju(Atrakcija atrakcija)
         {
             var filter = Builders<BsonDocument>.Filter.Eq("_id", atrakcija.Id);
-
+            
             var update = Builders<BsonDocument>.Update
                 .Set("naziv", atrakcija.Naziv)
                 .Set("opis", atrakcija.Opis)
                 .Set("adresa", atrakcija.Adresa);
 
             var updateResult = Baza.AtrakcijeKol.UpdateOne(filter, update);
+            IzmeniAtrakcijuUPutovanju(atrakcija);
         }
+
+        public void IzmeniAtrakcijuUPutovanju(Atrakcija a)
+        {
+            var documents = Baza.PutovanjaKol.Find(_ => true).ToList();
+
+            foreach (var document in documents)
+            {
+                
+                var atrakcije = document["atrakcije"].AsBsonArray;
+                var filter = Builders<BsonDocument>.Filter.Eq("atrakcije.Id", a.Id);
+                var update = Builders<BsonDocument>.Update.Set("atrakcije.$.naziv", a.Naziv)
+                                                          .Set("atrakcije.$.opis", a.Opis)
+                                                          .Set("atrakcije.$.adresa", a.Adresa)
+                                                          .Set("atrakcije.$.Naziv", a.Naziv)
+                                                          .Set("atrakcije.$.Opis", a.Opis)
+                                                          .Set("atrakcije.$.Adresa", a.Adresa);
+
+                Baza.PutovanjaKol.UpdateOne(filter, update);
+                
+            }
+        }
+
+
 
         public async Task<ObservableCollection<Restoran>> FiltriranjeRestorana(string min, string max)
         {
@@ -100,6 +124,22 @@ namespace TouristAgency.Servis
             FilterDefinition<BsonDocument> filter = Builders<BsonDocument>.Filter.Eq("_id", atrakcija.Id);
 
             DeleteResult result = Baza.AtrakcijeKol.DeleteOne(filter);
+            ObrisiAtrakcijuUPutovanju(atrakcija);
+        }
+
+        public void ObrisiAtrakcijuUPutovanju(Atrakcija a)
+        {
+            var documents = Baza.PutovanjaKol.Find(_ => true).ToList();
+
+            foreach (var document in documents)
+            {
+
+                var filter = Builders<BsonDocument>.Filter.Eq("atrakcije.Id", a.Id);
+                var update = Builders<BsonDocument>.Update.PullFilter("atrakcije", Builders<BsonDocument>.Filter.Eq("Id", a.Id));
+
+                Baza.PutovanjaKol.UpdateMany(filter, update);
+
+            }
         }
         public async Task<ObservableCollection<Restoran>> SviRestoraniAsync()
         {
@@ -128,22 +168,55 @@ namespace TouristAgency.Servis
         public void IzmeniRestoran(Restoran restoran)
         {
             var filter = Builders<BsonDocument>.Filter.Eq("_id", restoran.Id);
-
+            
             var update = Builders<BsonDocument>.Update
                 .Set("naziv", restoran.Naziv)
                 .Set("adresa", restoran.Adresa)
                 .Set("ocena", restoran.Ocena);
 
             var updateResult = Baza.RestoraniKol.UpdateOne(filter, update);
+            IzmeniRestoranUPutovanju(restoran);
         }
 
+        public void IzmeniRestoranUPutovanju(Restoran r)
+        {
+            var documents = Baza.PutovanjaKol.Find(_ => true).ToList();
+
+            foreach (var document in documents)
+            {
+
+                var restorani = document["restorani"].AsBsonArray;
+                var filter = Builders<BsonDocument>.Filter.Eq("restorani.Id", r.Id);
+                var update = Builders<BsonDocument>.Update.Set("restorani.$.Naziv", r.Naziv)
+                                                          .Set("restorani.$.Ocena", r.Ocena)
+                                                          .Set("restorani.$.Adresa", r.Adresa);
+
+                Baza.PutovanjaKol.UpdateOne(filter, update);
+
+            }
+        }
         public void ObrisiRestoran(Restoran restoran)
         {
             FilterDefinition<BsonDocument> filter = Builders<BsonDocument>.Filter.Eq("_id", restoran.Id);
 
             DeleteResult result = Baza.RestoraniKol.DeleteOne(filter);
+            ObrisiRestoranUPutovanju(restoran);
         }
 
+        public void ObrisiRestoranUPutovanju(Restoran r)
+        {
+            var documents = Baza.PutovanjaKol.Find(_ => true).ToList();
+
+            foreach (var document in documents)
+            {
+
+                var filter = Builders<BsonDocument>.Filter.Eq("restorani.Id", r.Id);
+                var update = Builders<BsonDocument>.Update.PullFilter("restorani", Builders<BsonDocument>.Filter.Eq("Id", r.Id));
+
+                Baza.PutovanjaKol.UpdateMany(filter, update);
+
+            }
+        }
 
         public async Task<ObservableCollection<Smestaj>> SviSmestajiAsync()
         {
@@ -181,15 +254,51 @@ namespace TouristAgency.Servis
                 .Set("ocena", smestaj.Ocena);
 
             var updateResult = Baza.SmestajiKol.UpdateOne(filter, update);
+            IzmeniSmestajUPutovanju(smestaj);
         }
+
+        public void IzmeniSmestajUPutovanju(Smestaj s)
+        {
+            var documents = Baza.PutovanjaKol.Find(_ => true).ToList();
+
+            foreach (var document in documents)
+            {
+
+                var filter = Builders<BsonDocument>.Filter.Eq("smestaji.Id", s.Id);
+                var update = Builders<BsonDocument>.Update.Set("smestaji.$.Naziv", s.Naziv)
+                                                          .Set("smestaji.$.Ocena", s.Ocena)
+                                                          .Set("smestaji.$.Adresa", s.Adresa)
+                                                          .Set("smestaji.$.Tip", s.Tip)
+                                                          .Set("smestaji.$.tipSmestaja", s.Tip.ToString());
+
+                Baza.PutovanjaKol.UpdateOne(filter, update);
+
+            }
+        }
+
 
         public void ObrisiSmestaj(Smestaj smestaj)
         {
             FilterDefinition<BsonDocument> filter = Builders<BsonDocument>.Filter.Eq("_id", smestaj.Id);
 
             DeleteResult result = Baza.SmestajiKol.DeleteOne(filter);
+            ObrisiSmestajUPutovanju(smestaj);
         }
 
+        public void ObrisiSmestajUPutovanju(Smestaj s)
+        {
+            var documents = Baza.PutovanjaKol.Find(_ => true).ToList();
+
+            foreach (var document in documents)
+            {
+
+                var filter = Builders<BsonDocument>.Filter.Eq("smestaji.Id", s.Id);
+                var update = Builders<BsonDocument>.Update.PullFilter("smestaji", Builders<BsonDocument>.Filter.Eq("Id", s.Id));
+
+                Baza.PutovanjaKol.UpdateMany(filter, update);
+
+            }
+        }
         public List<Atrakcija> AtrakcijeZaPutovanje(string id)
         {
             List<Atrakcija> atrakcije = new List<Atrakcija>();

@@ -41,6 +41,7 @@ namespace TouristAgency.UserControls
 
             this.naziv.Hint = naziv;
             this.adresa.Hint = adresa;
+            this.restoran.Id = id;
 
             restoran.Naziv = this.naziv.Hint;
             restoran.Ocena = this.ocena.SelectedItem.ToString();

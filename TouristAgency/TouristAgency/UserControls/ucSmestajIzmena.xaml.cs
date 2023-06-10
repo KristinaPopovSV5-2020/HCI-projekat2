@@ -50,6 +50,7 @@ namespace TouristAgency.UserControls
 
             this.naziv.Hint = naziv;
             this.adresa.Hint = adresa;
+            this.smestaj.Id = id;
 
             smestaj.Naziv = this.naziv.Hint;
             smestaj.Tip = (TipSmestaja)Enum.Parse(typeof(TipSmestaja), (this.tip.SelectedItem as ComboBoxItem).Content.ToString());
