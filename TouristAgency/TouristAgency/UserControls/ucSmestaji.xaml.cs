@@ -27,6 +27,8 @@ namespace TouristAgency.UserControls
         ObservableCollection<Smestaj> trenutniSmestaji;
         PutovanjaServis putovanjaServis = new PutovanjaServis();
         Popup popup = new Popup();
+        Popup popup1 = new Popup();
+        Smestaj zaBrisanje;
         public ucSmestaji()
         {
             InitializeComponent();
@@ -42,23 +44,70 @@ namespace TouristAgency.UserControls
         private void Obrisi_Smestaj(object sender, RoutedEventArgs e)
         {
             Smestaj selectedItem = smestajiDataGrid.SelectedItem as Smestaj;
+            zaBrisanje = selectedItem;
 
             if (selectedItem != null)
             {
-                MessageBoxResult result = MessageBox.Show("Da li sigurno želiš da izbrišeš smestaj " + selectedItem.Naziv, "Potvrda", MessageBoxButton.YesNo, MessageBoxImage.Question);
+                YesNoModule popupUserControl = new YesNoModule("Da li sigurno želiš da izbrišeš smestaj " + selectedItem.Naziv);
 
-                if (result == MessageBoxResult.Yes)
-                {
-                    putovanjaServis.ObrisiSmestaj(selectedItem);
-                    smestaji.Remove(selectedItem);
-                    smestajiDataGrid.Items.Refresh();
-                    MessageBox.Show($"Smestaj '{selectedItem.Naziv}' je obrisan.", "Smestaj obrisan", MessageBoxButton.OK, MessageBoxImage.Information);
+                mainComponent.IsHitTestVisible = false;
+                mainComponent.Opacity = 0.4;
 
-                }
+                popup.Child = null;
+                popup.Child = popupUserControl;
+                popup.HorizontalOffset = 500;
+                popup.VerticalOffset = 570;
+                popup.Height = 180;
+                popup.Width = 400;
+                popup.AllowsTransparency = true;
+
+                popup.IsOpen = true;
+
+                popupUserControl.PotvrdiClicked += Obrisi;
+                popupUserControl.OdustaniClicked += Odustani;
+               
 
             }
 
         }
+
+        public void Obrisi(object sender, EventArgs e)
+        {
+            putovanjaServis.ObrisiSmestaj(zaBrisanje);
+            smestaji.Remove(zaBrisanje);
+            smestajiDataGrid.Items.Refresh();
+
+            popup.IsOpen = false;
+
+            OkModule popupUserControl = new OkModule("Smestaj " + zaBrisanje.Naziv + " je obrisan.");
+
+            popup1.Child = null;
+            popup1.Child = popupUserControl;
+            popup1.HorizontalOffset = 500;
+            popup1.VerticalOffset = 570;
+            popup1.Height = 180;
+            popup1.Width = 400;
+            popup1.AllowsTransparency = true;
+
+            popup1.IsOpen = true;
+
+            popupUserControl.PotvrdiClicked += Zatvori;
+        }
+
+        public void Zatvori(object sender, EventArgs e)
+        {
+            popup1.IsOpen = false;
+            mainComponent.IsHitTestVisible = true;
+            mainComponent.Opacity = 1;
+        }
+
+        public void Odustani(object sender, EventArgs e)
+        {
+            popup.IsOpen = false;
+            mainComponent.IsHitTestVisible = true;
+            mainComponent.Opacity = 1;
+        }
+
 
         private void Izmeni_Smestaj(object sender, RoutedEventArgs e)
         {
