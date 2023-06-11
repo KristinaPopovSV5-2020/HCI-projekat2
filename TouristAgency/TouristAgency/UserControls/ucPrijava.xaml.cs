@@ -10,6 +10,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using TouristAgency.Helper;
 using TouristAgency.Servis;
 
 namespace TouristAgency.UserControls
@@ -79,6 +80,19 @@ namespace TouristAgency.UserControls
         public void Registracija(object sender, EventArgs e)
         {
             RegistracijaClicked.Invoke(this, e);
+        }
+
+        private void CommandBinding_Executed(object sender, ExecutedRoutedEventArgs e)
+        {
+            IInputElement focusedControl = FocusManager.GetFocusedElement(Application.Current.Windows[0]);
+            Console.WriteLine("aaaa");
+            if (focusedControl is DependencyObject)
+            {
+                UserWindow userWindow = new UserWindow();
+                string str = HelpProvider.GetHelpKey((DependencyObject)focusedControl);
+                Console.WriteLine(str);
+                HelpProvider.ShowHelp(str, userWindow);
+            }
         }
     }
 }

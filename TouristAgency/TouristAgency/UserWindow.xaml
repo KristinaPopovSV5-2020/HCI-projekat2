@@ -6,11 +6,17 @@
         xmlns:local="clr-namespace:TouristAgency.UserControls.client"
         xmlns:Icon="http://metro.mahapps.com/winfx/xaml/iconpacks" xmlns:local1="clr-namespace:TouristAgency.UserControls"
         mc:Ignorable="d"
-        Height="720" Width="1080" WindowStyle="None">
+        xmlns:l="clr-namespace:TouristAgency.Helper"
+        Height="720" Width="1080" WindowStyle="None"
+        l:HelpProvider.HelpKey="Forma">
 
     <Window.Resources>
         <BooleanToVisibilityConverter x:Key="BoolToVis" />
     </Window.Resources>
+
+    <Window.CommandBindings>
+        <CommandBinding Command="ApplicationCommands.Help" Executed="CommandBinding_Executed"/>
+    </Window.CommandBindings>
 
     <WindowChrome.WindowChrome>
         <WindowChrome 

@@ -9,6 +9,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using TouristAgency.Helper;
 using TouristAgency.Model;
 using TouristAgency.UserControls;
 using TouristAgency.UserControls.client;
@@ -136,9 +137,11 @@ namespace TouristAgency
         private void Registracija_Click(object sender, EventArgs e)
         {
             ucRegistracija registracija = new ucRegistracija();
+            registracija.ime.Focus();
             mainComponent.Children.Clear();
             mainComponent.Children.Add(registracija);
             registracija.RegistracijaClicked += Prijava_click;
+            
         }
 
 
@@ -216,6 +219,24 @@ namespace TouristAgency
             mainComponent.Children.Clear();
             mainComponent.Children.Add(putovanja);
             putovanja.LoginForm += Prijava_click;
+        }
+
+        private void CommandBinding_Executed(object sender, ExecutedRoutedEventArgs e)
+        {
+            IInputElement focusedControl = FocusManager.GetFocusedElement(Application.Current.Windows[0]);
+           
+            Console.WriteLine(focusedControl);
+            if (focusedControl is DependencyObject)
+            {
+                string str = HelpProvider.GetHelpKey((DependencyObject)focusedControl);
+                Console.WriteLine(str);
+                HelpProvider.ShowHelp(str, this);
+            }
+        }
+
+        public void doThings(string param)
+        {
+           
         }
 
     }

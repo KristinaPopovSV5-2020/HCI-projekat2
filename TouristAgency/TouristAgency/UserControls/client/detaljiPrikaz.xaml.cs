@@ -12,6 +12,7 @@ using System.Windows.Controls.Primitives;
 using System.Windows.Data;
 using System.Windows.Input;
 using System.Windows.Media;
+using TouristAgency.Helper;
 using TouristAgency.Model;
 using TouristAgency.Servis;
 
@@ -411,10 +412,21 @@ namespace TouristAgency.UserControls.client
             popup.IsOpen = true;
             popupUserControl.PotvrdiClicked += Ugasi;
         }
-
+        private void CommandBinding_Executed(object sender, ExecutedRoutedEventArgs e)
+        {
+            IInputElement focusedControl = FocusManager.GetFocusedElement(Application.Current.Windows[0]);
+            if (focusedControl is DependencyObject)
+            {
+                UserWindow userWindow = new UserWindow();
+                string str = HelpProvider.GetHelpKey((DependencyObject)focusedControl);
+                Console.WriteLine(str);
+                HelpProvider.ShowHelp(str, userWindow);
+            }
+        }
 
 
     }
+
     public class IndexConverter : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
@@ -431,6 +443,7 @@ namespace TouristAgency.UserControls.client
             throw new NotSupportedException();
         }
 
+       
     }
 }
 

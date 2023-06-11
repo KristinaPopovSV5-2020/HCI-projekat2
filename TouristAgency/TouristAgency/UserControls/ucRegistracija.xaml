@@ -5,7 +5,14 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:TouristAgency.UserControls"
              mc:Ignorable="d" 
-             d:DesignHeight="720" d:DesignWidth="1080">
+             xmlns:l="clr-namespace:TouristAgency.Helper"
+             d:DesignHeight="720" d:DesignWidth="1080" l:HelpProvider.HelpKey="Registracija">
+
+
+    <UserControl.CommandBindings>
+        <CommandBinding Command="ApplicationCommands.Help" PreviewExecuted="CommandBinding_Executed"/>
+    </UserControl.CommandBindings>
+    
     <Grid>
         <Border Grid.Column="1" Background="White" Width="800" Height="650" CornerRadius="30" HorizontalAlignment="Center" VerticalAlignment="Center">
             <Grid Width="800" Height="800" VerticalAlignment="Center" HorizontalAlignment="Center">
@@ -25,13 +32,13 @@
                         <RowDefinition Height="auto"/>
                     </Grid.RowDefinitions>
 
-                    <TextBlock Grid.Row="0" Text="Korisničko ime" Style="{StaticResource text}"/>
+                    <TextBlock Grid.Row="0" Text="Korisničko ime" Style="{StaticResource text}" Name="ime"  l:HelpProvider.HelpKey="Registracija"/>
                     <TextBlock Grid.Row="2" Text="Lozinka" Style="{StaticResource text}"/>
                     <TextBlock Grid.Row="4" Text="Potvrda lozinke" Style="{StaticResource text}"/>
 
-                    <TextBox x:Name="txtUsername"   Grid.Column="1" Grid.Row="0" FontSize="20" />
-                    <PasswordBox x:Name="txtPassword"  Grid.Column="1" Grid.Row="2"/>
-                    <PasswordBox x:Name="txtCoPassword"  Grid.Column="1" Grid.Row="4"/>
+                    <TextBox x:Name="txtUsername"   Grid.Column="1" Grid.Row="0" FontSize="20" l:HelpProvider.HelpKey="Registracija"/>
+                    <PasswordBox x:Name="txtPassword"  Grid.Column="1" Grid.Row="2" l:HelpProvider.HelpKey="Registracija"/>
+                    <PasswordBox x:Name="txtCoPassword"  Grid.Column="1" Grid.Row="4" l:HelpProvider.HelpKey="Registracija"/>
                     <TextBlock x:Name="txtErrorUsername" Grid.Row="1" Grid.Column="1" FontSize="17"  Foreground="BlueViolet" HorizontalAlignment="Center" Text="hnoffa" Visibility="Collapsed" />
 
                     <TextBlock x:Name="txtErrorPassword" Grid.Row="3" Grid.Column="1" FontSize="17"  Foreground="BlueViolet" HorizontalAlignment="Center" Text="nvljnvl" Visibility="Collapsed" />
