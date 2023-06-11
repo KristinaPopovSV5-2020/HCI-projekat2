@@ -121,7 +121,6 @@ namespace TouristAgency.UserControls
         {
 
             Atrakcija selectedItem = atrakcijeDataGrid.SelectedItem as Atrakcija;
-
             ucAtrakcijaIzmena forma = new ucAtrakcijaIzmena(selectedItem.Id,selectedItem.Naziv,selectedItem.Opis,selectedItem.Adresa);
             mainComponent.Children.Clear();
             mainComponent.Children.Add(forma);

@@ -26,7 +26,6 @@ namespace TouristAgency.UserControls
         public Atrakcija atrakcija = new Atrakcija();
         PutovanjaServis putovanjaServis = new PutovanjaServis();
         Popup popup = new Popup();
-
         public ucAtrakcijaIzmena(string id, string naziv, string opis, string adresa)
         {
             InitializeComponent();
@@ -34,6 +33,7 @@ namespace TouristAgency.UserControls
             this.naziv.Hint = naziv;
             this.opis.Hint = opis;
             this.adresa.Hint = adresa;
+            this.atrakcija.Id = id;
 
             atrakcija.Naziv = this.naziv.Hint;
             atrakcija.Opis = this.opis.Hint;

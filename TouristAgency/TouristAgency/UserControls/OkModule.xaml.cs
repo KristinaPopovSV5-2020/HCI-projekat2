@@ -30,7 +30,6 @@ namespace TouristAgency.UserControls
         public OkModule(string poruka)
         {
             InitializeComponent();
-            this.odustani.Visibility = Visibility.Collapsed;
             this.poruka.Text = poruka;
         }
 
