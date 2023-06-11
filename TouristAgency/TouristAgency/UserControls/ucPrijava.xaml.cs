@@ -53,18 +53,21 @@ namespace TouristAgency.UserControls
         {
             if (string.IsNullOrWhiteSpace(username))
             {
-                txtError.Visibility = Visibility.Visible;
-                txtError.Text = "Korisničko ime treba da bude popunjeno.";
+                txtErrorUsername.Visibility = Visibility.Visible;
+                txtErrorUsername.Text = "Korisničko ime treba da bude popunjeno.";
                 return false;
             }else if (string.IsNullOrWhiteSpace(password))
             {
-                txtError.Visibility = Visibility.Visible;
-                txtError.Text = "Lozinka treba da bude popunjena.";
+                txtErrorUsername.Visibility = Visibility.Collapsed;
+                txtErrorPassword.Visibility = Visibility.Visible;
+                txtErrorPassword.Text = "Lozinka treba da bude popunjena.";
                 return false;
             }
 
             if (KorisnikServis.Prijava(username, password)=="")
             {
+                txtErrorUsername.Visibility = Visibility.Collapsed;
+                txtErrorPassword.Visibility = Visibility.Collapsed;
                 txtError.Visibility = Visibility.Visible;
                 txtError.Text = "Neispravno korisničko ime ili lozinka.";
                 return false;

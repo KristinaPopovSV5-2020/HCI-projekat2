@@ -1,11 +1,14 @@
-﻿using System;
+﻿using GalaSoft.MvvmLight.Command;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Controls.Primitives;
 using System.Windows.Data;
 using System.Windows.Documents;
 using System.Windows.Input;
@@ -21,81 +24,237 @@ namespace TouristAgency.UserControls
     /// <summary>
     /// Interaction logic for ucNovoPutovanje.xaml
     /// </summary>
-    public partial class ucNovoPutovanje : UserControl
+    public partial class ucNovoPutovanje : UserControl, INotifyPropertyChanged
     {
         public event EventHandler VratiSeNa_Putovanja;
+        public event EventHandler<Atrakcija> IzbaciClickedAtrakcija;
+        public event EventHandler<Smestaj> IzbaciClickedSmestaj;
+        public event EventHandler<Restoran> IzbaciClickedRestoran;
+        public bool flagIzmeni = false;
+        public string idIzmene = "";
+
         Point startPointAtrakcija = new Point();
         Point startPointSmestaj = new Point();
         Point startPointRestoran = new Point();
 
         public event RoutedEventHandler KreirajClicked;
         public event RoutedEventHandler PonistiClicked;
+     
+
+
 
         PutovanjaServis putovanjaServis = new PutovanjaServis();
+        private ObservableCollection<Atrakcija> atrakcije;
+        private ObservableCollection<Atrakcija> atrakcije1;
+        private ObservableCollection<Restoran> restorani;
+        private ObservableCollection<Restoran> restorani1;
+        private ObservableCollection<Smestaj> smestaji;
+        private ObservableCollection<Smestaj> smestaji1;
+        Popup popup = new Popup();
+        Popup popup1 = new Popup();
+
+
+
+
         public ObservableCollection<Atrakcija> Atrakcije
         {
-            get;
-            set;
+            get { return atrakcije; }
+            set
+            {
+                atrakcije = value;
+                OnPropertyChanged(nameof(Atrakcije));
+            }
         }
 
         public ObservableCollection<Atrakcija> Atrakcije1
         {
-            get;
-            set;
-        }
-        public ObservableCollection<Smestaj> Smestaji
-        {
-            get;
-            set;
-        }
-
-        public ObservableCollection<Smestaj> Smestaji1
-        {
-            get;
-            set;
+            get { return atrakcije1; }
+            set
+            {
+                atrakcije1 = value;
+                OnPropertyChanged(nameof(Atrakcije1));
+            }
         }
 
         public ObservableCollection<Restoran> Restorani
         {
-            get;
-            set;
+            get { return restorani; }
+            set
+            {
+                restorani = value;
+                OnPropertyChanged(nameof(Restorani));
+            }
         }
 
         public ObservableCollection<Restoran> Restorani1
         {
-            get;
-            set;
+            get { return restorani1; }
+            set
+            {
+                restorani1 = value;
+                OnPropertyChanged(nameof(Restorani1));
+            }
         }
+
+        public ObservableCollection<Smestaj> Smestaji
+        {
+            get { return smestaji; }
+            set
+            {
+                smestaji = value;
+                OnPropertyChanged(nameof(Smestaji));
+            }
+        }
+
+        public ObservableCollection<Smestaj> Smestaji1
+        {
+            get { return smestaji1; }
+            set
+            {
+                smestaji1 = value;
+                OnPropertyChanged(nameof(Smestaji1));
+                Loaded += ucNovoPutovanje_Loaded;
+            }
+        }
+
+        private async void ucNovoPutovanje_Loaded(object sender, RoutedEventArgs e)
+        {
+            Atrakcije = await putovanjaServis.SveAtrakcijeAsync();
+            Atrakcije1 = new ObservableCollection<Atrakcija>();
+            Restorani = await putovanjaServis.SviRestoraniAsync();
+            Restorani1 = new ObservableCollection<Restoran>();
+            Smestaji = await putovanjaServis.SviSmestajiAsync();
+            Smestaji1 = new ObservableCollection<Smestaj>();
+        }
+
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        protected virtual void OnPropertyChanged(string propertyName)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
+
 
         public ucNovoPutovanje()
         {
             InitializeComponent();
-         
-            Loaded += async (sender, e) =>
-            {
-                Atrakcije = await putovanjaServis.SveAtrakcijeAsync();
-                Atrakcije1 = new ObservableCollection<Atrakcija>();
-                this.DataContext = this;
-            };
+            DataContext = this;
+            flagIzmeni = false;
+            Loaded += ucNovoPutovanje_Loaded;
+        
 
-            Loaded += async (sender, e) =>
-            {
-                Restorani = await putovanjaServis.SviRestoraniAsync();
-                Restorani1 = new ObservableCollection<Restoran>();
-                this.DataContext = this;
 
-            };
-            
-
-            Loaded += async (sender, e) =>
-            {
-                Smestaji = await putovanjaServis.SviSmestajiAsync();
-                Smestaji1 = new ObservableCollection<Smestaj>();
-                this.DataContext = this;
-            };
-            
 
         }
+
+        public ucNovoPutovanje(String id, String naziv, string cena, string brDana, string datum, ObservableCollection<Atrakcija> atrakcije, ObservableCollection<Smestaj> smestaji, ObservableCollection<Restoran> restorani)
+        {
+            InitializeComponent();
+            DataContext = this;
+            Loaded += ucNovoPutovanje_Loaded;
+            atrakcije1 = atrakcije;
+            smestaji1 = smestaji;
+            restorani1 = restorani;
+            txtNaziv.Text = naziv;
+            txtCena.Text = cena;
+            txtbrDana.Text = brDana;
+            datePicker.Text = datum;
+            flagIzmeni = true;
+            idIzmene = id;
+            foreach (Atrakcija at in atrakcije)
+            {
+                Atrakcije.Remove(at);
+
+            }
+
+            foreach(Smestaj sm in smestaji)
+            {
+                Smestaji.Remove(sm);
+            }
+            foreach(Restoran re in restorani)
+            {
+                Restorani.Remove(re);
+            }
+        
+
+
+
+
+        }
+        internal void Izbaci_Click_Atrakcija(object sender, RoutedEventArgs e)
+        {
+            Button button = sender as Button;
+            Atrakcija selectedItem = null;
+
+            if (button != null)
+            {
+                // Dohvati roditeljski ListViewItem
+                ListViewItem listViewItem = FindAncestor<ListViewItem>(button);
+
+                // Dohvati DataContext iz ListViewItem-a
+                selectedItem = listViewItem?.DataContext as Atrakcija;
+            }
+
+            if (selectedItem != null)
+            {
+                Atrakcije.Add(selectedItem);
+                Atrakcije1.Remove(selectedItem);
+            }
+
+            IzbaciClickedAtrakcija?.Invoke(this, selectedItem);
+        }
+        internal void Izbaci_Click_Restoran(object sender, RoutedEventArgs e)
+        {
+            Button button = sender as Button;
+            Restoran selectedItem = null;
+
+            if (button != null)
+            {
+                // Dohvati roditeljski ListViewItem
+                ListViewItem listViewItem = FindAncestor<ListViewItem>(button);
+
+                // Dohvati DataContext iz ListViewItem-a
+                selectedItem = listViewItem?.DataContext as Restoran;
+            }
+
+            if (selectedItem != null)
+            {
+                Restorani.Add(selectedItem);
+                Restorani1.Remove(selectedItem);
+            }
+
+            IzbaciClickedRestoran?.Invoke(this, selectedItem);
+        }
+
+        internal void Izbaci_Click_Smestaj(object sender, RoutedEventArgs e)
+        {
+            Button button = sender as Button;
+            Smestaj selectedItem = null;
+
+            if (button != null)
+            {
+                // Dohvati roditeljski ListViewItem
+                ListViewItem listViewItem = FindAncestor<ListViewItem>(button);
+
+                // Dohvati DataContext iz ListViewItem-a
+                selectedItem = listViewItem?.DataContext as Smestaj;
+            }
+
+            if (selectedItem != null)
+            {
+                Smestaji.Add(selectedItem);
+                Smestaji1.Remove(selectedItem);
+            }
+
+            IzbaciClickedSmestaj?.Invoke(this, selectedItem);
+        }
+
+
+
+
+
+
+
 
         private void ListView_PreviewMouseLeftButtonDownAtrakcija(object sender, MouseButtonEventArgs e)
         {
@@ -125,8 +284,8 @@ namespace TouristAgency.UserControls
                 }
                 catch (Exception ex)
                 {
-                    txtError.Visibility = Visibility.Visible;
-                    txtError.Text = "Samo željanu atrakciju možete prevući u polje izabrane atrakcije.";
+                    txtErrorAtrakcije.Visibility = Visibility.Visible;
+                    txtErrorAtrakcije.Text = "Samo atrakciju možete prevući u polje.";
 
                 }
 
@@ -159,6 +318,7 @@ namespace TouristAgency.UserControls
 
         private void ListView_DropAtrakcija(object sender, DragEventArgs e)
         {
+            var listView = sender as ListView;
             if (e.Data.GetDataPresent("myFormat"))
             {
                 if (e.Data.GetData("myFormat") is Atrakcija atrakcija)
@@ -168,8 +328,34 @@ namespace TouristAgency.UserControls
                 }
                 else
                 {
-                    txtError.Visibility = Visibility.Visible;
-                    txtError.Text = "Samo željanu atrakciju možete prevući u polje izabrane atrakcije.";
+                    txtErrorAtrakcije.Visibility = Visibility.Visible;
+                    txtErrorAtrakcije.Text = "Samo atrakciju možete prevući u polje.";
+                }
+            }
+        }
+
+        private void ListViewAtrakcije1_Drop(object sender, DragEventArgs e)
+        {
+            if (e.Data.GetDataPresent(typeof(Atrakcija)))
+            {
+                var atrakcija = e.Data.GetData(typeof(Atrakcija)) as Atrakcija;
+                if (atrakcija != null)
+                {
+                    if (Atrakcije.Contains(atrakcija))
+                    {
+                        Atrakcije.Remove(atrakcija);
+                        Atrakcije1.Add(atrakcija);
+                    }
+                    else if (Atrakcije1.Contains(atrakcija))
+                    {
+                        Atrakcije1.Remove(atrakcija);
+                        Atrakcije.Add(atrakcija);
+                    }
+                }
+                else
+                {
+                    txtErrorAtrakcije.Visibility = Visibility.Visible;
+                    txtErrorAtrakcije.Text = "Samo atrakciju možete prevući.";
                 }
             }
         }
@@ -180,6 +366,7 @@ namespace TouristAgency.UserControls
         {
             startPointSmestaj = e.GetPosition(null);
         }
+
 
         private void ListView_MouseMoveSmestaj(object sender, MouseEventArgs e)
         {
@@ -205,8 +392,8 @@ namespace TouristAgency.UserControls
                 }
                 catch(Exception ex)
                 {
-                    txtError.Visibility = Visibility.Visible;
-                    txtError.Text = "Samo željani smeštaj možete prevući u polje izabrani smeštaji.";
+                    txtErrorSmestaji.Visibility = Visibility.Visible;
+                    txtErrorSmestaji.Text = "Samo smeštaj možete prevući u polje.";
                 }
 
              
@@ -234,8 +421,8 @@ namespace TouristAgency.UserControls
                 }
                 else
                 {
-                    txtError.Visibility = Visibility.Visible;
-                    txtError.Text = "Samo željani smeštaj možete prevući u polje izabrani smeštaji.";
+                    txtErrorSmestaji.Visibility = Visibility.Visible;
+                    txtErrorSmestaji.Text = "Samo smeštaj možete prevući u polje.";
                 }
             }
         }
@@ -271,8 +458,8 @@ namespace TouristAgency.UserControls
                 }
                 catch(Exception ex)
                 {
-                    txtError.Visibility = Visibility.Visible;
-                    txtError.Text = "Samo željani restoran možete prevući u polje izabrani restorani.";
+                    txtErrorRestorani.Visibility = Visibility.Visible;
+                    txtErrorRestorani.Text = "Samo restoran možete prevući u polje.";
                 }
             }
         }
@@ -298,8 +485,8 @@ namespace TouristAgency.UserControls
                 }
                 else
                 {
-                    txtError.Visibility = Visibility.Visible;
-                    txtError.Text = "Samo željani restoran možete prevući u polje izabrani restorani.";
+                    txtErrorRestorani.Visibility = Visibility.Visible;
+                    txtErrorRestorani.Text = "Samo restoran možete prevući u polje.";
                 }
             }
         }
@@ -334,7 +521,7 @@ namespace TouristAgency.UserControls
         private void BtnKreiraj_Click(object sender, RoutedEventArgs e)
         {
             string naziv = txtNaziv.Text;
-            string brDana = txtBrojDana.Text;
+            string brDana = txtbrDana.Text;
             string cena = txtCena.Text;
             string datum = datePicker.Text;
 
@@ -342,89 +529,255 @@ namespace TouristAgency.UserControls
 
             if (isCredentialsValid)
             {
-                txtError.Visibility = Visibility.Collapsed;
-                putovanjaServis.DodajPutovanje(naziv, brDana, cena, DateTime.ParseExact(datum, "dd/MM/yyyy", CultureInfo.InvariantCulture), Atrakcije1, Smestaji1, Restorani1);
-                txtSucces.Visibility = Visibility.Visible;
-                txtSucces.Text = "Uspešno ste se kreirali putovanje.";
+                string izabraneInformacije = "Informacije koje je korisnik izabrao:\n" + "\n";
+                izabraneInformacije += "Naziv: " + naziv + "\n" + "\n";
+                izabraneInformacije += "Broj dana: " + brDana + "\n" + "\n";
+                izabraneInformacije += "Cena: " + cena + "\n" + "\n";
+                izabraneInformacije += "Datum: " + datum + "\n" + "\n";
+                izabraneInformacije += "Izabrane atrakcije: " + "\n";
+                foreach (Atrakcija at in atrakcije1)
+                {
+                    izabraneInformacije += "- "  +  at.Naziv + "," + at.Adresa + "," + at.Opis + "\n";
+               
+                }
+                izabraneInformacije += "\n";
+                izabraneInformacije += "Izabrani smeštaji: " + "\n";
+                foreach (Smestaj sm in smestaji1)
+                {
+                    izabraneInformacije += "- " + sm.Naziv + "," + sm.Adresa + "," + sm.Tip + "," + "Ocena: " +  sm.Ocena +  "\n";
 
-                VratiSeNa_Putovanja.Invoke(this, e);
+                }
+                izabraneInformacije += "\n";
+                izabraneInformacije += "Izabrani restorani: " + "\n";
+                foreach (Restoran re in restorani1)
+                {
+                    izabraneInformacije += "- " + re.Naziv + "," + re.Adresa + ","  + "Ocena: " + re.Ocena + "\n";
+
+                }
+
+
+                YesNoModule  popupUserControl = new YesNoModule(izabraneInformacije);
+
+                myUserControl.IsHitTestVisible = false;
+                popup.Child = null;
+                popup.Child = popupUserControl;
+                popup.HorizontalOffset = 600;
+                popup.VerticalOffset = 670;
+                popup.Height = 570;
+                popup.Width = 600;
+                popup.AllowsTransparency = true;
+
+                popup.IsOpen = true;
+
+
+                if (flagIzmeni)
+                {
+                    popupUserControl.PotvrdiClicked += izmeni;
+                    popupUserControl.OdustaniClicked += Zatvori;
+
+                }
+                else
+                {
+                    popupUserControl.PotvrdiClicked += dodaj;
+                    popupUserControl.OdustaniClicked += Zatvori;
+                }
+                
+                
+
+
             }
 
             KreirajClicked?.Invoke(this, e);
         }
 
+        public void Zatvori(object sender, EventArgs e)
+        {
+            popup.IsOpen = false;
+            myUserControl.IsHitTestVisible = true;
+
+        }
+        public void ZatvoriOk(object sender, EventArgs e)
+        {
+            popup1.IsOpen = false;
+            txtNaziv.Text = "";
+            txtbrDana.Text = "";
+            txtCena.Text = "";
+            datePicker.Text = "";
+            Atrakcije1.Clear();
+            Restorani1.Clear();
+            Smestaji1.Clear();
+            txtErrorNaziv.Visibility = Visibility.Visible;
+            txtErrorNaziv.Text = "";
+            txtErrorCena.Visibility = Visibility.Visible;
+            txtErrorCena.Text = "";
+            txtErrorbrDana.Visibility = Visibility.Visible;
+            txtErrorbrDana.Text = "";
+            txtErrorDatum.Visibility = Visibility.Visible;
+            txtErrorDatum.Text = "";
+            txtErrorAtrakcije.Visibility = Visibility.Visible;
+            txtErrorAtrakcije.Text = "";
+            txtErrorSmestaji.Visibility = Visibility.Visible;
+            txtErrorSmestaji.Text = "";
+            txtErrorRestorani.Visibility = Visibility.Visible;
+            txtErrorRestorani.Text = "";
+
+        }
+
+        public void izmeni(object sender, EventArgs eventArgs)
+        {
+            string naziv = txtNaziv.Text;
+            string brDana = txtbrDana.Text;
+            string cena = txtCena.Text;
+            string datum = datePicker.Text;
+            putovanjaServis.IzmeniPutovanje(idIzmene, naziv, brDana, cena, DateTime.ParseExact(datum, "dd/MM/yyyy", CultureInfo.InvariantCulture), Atrakcije1, Smestaji1, Restorani1);
+            myUserControl.IsHitTestVisible = true;
+            popup.IsOpen = false;
+            OkModule okModule = new OkModule("Uspešno ste izmenili  " + naziv + " putovanje");
+            popup1.Child = null;
+            popup1.Child = okModule;
+            popup1.HorizontalOffset = 600;
+            popup1.VerticalOffset = 300;
+            popup1.Height = 180;
+            popup1.Width = 400;
+            popup1.AllowsTransparency = true;
+
+            popup1.IsOpen = true;
+
+
+            okModule.PotvrdiClicked += ZatvoriOk;
+
+
+        }
+
+        public void dodaj(object sender, EventArgs eventArgs)
+        {
+            string naziv = txtNaziv.Text;
+            string brDana = txtbrDana.Text;
+            string cena = txtCena.Text;
+            string datum = datePicker.Text;
+            putovanjaServis.DodajPutovanje(naziv, brDana, cena, DateTime.ParseExact(datum, "dd/MM/yyyy", CultureInfo.InvariantCulture), Atrakcije1, Smestaji1, Restorani1);
+            myUserControl.IsHitTestVisible = true;
+            popup.IsOpen = false;
+            OkModule okModule = new OkModule("Uspešno ste dodali " + naziv + " putovanje");
+            popup1.Child = null;
+            popup1.Child = okModule;
+            popup1.HorizontalOffset = 600;
+            popup1.VerticalOffset = 300;
+            popup1.Height = 180;
+            popup1.Width = 400;
+            popup1.AllowsTransparency = true;
+
+            popup1.IsOpen = true;
+
+
+            okModule.PotvrdiClicked += ZatvoriOk;
+
+
+
+        }
+
+        public static T FindVisualParent<T>(DependencyObject child) where T : DependencyObject
+        {
+            var parentObject = VisualTreeHelper.GetParent(child);
+
+            if (parentObject == null)
+                return null;
+
+            if (parentObject is T parent)
+                return parent;
+            else
+                return FindVisualParent<T>(parentObject);
+        }
+
         private bool ValidateInput(string naziv, string brDana, string cena, string datum)
         {
+          
             int broj;
             double brojCena;
             string format = "dd/MM/yyyy";
             DateTime datumDateTime;
+            var scrollViewerNaziv = FindVisualParent<ScrollViewer>(txtNaziv);
+            var scrollViewerCena = FindVisualParent<ScrollViewer>(txtCena);
+            var scrollViewerDana = FindVisualParent<ScrollViewer>(txtbrDana);
             DateTime trenutniDatum = DateTime.Now.Date;
             if (string.IsNullOrWhiteSpace(naziv))
             {
-                txtError.Visibility = Visibility.Visible;
-                txtError.Text = "Naziv treba da bude popunjen.";
+                txtErrorNaziv.Visibility = Visibility.Visible;
+                txtErrorNaziv.Text = "Naziv treba da bude popunjen.";
+                scrollViewerNaziv.ScrollToVerticalOffset(scroll.TransformToAncestor(scrollViewerNaziv).Transform(new Point(0, 0)).Y);
                 return false;
             }
             else if (string.IsNullOrWhiteSpace(brDana))
             {
-                txtError.Visibility = Visibility.Visible;
-                txtError.Text = "Broj dana treba da bude popunjeno.";
+                txtErrorNaziv.Visibility = Visibility.Collapsed;
+                txtErrorbrDana.Visibility = Visibility.Visible;
+                txtErrorbrDana.Text = "Broj dana treba da bude popunjeno.";
+                scrollViewerDana.ScrollToVerticalOffset(scroll.TransformToAncestor(scrollViewerDana).Transform(new Point(0, 0)).Y);
                 return false;
             }
          
             else if (!int.TryParse(brDana, out broj))
             {
-                txtError.Visibility = Visibility.Visible;
-                txtError.Text = "Broj dana treba da bude broj.";
+                txtErrorbrDana.Visibility = Visibility.Visible;
+                txtErrorbrDana.Text = "Broj dana treba da bude broj.";
+                scrollViewerDana.ScrollToVerticalOffset(scroll.TransformToAncestor(scrollViewerDana).Transform(new Point(0, 0)).Y);
                 return false;
             }
             else if (string.IsNullOrWhiteSpace(cena))
             {
-                txtError.Visibility = Visibility.Visible;
-                txtError.Text = "Cena treba da bude popunjena.";
+                txtErrorbrDana.Visibility = Visibility.Collapsed;
+                txtErrorCena.Visibility = Visibility.Visible;
+                txtErrorCena.Text = "Cena treba da bude popunjena.";
+                scrollViewerCena.ScrollToVerticalOffset(scroll.TransformToAncestor(scrollViewerCena).Transform(new Point(0, 0)).Y);
                 return false;
             }
             else if (!double.TryParse(cena, out brojCena))
             {
-                txtError.Visibility = Visibility.Visible;
-                txtError.Text = "Cena treba da bude broj.";
+                txtErrorCena.Visibility = Visibility.Visible;
+                txtErrorCena.Text = "Cena treba da bude broj.";
+                scrollViewerCena.ScrollToVerticalOffset(scroll.TransformToAncestor(scrollViewerCena).Transform(new Point(0, 0)).Y);
                 return false;
             }
             else if (string.IsNullOrWhiteSpace(datum))
             {
-                txtError.Visibility = Visibility.Visible;
-                txtError.Text = "Datum treba da bude popunjen.";
+                txtErrorCena.Visibility = Visibility.Collapsed;
+                txtErrorDatum.Visibility = Visibility.Visible;
+                txtErrorDatum.Text = "Datum treba da bude popunjen.";
                 return false;
             }
             else if (!DateTime.TryParseExact(datum, format, CultureInfo.InvariantCulture, DateTimeStyles.None, out datumDateTime))
             {
-                txtError.Visibility = Visibility.Visible;
-                txtError.Text = "Datum treba da bude formata mm/dd/gggg (npr. 04/05/2023) .";
+                txtErrorCena.Visibility = Visibility.Collapsed;
+                txtErrorDatum.Visibility = Visibility.Visible;
+                txtErrorDatum.Text = "Datum treba da bude formata mm/dd/gggg (npr. 04/05/2023) .";
                 return false;
             }else if (DateTime.ParseExact(datum, "dd/MM/yyyy", CultureInfo.InvariantCulture) < trenutniDatum)
             {
-                txtError.Visibility = Visibility.Visible;
-                txtError.Text = "Datum treba da bude u budućnosti.";
+                txtErrorCena.Visibility = Visibility.Collapsed;
+                txtErrorDatum.Visibility = Visibility.Visible;
+                txtErrorDatum.Text = "Datum treba da bude u budućnosti.";
                 return false;
 
             }
             else if (Atrakcije1.Count == 0)
             {
-                txtError.Visibility = Visibility.Visible;
-                txtError.Text = "Treba da izaberete jednu ili više atrakcija.";
+                txtErrorDatum.Visibility = Visibility.Collapsed;
+                txtErrorAtrakcije.Visibility = Visibility.Visible;
+                txtErrorAtrakcije.Text = "Treba da izaberete jednu ili više atrakcija.";
                 return false;
             }
             else if (Smestaji1.Count == 0)
             {
-                txtError.Visibility = Visibility.Visible;
-                txtError.Text = "Treba da izaberete jedan ili više smeštaja.";
+                txtErrorAtrakcije.Visibility = Visibility.Collapsed;
+                txtErrorSmestaji.Visibility = Visibility.Visible;
+                txtErrorSmestaji.Text = "Treba da izaberete jedan ili više smeštaja.";
                 return false;
             }
             else if (Restorani1.Count == 0)
             {
-                txtError.Visibility = Visibility.Visible;
-                txtError.Text = "Treba da izaberete jedan ili više restorana.";
+                txtErrorSmestaji.Visibility = Visibility.Collapsed;
+                txtErrorRestorani.Visibility = Visibility.Visible;
+                txtErrorRestorani.Text = "Treba da izaberete jedan ili više restorana.";
                 return false;
             }
 
@@ -435,18 +788,13 @@ namespace TouristAgency.UserControls
 
         private void BtnPonisti_Click(object sender, RoutedEventArgs e)
         {
-            txtNaziv.Text = "";
-            txtBrojDana.Text = "";
-            txtCena.Text = "";
-            datePicker.Text = "";
-            Atrakcije1.Clear();
-            Restorani1.Clear();
-            Smestaji1.Clear();
-            PonistiClicked?.Invoke(this, e);
-            txtSucces.Visibility = Visibility.Visible;
-            txtSucces.Text = "";
-            txtError.Visibility = Visibility.Visible;
-            txtError.Text = "";
+            
+            VratiSeNa_Putovanja.Invoke(this, e);
+        }
+
+        private void restoraniListView_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+
         }
     }
 }
