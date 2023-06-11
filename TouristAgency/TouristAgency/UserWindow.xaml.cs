@@ -108,6 +108,13 @@ namespace TouristAgency
             mainComponent.Children.Add(restorani);
         }
 
+        private void Izvestaji_Click(object sender, EventArgs e)
+        {
+            Izvestaji izvestaji = new Izvestaji();
+            mainComponent.Children.Clear();
+            mainComponent.Children.Add(izvestaji);
+        }
+
         private void Putovanja_Click(object sender, EventArgs e)
         {
             ucPutovanja putovanja = new ucPutovanja();
@@ -145,6 +152,7 @@ namespace TouristAgency
             agentMenu.Putovanja += Putovanja_Click;
             agentMenu.Smestaji += Smestaji_Click;
             agentMenu.Restorani += Restorani_Click;
+                agentMenu.Izvestaji += Izvestaji_Click;
             agentMenu.Odjava += Odjava_Click;
             menu.Children.Clear();
             menu.Children.Add(agentMenu);

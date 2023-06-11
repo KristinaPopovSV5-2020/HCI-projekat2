@@ -41,7 +41,7 @@
                         <TextBlock Text="Smestaji"/>
                     </StackPanel>
                 </Button>
-                <Button Style="{StaticResource menuButton}">
+                <Button Style="{StaticResource menuButton}" Click="Izvestaji_Click">
                     <StackPanel Orientation="Horizontal">
                         <Icon:PackIconMaterial Kind="ChartLine" Style="{StaticResource menuButtonIcon}"/>
                         <TextBlock Text="Izvestaji"/>
