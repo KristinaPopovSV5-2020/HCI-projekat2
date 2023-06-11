@@ -57,7 +57,7 @@ namespace TouristAgency.UserControls
             smestaj.Adresa = this.adresa.Hint;
             smestaj.Ocena = this.ocena.SelectedItem.ToString();
 
-            naslov.Text = "Izmeni smestaj";
+            naslov.Text = "Izmeni smeštaj";
             potvrdi.Content = "Izmeni";
             
 
@@ -66,7 +66,7 @@ namespace TouristAgency.UserControls
         {
             InitializeComponent();
 
-            naslov.Text = "Dodaj smestaj";
+            naslov.Text = "Dodaj smeštaj";
             potvrdi.Content = "Dodaj";
         }
 
@@ -118,6 +118,7 @@ namespace TouristAgency.UserControls
                     putovanjaServis.IzmeniSmestaj(smestaj);
 
                     OkModule popupUserControl = new OkModule("Smestaj " + smestaj.Naziv + " je izmenjen.");
+                    myUserControl.IsHitTestVisible = false;
 
                     popup.Child = null;
                     popup.Child = popupUserControl;
@@ -140,6 +141,7 @@ namespace TouristAgency.UserControls
           public void Zatvori(object sender, EventArgs e)
         {
             popup.IsOpen = false;
+            myUserControl.IsHitTestVisible = true;
         }
         private bool ValidateInput(string naziv, string tip, string ocena, string adresa)
         {

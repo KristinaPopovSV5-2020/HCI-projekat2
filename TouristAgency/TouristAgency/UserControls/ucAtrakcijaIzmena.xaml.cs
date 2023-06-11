@@ -87,8 +87,9 @@ namespace TouristAgency.UserControls
                    
 
                     OkModule popupUserControl = new OkModule("Atrakcija "+atrakcija.Naziv+" je izmenjena.");
-                 
-                    
+                    mainComponent.IsHitTestVisible = false;
+
+
                     popup.Child = null;
                     popup.Child = popupUserControl;
                     popup.HorizontalOffset = 500;
@@ -112,6 +113,7 @@ namespace TouristAgency.UserControls
         public void Zatvori(object sender, EventArgs e)
         {
             popup.IsOpen = false;
+            mainComponent.IsHitTestVisible = true;
         }
 
         private bool ValidateInput(string naziv, string opis, string adresa)

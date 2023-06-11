@@ -18,7 +18,7 @@
         <Border Grid.Column="1" Background="White" Width="800" Height="650" CornerRadius="30" HorizontalAlignment="Center" VerticalAlignment="Center">
             <Grid Margin="0, 10, 0, 0"  Width="800" Height="720"  HorizontalAlignment="Center">
                 <TextBlock HorizontalAlignment="Center" FontSize="40" Margin="100" FontWeight="SemiBold">Dobrodošli</TextBlock>
-                <TextBlock HorizontalAlignment="Center" FontSize="27" Margin="150" FontWeight="DemiBold">Ulogujte se na vaš postojaći nalog</TextBlock>
+                <TextBlock HorizontalAlignment="Center" FontSize="27" Margin="150" FontWeight="DemiBold">Ulogujte se na vaš postojeći nalog</TextBlock>
                 <Grid HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0, 20, 0, 0">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="200"/>

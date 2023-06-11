@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Controls.Primitives;
 using System.Windows.Data;
 using System.Windows.Documents;
 using System.Windows.Input;
@@ -20,6 +21,8 @@ namespace TouristAgency.UserControls
     {
         public event RoutedEventHandler RegistracijaClicked;
         KorisnikServis KorisnikServis = new KorisnikServis();
+
+        Popup popup1 = new Popup();
 
         public ucRegistracija()
         {
@@ -42,10 +45,34 @@ namespace TouristAgency.UserControls
                 KorisnikServis.Registracija(username, password);
                 txtSucces.Visibility = Visibility.Visible;
                 txtSucces.Text = "Uspešno ste se registrovali.";
+                OkModule popupUserControl = new OkModule("Uspešno ste se registrovali.");
+
+                popup1.Child = null;
+                popup1.Child = popupUserControl;
+                popup1.HorizontalOffset = 500;
+                popup1.VerticalOffset = 570;
+                popup1.Height = 180;
+                popup1.Width = 400;
+                popup1.AllowsTransparency = true;
+
+                popup1.IsOpen = true;
+
+                popupUserControl.PotvrdiClicked += Zatvori;
+            
+
+           
+
+            RegistracijaClicked?.Invoke(this, e);
 
             }
 
-            RegistracijaClicked?.Invoke(this, e);
+            
+        }
+
+        public void Zatvori(object sender, EventArgs e)
+        {
+            popup1.IsOpen = false;
+           
         }
 
 
@@ -54,10 +81,11 @@ namespace TouristAgency.UserControls
             if (string.IsNullOrWhiteSpace(username) )
             {
                 txtErrorUsername.Visibility = Visibility.Visible;
-                txtError.Text = "Korisničko ime treba da bude popunjeno.";
+                txtErrorUsername.Text = "Korisničko ime treba da bude popunjeno.";
                 return false;
             }else if (string.IsNullOrWhiteSpace(password))
             {
+                txtErrorUsername.Visibility = Visibility.Collapsed;
                 txtErrorPassword.Visibility = Visibility.Visible;
                 txtErrorPassword.Text = "Lozinka treba da bude popunjena.";
                 return false;
@@ -65,6 +93,7 @@ namespace TouristAgency.UserControls
             }
             else if (string.IsNullOrWhiteSpace(coPassword))
             {
+                txtErrorPassword.Visibility = Visibility.Collapsed;
                 txtErrorCoPassword.Visibility = Visibility.Visible;
                 txtErrorCoPassword.Text = "Potvrda lozinke treba da bude popunjena.";
                 return false;
@@ -73,6 +102,7 @@ namespace TouristAgency.UserControls
 
             if (!password.Equals(coPassword))
             {
+                txtErrorCoPassword.Visibility = Visibility.Collapsed;
                 txtErrorCoPassword.Visibility = Visibility.Visible;
                 txtErrorCoPassword.Text = "Lozinke se ne poklapaju.";
                 return false;
@@ -81,10 +111,13 @@ namespace TouristAgency.UserControls
 
             if (KorisnikServis.ProveraKorisnickogImena(username))
             {
+                txtErrorCoPassword.Visibility = Visibility.Collapsed;
                 txtErrorUsername.Visibility = Visibility.Visible;
                 txtErrorUsername.Text = "Korisničko ime je zauzeto. Unesite drugo.";
                 return false;
             }
+
+
            
             return true;
         }

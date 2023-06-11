@@ -39,11 +39,11 @@
                     <TextBox x:Name="txtUsername"   Grid.Column="1" Grid.Row="0" FontSize="20" l:HelpProvider.HelpKey="Registracija"/>
                     <PasswordBox x:Name="txtPassword"  Grid.Column="1" Grid.Row="2" l:HelpProvider.HelpKey="Registracija"/>
                     <PasswordBox x:Name="txtCoPassword"  Grid.Column="1" Grid.Row="4" l:HelpProvider.HelpKey="Registracija"/>
-                    <TextBlock x:Name="txtErrorUsername" Grid.Row="1" Grid.Column="1" FontSize="17"  Foreground="BlueViolet" HorizontalAlignment="Center" Text="hnoffa" Visibility="Collapsed" />
+                    <TextBlock x:Name="txtErrorUsername" Grid.Row="1"   Grid.ColumnSpan="2" FontSize="17"  Foreground="BlueViolet" HorizontalAlignment="Center" Text="hnoffa" Visibility="Collapsed" />
 
-                    <TextBlock x:Name="txtErrorPassword" Grid.Row="3" Grid.Column="1" FontSize="17"  Foreground="BlueViolet" HorizontalAlignment="Center" Text="nvljnvl" Visibility="Collapsed" />
+                    <TextBlock x:Name="txtErrorPassword" Grid.Row="3"   Grid.ColumnSpan="2" FontSize="17"  Foreground="BlueViolet" HorizontalAlignment="Center" Text="nvljnvl" Visibility="Collapsed" />
 
-                    <TextBlock x:Name="txtErrorCoPassword" Grid.Row="5" Grid.Column="1" FontSize="17"  Foreground="BlueViolet" HorizontalAlignment="Center" Text="vbkvj" Visibility="Collapsed" />
+                    <TextBlock x:Name="txtErrorCoPassword" Grid.Row="5"   Grid.ColumnSpan="2" FontSize="17"  Foreground="BlueViolet" HorizontalAlignment="Center" Text="vbkvj" Visibility="Collapsed" />
 
 
                     <TextBlock x:Name="txtError" Grid.Row="6" Grid.ColumnSpan="2" FontSize="20"   Foreground="BlueViolet" HorizontalAlignment="Center" Text="" Visibility="Collapsed" />

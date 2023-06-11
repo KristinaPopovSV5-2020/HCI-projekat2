@@ -14,6 +14,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using TouristAgency.Model;
 using TouristAgency.Servis;
+using TouristAgency.UserControls.client;
 
 namespace TouristAgency.UserControls
 {
@@ -84,6 +85,24 @@ namespace TouristAgency.UserControls
             mainComponent.Children.Clear();
             mainComponent.Children.Add(puto);
 
+
+        }
+
+        private void Izmeni_Putovanje(object sender, RoutedEventArgs e)
+        {
+            Putovanje selectedItem = putovanjaDataGrid.SelectedItem as Putovanje;
+            ucNovoPutovanje forma = new ucNovoPutovanje(selectedItem.Id, selectedItem.Naziv, selectedItem.Cena, selectedItem.BrojDana, selectedItem.Datum, new ObservableCollection<Atrakcija>(selectedItem.Atrakcije), new ObservableCollection<Smestaj>(selectedItem.Smestaji), new ObservableCollection<Restoran>(selectedItem.Restorani));
+
+        }
+
+        private void Vidi_Putovanje(object sender, RoutedEventArgs e)
+        {
+            Putovanje selectedItem = putovanjaDataGrid.SelectedItem as Putovanje;
+            detaljiPrikaz detaljiPrikaz= new detaljiPrikaz(false);
+            mainComponent.Children.Clear();
+            mainComponent.Children.Add(detaljiPrikaz);
+            detaljiPrikaz.LoadItemDetails(selectedItem);
+            detaljiPrikaz.VratiSeNa_Putovanja += Vrati;
 
         }
     }

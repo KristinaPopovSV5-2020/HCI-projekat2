@@ -37,6 +37,7 @@ namespace TouristAgency.Servis
             return atrakcije;
         }
 
+      
         public void DodajAtrakciju(Atrakcija atrakcija)
         {
             var document = new BsonDocument
@@ -520,7 +521,10 @@ namespace TouristAgency.Servis
             Baza.RezervacijekOL.InsertOne(rez.ToBsonDocument());
         }
 
+       
     }
 
 }
+
+
 

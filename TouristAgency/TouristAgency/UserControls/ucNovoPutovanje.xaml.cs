@@ -147,7 +147,7 @@ namespace TouristAgency.UserControls
 
         }
 
-        public ucNovoPutovanje(String id, String naziv, string cena, string brDana, string datum, ObservableCollection<Atrakcija> atrakcije, ObservableCollection<Smestaj> smestaji, ObservableCollection<Restoran> restorani)
+        public ucNovoPutovanje(string id, string naziv, string cena, string brDana, DateTime datum, ObservableCollection<Atrakcija> atrakcije, ObservableCollection<Smestaj> smestaji, ObservableCollection<Restoran> restorani)
         {
             InitializeComponent();
             DataContext = this;
@@ -158,7 +158,7 @@ namespace TouristAgency.UserControls
             txtNaziv.Text = naziv;
             txtCena.Text = cena;
             txtbrDana.Text = brDana;
-            datePicker.Text = datum;
+            datePicker.Text = datum.ToString();
             flagIzmeni = true;
             idIzmene = id;
             foreach (Atrakcija at in atrakcije)

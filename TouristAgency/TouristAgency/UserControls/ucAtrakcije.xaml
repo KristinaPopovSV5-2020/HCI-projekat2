@@ -54,7 +54,7 @@
         </Grid>
 
         <!--Members Data Grid-->
-        <DataGrid RowStyle="{DynamicResource DataGridRowStyle1}" ColumnHeaderStyle="{DynamicResource DataGridColumnHeaderStyle1}" CellStyle="{DynamicResource DataGridCellStyle1}" x:Name="atrakcijeDataGrid" Style="{DynamicResource DataGridStyle1}">
+        <DataGrid  Height="800" RowStyle="{DynamicResource DataGridRowStyle1}" ColumnHeaderStyle="{DynamicResource DataGridColumnHeaderStyle1}" CellStyle="{DynamicResource DataGridCellStyle1}" x:Name="atrakcijeDataGrid" Style="{DynamicResource DataGridStyle1}">
             <DataGrid.Columns>
                 <DataGridTemplateColumn Header="Naziv" IsReadOnly="True" Width="*">
                     <DataGridTemplateColumn.CellTemplate>

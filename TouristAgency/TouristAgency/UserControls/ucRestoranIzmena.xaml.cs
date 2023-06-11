@@ -104,6 +104,7 @@ namespace TouristAgency.UserControls
                     putovanjaServis.IzmeniRestoran(restoran);
 
                     OkModule popupUserControl = new OkModule("Restoran " + restoran.Naziv + " je izmenjen.");
+                    myUserControl.IsHitTestVisible = false;
 
                     popup.Child = null;
                     popup.Child = popupUserControl;
@@ -127,6 +128,7 @@ namespace TouristAgency.UserControls
         public void Zatvori(object sender, EventArgs e)
         {
             popup.IsOpen = false;
+            myUserControl.IsHitTestVisible = true;
         }
 
         private bool ValidateInput(string naziv, string ocena, string adresa)
