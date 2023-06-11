@@ -34,7 +34,7 @@
                 <Button Style="{StaticResource menuButton}" Click="Kupljeni_Click">
                     <StackPanel Orientation="Horizontal">
                         <Icon:PackIconMaterial Kind="Clock" Style="{StaticResource menuButtonIcon}"/>
-                        <TextBlock Text="Istoriju kupljenih"/>
+                        <TextBlock Text="Istorija kupovine"/>
                     </StackPanel>
                 </Button>
 

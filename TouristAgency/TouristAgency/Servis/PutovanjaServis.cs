@@ -24,13 +24,13 @@ namespace TouristAgency.Servis
 
         public PutovanjaServis() { }
 
-        
+
 
         public async Task<ObservableCollection<Atrakcija>> SveAtrakcijeAsync()
         {
             ObservableCollection<Atrakcija> atrakcije = new ObservableCollection<Atrakcija>();
             var documents = await Baza.AtrakcijeKol.Find(new BsonDocument()).ToListAsync();
-            foreach(var document in documents)
+            foreach (var document in documents)
             {
                 atrakcije.Add(new Atrakcija(document["_id"].AsString, document["naziv"].AsString, document["opis"].AsString, document["adresa"].AsString));
             }
@@ -224,7 +224,7 @@ namespace TouristAgency.Servis
             var documents = await Baza.SmestajiKol.Find(new BsonDocument()).ToListAsync();
             foreach (var document in documents)
             {
-                smestaji.Add(new Smestaj(document["_id"].AsString, document["naziv"].AsString, document["adresa"].AsString, (TipSmestaja)Enum.Parse(typeof(TipSmestaja), document["tipSmestaja"].AsString),document["ocena"].AsString ));
+                smestaji.Add(new Smestaj(document["_id"].AsString, document["naziv"].AsString, document["adresa"].AsString, (TipSmestaja)Enum.Parse(typeof(TipSmestaja), document["tipSmestaja"].AsString), document["ocena"].AsString));
             }
             return smestaji;
         }
@@ -362,7 +362,7 @@ namespace TouristAgency.Servis
 
 
 
-        public void KupiPutovanje(string username,  Putovanje putovanje)
+        public void KupiPutovanje(string username, Putovanje putovanje)
         {
             var kupljeni = new Kupljeni
             {
@@ -384,10 +384,66 @@ namespace TouristAgency.Servis
 
                 if (rezervacija.Username == username)
                     putovanja.Add(rezervacija.Putovanje);
-                
+
             }
             return putovanja;
         }
+
+        public List<Izvestaj> IzvestajPoPutovanju(string naziv, string putovanjeId)
+        {
+            var documents = Baza.KupljeniKol.Find(_ => true).ToList();
+            var kupljeni = documents.Select(p => BsonSerializer.Deserialize<Kupljeni>(p)).ToList();
+
+            List<Kupljeni> kupljeniList = kupljeni
+                .Where(k => k.Putovanje.Id == putovanjeId)
+                .ToList();
+
+            int brojKupljenih = kupljeniList.Count;
+
+            List<Izvestaj> izvestajs = new List<Izvestaj>();
+
+            Izvestaj izvestaj = new Izvestaj
+            {
+                RedniBroj = 1, 
+                Naziv = naziv,  
+                BrojKupljenih = brojKupljenih,
+                KupljeniList = kupljeniList
+            };
+            izvestajs.Add(izvestaj);
+
+            return izvestajs;
+        }
+
+        public List<Izvestaj> IzvestajPoDatumu(DateTime targetDate)
+        {
+            var documents = Baza.KupljeniKol.Find(_ => true).ToList();
+            var kupljeni = documents.Select(p => BsonSerializer.Deserialize<Kupljeni>(p)).ToList();
+
+            var kupljeniZaDatum = kupljeni
+                .Where(k => k.Putovanje.Datum.Date == targetDate)
+                .ToList();
+
+            var putovanjeOccurrences = kupljeniZaDatum
+                .GroupBy(k => k.Putovanje.Id)
+                .Select(g => new { PutovanjeId = g.Key, PutovanjeNaziv = g.First().Putovanje.Naziv, Count = g.Count() })
+                .ToList();
+
+            List<Izvestaj> izvestaji = putovanjeOccurrences
+                .Select((p, index) => new Izvestaj
+                {
+                    RedniBroj = index + 1,
+                    Naziv = p.PutovanjeNaziv,
+                    BrojKupljenih = p.Count,
+                    KupljeniList = kupljeniZaDatum
+                        .Where(k => k.Putovanje.Id == p.PutovanjeId)
+                        .ToList()
+                })
+                .ToList();
+
+            return izvestaji;
+        }
+
+
         public List<Putovanje> PronadjiPopularneKupovine()
         {
             var documents = Baza.KupljeniKol.Find(_ => true).ToList();
