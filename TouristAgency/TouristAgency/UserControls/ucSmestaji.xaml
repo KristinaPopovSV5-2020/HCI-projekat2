@@ -83,9 +83,19 @@
                             <StackPanel Orientation="Horizontal">
                                 <Button Style="{StaticResource gridEditButton}" Click="Izmeni_Smestaj">
                                     <Icon:PackIconMaterial Kind="PencilOutline" Style="{StaticResource gridButtonIcon}" Width="20" Height="20"/>
+                                    <Button.ToolTip>
+                                        <ToolTip Style="{StaticResource CustomTooltipStyle}">
+                                            Izmeni smeštaj
+                                        </ToolTip>
+                                    </Button.ToolTip>
                                 </Button>
                                 <Button Margin="5 0 0 0" Style="{StaticResource gridRemoveButton}" Click="Obrisi_Smestaj">
                                     <Icon:PackIconMaterial Kind="DeleteOutline" Style="{StaticResource gridButtonIcon}" Width="20" Height="20"/>
+                                    <Button.ToolTip>
+                                        <ToolTip Style="{StaticResource CustomTooltipStyle}">
+                                            Obriši smeštaj
+                                        </ToolTip>
+                                    </Button.ToolTip>
                                 </Button>
                             </StackPanel>
                         </DataTemplate>

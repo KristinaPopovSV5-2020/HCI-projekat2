@@ -78,9 +78,19 @@
                             <StackPanel Orientation="Horizontal">
                                 <Button Style="{StaticResource gridEditButton}">
                                     <Icon:PackIconMaterial Kind="Eye" Style="{StaticResource gridButtonIcon}" Width="20" Height="20"/>
+                                    <Button.ToolTip>
+                                        <ToolTip Style="{StaticResource CustomTooltipStyle}">
+                                            Izmeni putovanje
+                                        </ToolTip>
+                                    </Button.ToolTip>
                                 </Button>
                                 <Button Margin="5 0 0 0" Style="{StaticResource gridRemoveButton}" Click="Obrisi_Putovanje">
                                     <Icon:PackIconMaterial Kind="DeleteOutline" Style="{StaticResource gridButtonIcon}" Width="20" Height="20"/>
+                                    <Button.ToolTip>
+                                        <ToolTip Style="{StaticResource CustomTooltipStyle}">
+                                            Obriši putovanje
+                                        </ToolTip>
+                                    </Button.ToolTip>
                                 </Button>
                             </StackPanel>
                         </DataTemplate>
