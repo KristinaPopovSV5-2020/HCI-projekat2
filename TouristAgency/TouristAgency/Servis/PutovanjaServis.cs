@@ -433,11 +433,13 @@ namespace TouristAgency.Servis
 
         public List<Izvestaj> IzvestajPoDatumu(DateTime targetDate)
         {
+            DateTime endDate = targetDate.AddMonths(1);
+
             var documents = Baza.KupljeniKol.Find(_ => true).ToList();
             var kupljeni = documents.Select(p => BsonSerializer.Deserialize<Kupljeni>(p)).ToList();
 
             var kupljeniZaDatum = kupljeni
-                .Where(k => k.Putovanje.Datum.Date == targetDate)
+                .Where(k => k.Putovanje.Datum >= targetDate && k.Putovanje.Datum < endDate)
                 .ToList();
 
             var putovanjeOccurrences = kupljeniZaDatum
@@ -459,6 +461,7 @@ namespace TouristAgency.Servis
 
             return izvestaji;
         }
+
 
 
         public List<Putovanje> PronadjiPopularneKupovine()

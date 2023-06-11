@@ -10,7 +10,7 @@
 
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
-                <materialDesign:BundledTheme PrimaryColor="Yellow" SecondaryColor="Blue" BaseTheme="Light" />
+                <materialDesign:BundledTheme PrimaryColor="Orange" SecondaryColor="DeepPurple" BaseTheme="Light" />
                 <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Defaults.xaml"/>
             </ResourceDictionary.MergedDictionaries>
 
@@ -741,12 +741,12 @@
                 </Setter>
             </Style>
 
-            <SolidColorBrush x:Key="Item.MouseOver.Background" Color="#19E46B15"/>
-            <SolidColorBrush x:Key="Item.MouseOver.Border" Color="#E6E46B15"/>
+            <SolidColorBrush x:Key="Item.MouseOver.Background" Color="#3DDADADA"/>
+            <SolidColorBrush x:Key="Item.MouseOver.Border" Color="#d3d3d3"/>
             <SolidColorBrush x:Key="Item.SelectedInactive.Background" Color="#3DDADADA"/>
-            <SolidColorBrush x:Key="Item.SelectedInactive.Border" Color="#FFDADADA"/>
-            <SolidColorBrush x:Key="Item.SelectedActive.Background" Color="#3D26A0DA"/>
-            <SolidColorBrush x:Key="Item.SelectedActive.Border" Color="#FF26A0DA"/>
+            <SolidColorBrush x:Key="Item.SelectedInactive.Border" Color="#d3d3d3"/>
+            <SolidColorBrush x:Key="Item.SelectedActive.Background" Color="#3DDADADA"/>
+            <SolidColorBrush x:Key="Item.SelectedActive.Border" Color="#d3d3d3"/>
 
 
                 <Style x:Key="ListViewContainerStyle" TargetType="{x:Type ListBoxItem}">

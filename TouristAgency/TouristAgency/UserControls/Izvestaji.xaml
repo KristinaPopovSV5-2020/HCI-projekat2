@@ -3,7 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:local="clr-namespace:TouristAgency.UserControls"
+             xmlns:local="clr-namespace:TouristAgency.UserControls" xmlns:local1="clr-namespace:TouristAgency.Servis"
              mc:Ignorable="d" 
               xmlns:l="clr-namespace:TouristAgency.Helper"
              d:DesignHeight="450" d:DesignWidth="800" l:HelpProvider.HelpKey="Izvestaji">
@@ -19,7 +19,6 @@
 
     
     <ScrollViewer VerticalScrollBarVisibility="Auto">
-
         <Grid Margin="10">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"/>
@@ -32,54 +31,75 @@
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
 
-            <TextBlock Grid.Row="0" Text="Pregled prodatih aranžmana" FontSize="40" FontWeight="SemiBold" HorizontalAlignment="Left" Margin="0,10,0,0"/>
+            <TextBlock Grid.Row="0" Text="Pregled prodatih aranžmana" FontSize="40" FontWeight="SemiBold" HorizontalAlignment="Left"/>
             <Separator Height="1" Grid.Row="1" Background="#DAE2EA" Margin="0 1 0 10"/>
 
             <TextBlock Text="Izaberi tip izveštaja" Grid.Row="2" Margin="0,10,0,0" FontSize="24"/>
             <StackPanel Grid.Row="3" Orientation="Vertical" Margin="10,5">
-                <RadioButton Content="Po datumu" FontSize="24" Margin="0,0,10,0" Checked="datum_checked"/>
-                <RadioButton Content="Po putovanju" FontSize="24" Checked="putovanje_checked"/>
+                <RadioButton Content="Po mesecu" FontSize="24" Margin="0,0,10,0" Checked="datum_checked"/>
+                <RadioButton Content="Po određenom putovanju" FontSize="24" Checked="putovanje_checked"/>
             </StackPanel>
 
-            <StackPanel Visibility="Collapsed" x:Name="biranjeDatuma" Grid.Row="4" Orientation="Horizontal" >
-                <TextBlock Text="Izaberi datum" Margin="10,10,10,0" FontSize="24" VerticalAlignment="Center"/>
+            <StackPanel Visibility="Collapsed" x:Name="biranjeDatuma" Grid.Row="4" Orientation="Horizontal" Margin="10">
+                <TextBlock Text="Izaberi mesec i godinu" FontSize="24" VerticalAlignment="Center"/>
                 <StackPanel Orientation="Horizontal" Margin="0, 0, 30, 0">
-                    <DatePicker VerticalAlignment="Center" x:Name="datePicker" FontSize="17" Width="270" SelectedDate="{x:Null}" Height="38" l:HelpProvider.HelpKey="Izvestaji" >
-                        <DatePicker.Resources>
-                            <Style TargetType="DatePickerTextBox">
-                                <Setter Property="Text" Value="Izaberite datum" />
-                            </Style>
-                            <Style TargetType="Button">
-                                <Setter Property="Width" Value="30" />
-                                <Setter Property="Height" Value="30" />
-                            </Style>
-                        </DatePicker.Resources>
-                    </DatePicker>
+                    <ComboBox Margin="15, 0, 15, 0" VerticalAlignment="Center" x:Name="datePicker" Width="120" Foreground="#868686" BorderThickness="0" Height="35" FontSize="20" Background="#e6e6e6">
+                        <ComboBoxItem FontSize="15" Content="  januar  " />
+                        <ComboBoxItem FontSize="15" Content="  februar  " />
+                        <ComboBoxItem FontSize="15" Content="  mart  " />
+                        <ComboBoxItem FontSize="15" Content="  april  " />
+                        <ComboBoxItem FontSize="15" Content="  maj  " />
+                        <ComboBoxItem FontSize="15" Content="  jun  " />
+                        <ComboBoxItem FontSize="15" Content="  jul  " />
+                        <ComboBoxItem FontSize="15" Content="  avgust  " />
+                        <ComboBoxItem FontSize="15" Content="  septembar  " />
+                        <ComboBoxItem FontSize="15" Content="  oktobar  " />
+                        <ComboBoxItem FontSize="15" Content="  novembar  " />
+                        <ComboBoxItem FontSize="15" Content="  decembar  " />
+                    </ComboBox>
+                    <ComboBox VerticalAlignment="Center" x:Name="yearComboBox" Width="90" Foreground="#868686" BorderThickness="0" Height="35" FontSize="20" Background="#e6e6e6">
+                        <ComboBoxItem FontSize="15" Content="  2023  " />
+                        <ComboBoxItem FontSize="15" Content="  2022  " />
+                        <ComboBoxItem FontSize="15" Content="  2021  " />
+                        <ComboBoxItem FontSize="15" Content="  2020  " />
+                    </ComboBox>
+
                 </StackPanel>
                 <Button VerticalAlignment="Center" Content="Generiši izveštaj" Grid.Row="7" HorizontalAlignment="Center" Margin="0,10" Style="{StaticResource buttonPurple}" Click="Button_Click"/>
             </StackPanel>
             <StackPanel Grid.Row="4" x:Name="biranjePutovanja" Orientation="Horizontal" Visibility="Collapsed">
                 <TextBlock VerticalAlignment="Center" Text="Izaberi putovanje" FontSize="24" Grid.Row="5" Margin="10,10,10,0"/>
-                <ComboBox VerticalAlignment="Center" Width="200" x:Name="putovanjaComboBox" FontSize="24" Grid.Row="6" Margin="10,5" l:HelpProvider.HelpKey="Izvestaji"/>
-                <Button VerticalAlignment="Center" Content="Generiši izveštaj" Grid.Row="7" HorizontalAlignment="Center" Margin="0,10" Style="{StaticResource buttonPurple}" Click="Button_Click"/>
+                <ComboBox VerticalAlignment="Center" Width="250" x:Name="putovanjaComboBox" FontSize="24" Grid.Row="6" Margin="10,5"/>
+                <Button VerticalAlignment="Center" Content="Generiši izveštaj" Grid.Row="7" HorizontalAlignment="Center" Margin="0,10" Style="{StaticResource buttonPurple}" Click="Button2_Click"/>
             </StackPanel>
 
-            
-            <Separator Height="1" Grid.Row="5" Background="#DAE2EA" Margin="0 -1 0 10"/>
-            <ListView Grid.Row="6" x:Name="izvestaji" Grid.ColumnSpan="3">
-                <ListView.ItemContainerStyle>
-                    <Style TargetType="ListViewItem">
-                        <Setter Property="HorizontalContentAlignment" Value="Center" />
-                    </Style>
-                </ListView.ItemContainerStyle>
-                <ListView.View>
-                    <GridView>
-                        <GridViewColumn Header="#" DisplayMemberBinding="{Binding RedniBroj}" Width="Auto"/>
-                        <GridViewColumn Header="Naziv" DisplayMemberBinding="{Binding Naziv}" Width="Auto"/>
-                        <GridViewColumn Header="Broj kupljenih" DisplayMemberBinding="{Binding BrojKupljenih}" Width="Auto"/>
-                    </GridView>
-                </ListView.View>
-            </ListView>
+            <TextBlock Visibility="Collapsed" Grid.Row="5" HorizontalAlignment="Center" x:Name="errorMessage" FontSize="20"  FontWeight="SemiBold" Foreground="BlueViolet"></TextBlock>
+
+            <Separator Height="1" Grid.Row="6" Background="#DAE2EA" Margin="0 10 0 10"/>
+
+            <DataGrid Grid.Row="7" RowStyle="{DynamicResource DataGridRowStyle1}" ColumnHeaderStyle="{DynamicResource DataGridColumnHeaderStyle1}" CellStyle="{DynamicResource DataGridCellStyle1}" x:Name="izvestaji" Style="{DynamicResource DataGridStyle1}">
+                <DataGrid.Columns>
+                    <DataGridTemplateColumn Header="#" IsReadOnly="True" Width="*">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <StackPanel Orientation="Horizontal">
+                                    <TextBlock Text="{Binding RedniBroj}" VerticalAlignment="Center"/>
+                                </StackPanel>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                    <DataGridTemplateColumn Header="Naziv" IsReadOnly="True" Width="*">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <StackPanel Orientation="Horizontal">
+                                    <TextBlock Text="{Binding Naziv}" VerticalAlignment="Center"/>
+                                </StackPanel>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                    <DataGridTextColumn Header="Broj kupljenih" Binding="{Binding BrojKupljenih}" IsReadOnly="True" Width="*"/>
+                </DataGrid.Columns>
+            </DataGrid>
         </Grid>
     </ScrollViewer>
 </UserControl>

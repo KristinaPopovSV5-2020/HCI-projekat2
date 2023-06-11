@@ -54,7 +54,7 @@
 
                 <ListBox Name="listaAtrakcija" ItemsSource="{Binding Atrakcije}" BorderThickness="0">
                     <ListBox.ItemContainerStyle>
-                        <Style TargetType="ListBoxItem">
+                        <Style TargetType="ListBoxItem" BasedOn="{StaticResource ListViewContainerStyle}">
                             <EventSetter Event="MouseLeftButtonUp" Handler="ListBoxItem_Click" />
                         </Style>
                     </ListBox.ItemContainerStyle>
@@ -83,7 +83,7 @@
                 </Expander.Header>
                 <ListBox Name="listaSmestaja" ItemsSource="{Binding Smestaj}" BorderThickness="0">
                     <ListBox.ItemContainerStyle>
-                        <Style TargetType="ListBoxItem">
+                        <Style TargetType="ListBoxItem" BasedOn="{StaticResource ListViewContainerStyle}">
                             <EventSetter Event="MouseLeftButtonUp" Handler="ListBoxItem_Click" />
                         </Style>
                     </ListBox.ItemContainerStyle>

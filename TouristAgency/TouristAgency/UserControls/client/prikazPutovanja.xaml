@@ -43,8 +43,9 @@
                 
                 <ListBox Name="listaPutovanja" Grid.Row="3" HorizontalAlignment="Center" SelectionChanged="ItemListBox_SelectionChanged">
                     <ListBox.Resources>
-                        <SolidColorBrush x:Key="Item.MouseOver.Background" Color="#19E46B15"/>
-                        <SolidColorBrush x:Key="Item.MouseOver.Border" Color="#E6E46B15"/>
+
+                        <SolidColorBrush x:Key="Item.MouseOver.Background" Color="#3DDADADA"/>
+                        <SolidColorBrush x:Key="Item.MouseOver.Border" Color="#d3d3d3"/>
                         <SolidColorBrush x:Key="Item.SelectedInactive.Background" Color="#3DDADADA"/>
                         <SolidColorBrush x:Key="Item.SelectedInactive.Border" Color="#FFDADADA"/>
                         <SolidColorBrush x:Key="Item.SelectedActive.Background" Color="#3D26A0DA"/>

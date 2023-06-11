@@ -33,14 +33,47 @@ namespace TouristAgency.UserControls
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            if (datePicker.SelectedDate != null)
-                izvestaji.ItemsSource = servis.IzvestajPoDatumu(datePicker.SelectedDate.Value);
-            else if (putovanjaComboBox.SelectedIndex != -1)
+            if (datePicker.Visibility == Visibility.Visible)
             {
-                string naziv = putovanjaComboBox.SelectedItem.ToString();
-                string id = comboPutovanja[putovanjaComboBox.SelectedIndex].Id;
-
-                izvestaji.ItemsSource = servis.IzvestajPoPutovanju(naziv, id);
+                if (datePicker.SelectedIndex != -1 && yearComboBox.SelectedIndex != -1)
+                {
+                    errorMessage.Visibility = Visibility.Collapsed;
+                    var selectedItem = (ComboBoxItem)yearComboBox.SelectedItem;
+                    int selectedYear = int.Parse(selectedItem.Content.ToString());
+                    int selectedMonth = datePicker.SelectedIndex + 1;
+                    izvestaji.ItemsSource = servis.IzvestajPoDatumu(new DateTime(selectedYear, selectedMonth, 1));
+                    datePicker.SelectedItem = -1;
+                    yearComboBox.SelectedItem = -1;
+                }
+                else if (datePicker.SelectedIndex == -1)
+                {
+                    errorMessage.Text = "Izabrani mesec ne sme biti prazan";
+                    errorMessage.Visibility = Visibility.Visible;
+                }
+                else if (yearComboBox.SelectedIndex == -1)
+                {
+                    errorMessage.Text = "Izabrana godina ne sme biti prazna";
+                    errorMessage.Visibility = Visibility.Visible;
+                }
+            }
+        }
+         private void Button2_Click(object sender, RoutedEventArgs e)
+        {
+           if(putovanjaComboBox.Visibility == Visibility.Visible)
+            {
+                if (putovanjaComboBox.SelectedIndex != -1)
+                {
+                    errorMessage.Visibility = Visibility.Collapsed;
+                    string naziv = putovanjaComboBox.SelectedItem.ToString();
+                    string id = comboPutovanja[putovanjaComboBox.SelectedIndex].Id;
+                    putovanjaComboBox.SelectedItem = null;
+                    izvestaji.ItemsSource = servis.IzvestajPoPutovanju(naziv, id);
+                }
+                else if (putovanjaComboBox.SelectedIndex == -1)
+                {
+                    errorMessage.Text = "Izabrano putovanje ne sme biti prazno";
+                    errorMessage.Visibility = Visibility.Visible;
+                }
             }
         }
 
@@ -67,6 +100,12 @@ namespace TouristAgency.UserControls
                 Console.WriteLine(str);
                 HelpProvider.ShowHelp(str, userWindow);
             }
+        }
+        
+        private void TextBox_SelectionChanged(object sender, RoutedEventArgs e)
+        {
+            datePicker.Visibility = Visibility.Visible;
+
         }
     }
 }
