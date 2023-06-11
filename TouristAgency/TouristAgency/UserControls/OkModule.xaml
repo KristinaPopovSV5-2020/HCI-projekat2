@@ -7,13 +7,13 @@
              mc:Ignorable="d" 
              d:DesignHeight="180" d:DesignWidth="400">
     <Border Background="White" BorderBrush="Gray" BorderThickness="0.5"  CornerRadius="20">
-        <Grid Margin="25">
+        <Grid Margin="25"  >
             <StackPanel Orientation="Vertical">
                 <TextBlock  x:Name="uspesnost" FontSize="25"></TextBlock>
                 <TextBlock TextWrapping="Wrap" TextTrimming="None" x:Name="poruka" FontSize="15"></TextBlock>
             </StackPanel>
           
-            <Button HorizontalAlignment="Right" VerticalAlignment="Bottom" FontSize="17" Foreground="Black" Content="Ok" Style="{StaticResource filterDugme}" Click="Potvrdi" Margin="10 0 0 0" Name="potvrdi" Width="80"/>
+            <Button HorizontalAlignment="Right" VerticalAlignment="Bottom" FontSize="17" Foreground="White" Content="Ok" Style="{StaticResource filterDugme}" Click="Potvrdi" Margin="10 0 0 0" Name="potvrdi" Width="80"/>
         </Grid>
     </Border>
 </UserControl>

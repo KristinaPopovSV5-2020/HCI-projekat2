@@ -49,10 +49,13 @@ namespace TouristAgency.UserControls
 
                 popup1.Child = null;
                 popup1.Child = popupUserControl;
-                popup1.HorizontalOffset = 500;
-                popup1.VerticalOffset = 570;
+              
                 popup1.Height = 180;
                 popup1.Width = 400;
+                popup1.Placement = PlacementMode.Center;
+                popup1.VerticalOffset = (SystemParameters.PrimaryScreenHeight - popup1.Height) / 2 + 100;
+                popup1.HorizontalOffset = (SystemParameters.PrimaryScreenWidth - popup1.Width) / 2 + 100;
+
                 popup1.AllowsTransparency = true;
 
                 popup1.IsOpen = true;
