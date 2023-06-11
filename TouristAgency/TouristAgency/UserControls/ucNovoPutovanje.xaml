@@ -124,7 +124,7 @@
                            Panel.ZIndex="1"  Width="180" Visibility="{Binding ElementName=textBoxFilter, Path=Text.IsEmpty, Converter={StaticResource BoolToVis}}"/>
 
 
-                        <TextBox Name="textBoxFilterAtrakcije" Style="{StaticResource filterTextBox}"  Width="180"  TextChanged="PretraziAtrakcije" Margin="0 -75 0 0"/>
+                        <TextBox Name="textBoxFilterAtrakcije" Style="{StaticResource filterTextBox}"  Width="180"  TextChanged="PretraziAtrakcije" Margin="10 -75 0 0"/>
                         </Grid>
                     
                 </StackPanel>
@@ -147,21 +147,31 @@
 
                 </ListView>
 
-                    <ListView Style="{StaticResource BlackBorderListViewStyle}" Grid.Column="1" Grid.Row="13"  ItemsSource="{Binding Atrakcije1}"  Margin="15 0 10 0"  AllowDrop="True" DragEnter="ListView_DragEnterAtrakcija" Drop="ListView_DropAtrakcija" Height="100">
-                    <ListView.ItemTemplate>
-                        <DataTemplate>
-                            <WrapPanel>
-                                <TextBlock Text="{Binding Naziv}" FontWeight="Bold" />
-                                <TextBlock Text=", " />
-                                <TextBlock Text="{Binding Opis}" />
-                                <TextBlock Text=" (" />
-                                <TextBlock Text="{Binding Adresa}" Cursor="Hand" />
-                                <TextBlock Text=")" />
-                            </WrapPanel>
-                        </DataTemplate>
-                    </ListView.ItemTemplate>
+                    <ListView  Style="{StaticResource BlackBorderListViewStyle}" Grid.Column="1" Grid.Row="13"   ItemsSource="{Binding Atrakcije1}"  Margin="15 0 10 0"  AllowDrop="True" DragEnter="ListView_DragEnterAtrakcija" Drop="ListView_DropAtrakcija" Height="100"  Name="atrakcijeListView1">
+                        <ListView.ItemTemplate>
+                            <DataTemplate>
+                                <WrapPanel>
+                                    <TextBlock Text="{Binding Naziv}" FontWeight="Bold" />
+                                    <TextBlock Text=", " />
+                                    <TextBlock Text="{Binding Opis}" />
+                                    <TextBlock Text=" (" />
+                                    <TextBlock Text="{Binding Adresa}" Cursor="Hand" />
+                                    <TextBlock Text=") " />
+                                    <Button Content="Ukloni" Foreground="Black" Background="White" Height="17" Width="45" Click="Izbaci_Click_Atrakcija" Margin="10 0 0 0" Padding="0 0 0 0">
+                                        <Button.FontFamily>
+                                            <FontFamily>Segoe UI</FontFamily>
+                                        </Button.FontFamily>
+                                        <Button.FontSize>12</Button.FontSize>
+                                        <Button.FontWeight>
+                                            <FontWeight>SemiBold</FontWeight>
+                                        </Button.FontWeight>
+                                    </Button>
+                                </WrapPanel>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                     
 
-                </ListView>
+                    </ListView>
                     <TextBlock Grid.Row="14" Grid.Column="1" x:Name="txtErrorAtrakcije" FontSize="14"  Foreground="BlueViolet" HorizontalAlignment="Center" Text="cdfsbckacbkvsg" Visibility="Collapsed" />
                   
                 <!-- Smestaji -->
@@ -187,7 +197,7 @@
                            Panel.ZIndex="1"  Width="180" Visibility="{Binding ElementName=textBoxFilter, Path=Text.IsEmpty, Converter={StaticResource BoolToVis}}"/>
 
 
-                        <TextBox Name="textBoxFilterSmestaji" Style="{StaticResource filterTextBox}" Width="180" TextChanged="PretraziSmestaje" Margin="0 -75 0 0" />
+                        <TextBox Name="textBoxFilterSmestaji" Style="{StaticResource filterTextBox}" Width="180" TextChanged="PretraziSmestaje" Margin="10 -75 0 0" />
                    </Grid>
                 </StackPanel>
                 <TextBlock Grid.Row="16" Grid.Column="1" Text="Izabrani smeštaji" FontSize="15" Style="{StaticResource text}" Margin="15 0 0 0"/>
@@ -219,7 +229,16 @@
                                 <TextBlock Text="{Binding Tip}" Cursor="Hand" />
                                 <TextBlock Text=", Ocena: " />
                                 <TextBlock Text="{Binding Ocena}" Cursor="Hand" />
-                            </WrapPanel>
+                                    <TextBlock Text=", " />
+                                    <Button Content="Ukloni" Foreground="Black" Background="White" Height="17" Width="45" Click="Izbaci_Click_Smestaj" Margin="10 0 0 0" Padding="0 0 0 0">
+                                        <Button.FontFamily>
+                                            <FontFamily>Segoe UI</FontFamily>
+                                        </Button.FontFamily>
+                                        <Button.FontSize>12</Button.FontSize>
+                                        <Button.FontWeight>
+                                            <FontWeight>SemiBold</FontWeight>
+                                        </Button.FontWeight>
+                                    </Button></WrapPanel>
                         </DataTemplate>
                     </ListView.ItemTemplate>
 
@@ -249,7 +268,7 @@
                     <Grid Width="250" Height="60" HorizontalAlignment="Right" Margin="5 0 0 0">
                         <TextBlock Margin=" 0 -75 0 0" VerticalAlignment="Center" Foreground="#B0B9C6" IsHitTestVisible="False"
                Panel.ZIndex="1" Width="180" Visibility="{Binding ElementName=textBoxFilter, Path=Text.IsEmpty, Converter={StaticResource BoolToVis}}" />
-                        <TextBox Name="textBoxFilterRestorani" Style="{StaticResource filterTextBox}" Width="180" TextChanged="PretraziRestorane" Margin="0 -75 0 0"/>
+                        <TextBox Name="textBoxFilterRestorani" Style="{StaticResource filterTextBox}" Width="180" TextChanged="PretraziRestorane" Margin="10 -75 0 0"/>
                 </Grid>
                 </StackPanel>
                 <TextBlock Grid.Row="20" Grid.Column="1" Text="Izabrani restorani" FontSize="15" Style="{StaticResource text}"  Margin="15 0 0 0"/>
@@ -282,7 +301,17 @@
                                 <TextBlock Text="{Binding Adresa}" />
                                 <TextBlock Text="," />
                                 <TextBlock Text="{Binding Ocena}" Cursor="Hand" />
-                            </WrapPanel>
+                                <TextBlock Text=", " />
+                                    <Button Content="Ukloni" Foreground="Black" Background="White" Height="17" Width="45" Click="Izbaci_Click_Restoran" Margin="10 0 0 0" Padding="0 0 0 0">
+                                        <Button.FontFamily>
+                                            <FontFamily>Segoe UI</FontFamily>
+                                        </Button.FontFamily>
+                                        <Button.FontSize>12</Button.FontSize>
+                                        <Button.FontWeight>
+                                            <FontWeight>SemiBold</FontWeight>
+                                        </Button.FontWeight>
+                                    </Button>
+                                </WrapPanel>
                         </DataTemplate>
                     </ListView.ItemTemplate>
 

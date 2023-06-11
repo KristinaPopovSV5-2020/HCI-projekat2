@@ -1,4 +1,5 @@
-﻿using System;
+﻿using GalaSoft.MvvmLight.Command;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
@@ -26,6 +27,9 @@ namespace TouristAgency.UserControls
     public partial class ucNovoPutovanje : UserControl, INotifyPropertyChanged
     {
         public event EventHandler VratiSeNa_Putovanja;
+        public event EventHandler<Atrakcija> IzbaciClickedAtrakcija;
+        public event EventHandler<Smestaj> IzbaciClickedSmestaj;
+        public event EventHandler<Restoran> IzbaciClickedRestoran;
         public bool flagIzmeni = false;
         public string idIzmene = "";
 
@@ -35,8 +39,9 @@ namespace TouristAgency.UserControls
 
         public event RoutedEventHandler KreirajClicked;
         public event RoutedEventHandler PonistiClicked;
+     
 
-        
+
 
         PutovanjaServis putovanjaServis = new PutovanjaServis();
         private ObservableCollection<Atrakcija> atrakcije;
@@ -47,6 +52,9 @@ namespace TouristAgency.UserControls
         private ObservableCollection<Smestaj> smestaji1;
         Popup popup = new Popup();
         Popup popup1 = new Popup();
+
+
+
 
         public ObservableCollection<Atrakcija> Atrakcije
         {
@@ -133,6 +141,8 @@ namespace TouristAgency.UserControls
             DataContext = this;
             flagIzmeni = false;
             Loaded += ucNovoPutovanje_Loaded;
+        
+
 
 
         }
@@ -151,10 +161,97 @@ namespace TouristAgency.UserControls
             datePicker.Text = datum;
             flagIzmeni = true;
             idIzmene = id;
-            
+            foreach (Atrakcija at in atrakcije)
+            {
+                Atrakcije.Remove(at);
+
+            }
+
+            foreach(Smestaj sm in smestaji)
+            {
+                Smestaji.Remove(sm);
+            }
+            foreach(Restoran re in restorani)
+            {
+                Restorani.Remove(re);
+            }
+        
+
+
 
 
         }
+        internal void Izbaci_Click_Atrakcija(object sender, RoutedEventArgs e)
+        {
+            Button button = sender as Button;
+            Atrakcija selectedItem = null;
+
+            if (button != null)
+            {
+                // Dohvati roditeljski ListViewItem
+                ListViewItem listViewItem = FindAncestor<ListViewItem>(button);
+
+                // Dohvati DataContext iz ListViewItem-a
+                selectedItem = listViewItem?.DataContext as Atrakcija;
+            }
+
+            if (selectedItem != null)
+            {
+                Atrakcije.Add(selectedItem);
+                Atrakcije1.Remove(selectedItem);
+            }
+
+            IzbaciClickedAtrakcija?.Invoke(this, selectedItem);
+        }
+        internal void Izbaci_Click_Restoran(object sender, RoutedEventArgs e)
+        {
+            Button button = sender as Button;
+            Restoran selectedItem = null;
+
+            if (button != null)
+            {
+                // Dohvati roditeljski ListViewItem
+                ListViewItem listViewItem = FindAncestor<ListViewItem>(button);
+
+                // Dohvati DataContext iz ListViewItem-a
+                selectedItem = listViewItem?.DataContext as Restoran;
+            }
+
+            if (selectedItem != null)
+            {
+                Restorani.Add(selectedItem);
+                Restorani1.Remove(selectedItem);
+            }
+
+            IzbaciClickedRestoran?.Invoke(this, selectedItem);
+        }
+
+        internal void Izbaci_Click_Smestaj(object sender, RoutedEventArgs e)
+        {
+            Button button = sender as Button;
+            Smestaj selectedItem = null;
+
+            if (button != null)
+            {
+                // Dohvati roditeljski ListViewItem
+                ListViewItem listViewItem = FindAncestor<ListViewItem>(button);
+
+                // Dohvati DataContext iz ListViewItem-a
+                selectedItem = listViewItem?.DataContext as Smestaj;
+            }
+
+            if (selectedItem != null)
+            {
+                Smestaji.Add(selectedItem);
+                Smestaji1.Remove(selectedItem);
+            }
+
+            IzbaciClickedSmestaj?.Invoke(this, selectedItem);
+        }
+
+
+
+
 
 
 
@@ -221,6 +318,7 @@ namespace TouristAgency.UserControls
 
         private void ListView_DropAtrakcija(object sender, DragEventArgs e)
         {
+            var listView = sender as ListView;
             if (e.Data.GetDataPresent("myFormat"))
             {
                 if (e.Data.GetData("myFormat") is Atrakcija atrakcija)
@@ -236,12 +334,39 @@ namespace TouristAgency.UserControls
             }
         }
 
+        private void ListViewAtrakcije1_Drop(object sender, DragEventArgs e)
+        {
+            if (e.Data.GetDataPresent(typeof(Atrakcija)))
+            {
+                var atrakcija = e.Data.GetData(typeof(Atrakcija)) as Atrakcija;
+                if (atrakcija != null)
+                {
+                    if (Atrakcije.Contains(atrakcija))
+                    {
+                        Atrakcije.Remove(atrakcija);
+                        Atrakcije1.Add(atrakcija);
+                    }
+                    else if (Atrakcije1.Contains(atrakcija))
+                    {
+                        Atrakcije1.Remove(atrakcija);
+                        Atrakcije.Add(atrakcija);
+                    }
+                }
+                else
+                {
+                    txtErrorAtrakcije.Visibility = Visibility.Visible;
+                    txtErrorAtrakcije.Text = "Samo atrakciju možete prevući.";
+                }
+            }
+        }
+
 
         //smestaji
         private void ListView_PreviewMouseLeftButtonDownSmestaj(object sender, MouseButtonEventArgs e)
         {
             startPointSmestaj = e.GetPosition(null);
         }
+
 
         private void ListView_MouseMoveSmestaj(object sender, MouseEventArgs e)
         {
