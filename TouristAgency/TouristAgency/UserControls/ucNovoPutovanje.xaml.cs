@@ -141,6 +141,7 @@ namespace TouristAgency.UserControls
                 Atrakcije.Remove(at);
 
             }
+           
 
             Restorani = await putovanjaServis.SviRestoraniAsync();
             foreach (Restoran re in restoraniZaIzmenu)

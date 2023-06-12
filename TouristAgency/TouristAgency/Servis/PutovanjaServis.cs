@@ -356,17 +356,62 @@ namespace TouristAgency.Servis
 
         public void IzmeniPutovanje(string id, string naziv, string brDana, string cena, DateTime dateTime, ObservableCollection<Atrakcija> atrakcije, ObservableCollection<Smestaj> smestaji, ObservableCollection<Restoran> restorani)
         {
+            var atrakcijeArray = new BsonArray();
+            foreach (var atrakcija in atrakcije)
+            {
+                var bsonAtrakcija = new BsonDocument
+                {
+                    { "Id", atrakcija.Id },
+                    { "Naziv", atrakcija.Naziv },
+                    { "Opis", atrakcija.Opis },
+                    { "Adresa", atrakcija.Adresa },
+                    {"_id", ObjectId.Parse(atrakcija.Id) },
+                     { "naziv", atrakcija.Naziv },
+                    { "opis", atrakcija.Opis },
+                    { "adresa", atrakcija.Adresa },
 
-            var filter = Builders<BsonDocument>.Filter.Eq("_id", id);
+                };
+                atrakcijeArray.Add(bsonAtrakcija);
+            }
+            var smestajiArray = new BsonArray();
+            foreach (var smestaj in smestaji)
+            {
+                var bsonSmestaj = new BsonDocument
+                {
+                    { "Id", smestaj.Id },
+                    { "Naziv", smestaj.Naziv },
+                    { "Adresa", smestaj.Adresa },
+                    { "Tip", smestaj.Tip },
+                    {"Ocena", smestaj.Ocena },
+                     {"tipSmestaja", smestaj.Tip.ToString() },
+                     { "_id", ObjectId.Parse(smestaj.Id) }
+   
+                };
+                smestajiArray.Add(bsonSmestaj);
+            }
+            var restoraniArray = new BsonArray();
+            foreach (var restoran in restorani)
+            {
+                var bsonRestoran= new BsonDocument
+                {
+                    { "Id", restoran.Id },
+                    { "Adresa", restoran.Adresa },
+                    { "Naziv", restoran.Naziv },
+                    {"Ocena", restoran.Ocena },
+                    { "_id", ObjectId.Parse(restoran.Id) }
+                };
+                restoraniArray.Add(bsonRestoran);
+            }
+            var filter = Builders<BsonDocument>.Filter.Eq("_id", ObjectId.Parse(id));
 
             var update = Builders<BsonDocument>.Update
                 .Set("naziv", naziv)
                 .Set("brojDana", brDana)
                 .Set("cena", cena)
                 .Set("datum", dateTime)
-                .Set("atrakcije", new BsonArray(atrakcije))
-                .Set("smestaji", new BsonArray(smestaji))
-                .Set("restorani", new BsonArray(restorani));
+                .Set("atrakcije", atrakcijeArray)
+                .Set("smestaji", smestajiArray)
+                .Set("restorani", restoraniArray);
 
             var updateResult = Baza.PutovanjaKol.UpdateOne(filter, update);
         }
