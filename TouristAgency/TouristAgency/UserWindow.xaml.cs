@@ -203,6 +203,7 @@ namespace TouristAgency
         private void PrikazPutovanja(object sender,EventArgs e)
         {
             prikazPutovanja putovanja = new prikazPutovanja();
+            putovanja.filterKrs.Visibility = Visibility.Visible;
             mainComponent.Children.Clear();
             mainComponent.Children.Add(putovanja);
             putovanja.LoginForm += Prijava_click;
@@ -210,12 +211,14 @@ namespace TouristAgency
         private void PrikazRezervacija(object sender,EventArgs e)
         {
             prikazPutovanja putovanja = new prikazPutovanja(UserSession.CurrentUser, "rez");
+            putovanja.filterKrs.Visibility = Visibility.Collapsed;
             mainComponent.Children.Clear();
             mainComponent.Children.Add(putovanja);
         }
         private void PrikazKupljenih(object sender, EventArgs e)
         {
             prikazPutovanja putovanja = new prikazPutovanja(UserSession.CurrentUser, "kupljeni");
+            putovanja.filterKrs.Visibility = Visibility.Collapsed;
             mainComponent.Children.Clear();
             mainComponent.Children.Add(putovanja);
             putovanja.LoginForm += Prijava_click;
