@@ -50,6 +50,13 @@ namespace TouristAgency.UserControls
         private ObservableCollection<Restoran> restorani1;
         private ObservableCollection<Smestaj> smestaji;
         private ObservableCollection<Smestaj> smestaji1;
+
+        private ObservableCollection<Atrakcija> atrakcijeZaIzmenu;
+    
+        private ObservableCollection<Restoran> restoraniZaIzmenu;
+       
+        private ObservableCollection<Smestaj> smestajiZaIzmenu;
+       
         Popup popup = new Popup();
         Popup popup1 = new Popup();
 
@@ -126,6 +133,28 @@ namespace TouristAgency.UserControls
             Smestaji = await putovanjaServis.SviSmestajiAsync();
             Smestaji1 = new ObservableCollection<Smestaj>();
         }
+        private async void ucNovoPutovanje_LoadedIzmena(object sender, RoutedEventArgs e)
+        {
+            Atrakcije = await putovanjaServis.SveAtrakcijeAsync();
+            foreach (Atrakcija at in atrakcijeZaIzmenu)
+            {
+                Atrakcije.Remove(at);
+
+            }
+
+            Restorani = await putovanjaServis.SviRestoraniAsync();
+            foreach (Restoran re in restoraniZaIzmenu)
+            {
+                Restorani.Remove(re);
+            }
+
+            Smestaji = await putovanjaServis.SviSmestajiAsync();
+            foreach (Smestaj sm in smestajiZaIzmenu)
+            {
+                Smestaji.Remove(sm);
+            }
+           
+        }
 
         public event PropertyChangedEventHandler PropertyChanged;
 
@@ -151,7 +180,6 @@ namespace TouristAgency.UserControls
         {
             InitializeComponent();
             DataContext = this;
-            Loaded += ucNovoPutovanje_Loaded;
             atrakcije1 = atrakcije;
             smestaji1 = smestaji;
             restorani1 = restorani;
@@ -161,21 +189,15 @@ namespace TouristAgency.UserControls
             datePicker.Text = datum.ToString();
             flagIzmeni = true;
             idIzmene = id;
-            foreach (Atrakcija at in atrakcije)
-            {
-                Atrakcije.Remove(at);
+            atrakcijeZaIzmenu = atrakcije;
+            restoraniZaIzmenu = restorani;
+            smestajiZaIzmenu = smestaji; 
+            Potvrdi.Content = "Izmeni";
+            Loaded += ucNovoPutovanje_LoadedIzmena;
 
-            }
 
-            foreach(Smestaj sm in smestaji)
-            {
-                Smestaji.Remove(sm);
-            }
-            foreach(Restoran re in restorani)
-            {
-                Restorani.Remove(re);
-            }
-        
+
+
 
 
 

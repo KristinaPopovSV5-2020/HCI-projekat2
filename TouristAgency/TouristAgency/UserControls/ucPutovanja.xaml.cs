@@ -92,6 +92,11 @@ namespace TouristAgency.UserControls
         {
             Putovanje selectedItem = putovanjaDataGrid.SelectedItem as Putovanje;
             ucNovoPutovanje forma = new ucNovoPutovanje(selectedItem.Id, selectedItem.Naziv, selectedItem.Cena, selectedItem.BrojDana, selectedItem.Datum, new ObservableCollection<Atrakcija>(selectedItem.Atrakcije), new ObservableCollection<Smestaj>(selectedItem.Smestaji), new ObservableCollection<Restoran>(selectedItem.Restorani));
+            mainComponent.Children.Clear();
+            mainComponent.Children.Add(forma);
+
+            forma.VratiSeNa_Putovanja += Vrati; 
+
 
         }
 
