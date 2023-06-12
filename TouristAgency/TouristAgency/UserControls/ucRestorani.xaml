@@ -49,7 +49,7 @@
         <!--Filter Textbox-->
         <Grid Width="250" Height="60" HorizontalAlignment="Right" Grid.Row="4">
             <TextBlock Margin="15 0" VerticalAlignment="Center" Foreground="#B0B9C6" IsHitTestVisible="False"
-                           Panel.ZIndex="1" Text="Pretrazi restorane" FontSize="20"
+                           Panel.ZIndex="1" Text="Pretraži restorane" FontSize="20"
                            Visibility="{Binding ElementName=textBoxFilter, Path=Text.IsEmpty, Converter={StaticResource MyBoolToVisibilityConverter}}"/>
 
             <TextBox Name="textBoxFilter" Style="{StaticResource filterTextBox}" FontSize="20" TextChanged="PretraziRestorane"/>

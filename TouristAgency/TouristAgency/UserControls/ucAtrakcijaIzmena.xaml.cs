@@ -80,16 +80,16 @@ namespace TouristAgency.UserControls
 
                     popup.Child = null;
                     popup.Child = popupUserControl;
-                    popup.HorizontalOffset = 500;
-                    popup.VerticalOffset = 570;
+                    mainComponent1.Opacity = 0.4;
                     popup.Height = 180;
                     popup.Width = 400;
+                    popup.HorizontalOffset = -100;
                     popup.AllowsTransparency = true;
 
                     popup.IsOpen = true;
 
                     popupUserControl.PotvrdiClicked += Zatvori;
-                    VratiSeNa_Atrakcije?.Invoke(this, EventArgs.Empty);
+                    
                 }
             }
             else
@@ -103,7 +103,7 @@ namespace TouristAgency.UserControls
 
 
                     popup.Width = 400;
-                    popup.Height = 200;
+                    popup.Height = 180;
 
                     mainComponent1.IsHitTestVisible = false;
                     mainComponent1.Opacity = 0.4;
@@ -130,6 +130,7 @@ namespace TouristAgency.UserControls
         {
             popup.IsOpen = false;
             mainComponent.IsHitTestVisible = true;
+            mainComponent1.Opacity = 1;
             VratiSeNa_Atrakcije?.Invoke(this, EventArgs.Empty);
         }
 

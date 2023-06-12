@@ -51,7 +51,7 @@ namespace TouristAgency.UserControls
 
                 mainComponent.IsHitTestVisible = false;
                 mainComponent.Opacity = 0.4;
-                popup.Width = 450;
+                popup.Width = 570;
                 popup.Height = 180;
                 popup.Child = null;
                 popup.Child = popupUserControl;
@@ -91,8 +91,8 @@ namespace TouristAgency.UserControls
 
             popup.Child = null;
             popup.Child = popupUserControl;
-
             popup.HorizontalOffset = -100;
+
             popup.AllowsTransparency = true;
 
             popup.IsOpen = true;

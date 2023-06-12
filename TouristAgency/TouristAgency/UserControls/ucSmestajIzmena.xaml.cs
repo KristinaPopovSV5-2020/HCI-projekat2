@@ -110,8 +110,7 @@ namespace TouristAgency.UserControls
 
                     popup.Child = null;
                     popup.Child = popupUserControl;
-                    popup.HorizontalOffset = 500;
-                    popup.VerticalOffset = 570;
+                    myUserControl.Opacity = 0.4;
                     popup.Height = 180;
                     popup.Width = 400;
                     popup.AllowsTransparency = true;
@@ -120,7 +119,7 @@ namespace TouristAgency.UserControls
 
                     popupUserControl.PotvrdiClicked += Zatvori;
 
-                    VratiSeNa_Smestaj?.Invoke(this, EventArgs.Empty);
+                 
                 }
             }
             else
@@ -154,7 +153,9 @@ namespace TouristAgency.UserControls
         {
             popup.IsOpen = false;
             mainComponent.IsHitTestVisible = true;
+            myUserControl.Opacity = 1;
             VratiSeNa_Smestaj?.Invoke(this, EventArgs.Empty);
+            
         }
         private bool ValidateInput(string naziv, string tip, string ocena, string adresa)
         {
