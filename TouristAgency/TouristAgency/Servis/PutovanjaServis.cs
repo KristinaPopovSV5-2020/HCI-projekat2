@@ -128,6 +128,14 @@ namespace TouristAgency.Servis
             ObrisiAtrakcijuUPutovanju(atrakcija);
         }
 
+        public void ObrisiPutovanje(Putovanje putovanje)
+        {
+            FilterDefinition<BsonDocument> filter = Builders<BsonDocument>.Filter.Eq("_id", ObjectId.Parse(putovanje.Id));
+
+            Baza.PutovanjaKol.DeleteOne(filter);
+        
+        }
+
         public void ObrisiAtrakcijuUPutovanju(Atrakcija a)
         {
             var documents = Baza.PutovanjaKol.Find(_ => true).ToList();

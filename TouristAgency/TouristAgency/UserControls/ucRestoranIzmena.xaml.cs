@@ -95,8 +95,7 @@ namespace TouristAgency.UserControls
 
                     popup.Child = null;
                     popup.Child = popupUserControl;
-                    popup.HorizontalOffset = 500;
-                    popup.VerticalOffset = 570;
+                    myUserControl.Opacity = 0.4;
                     popup.Height = 180;
                     popup.Width = 400;
                     popup.AllowsTransparency = true;
@@ -141,6 +140,7 @@ namespace TouristAgency.UserControls
             popup.IsOpen = false;
             mainComponent.IsHitTestVisible = true;
             VratiSeNa_Restoran?.Invoke(this, EventArgs.Empty);
+            myUserControl.Opacity = 1;
         }
 
         private bool ValidateInput(string naziv, string ocena, string adresa)

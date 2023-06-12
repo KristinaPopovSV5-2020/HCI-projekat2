@@ -57,6 +57,8 @@ namespace TouristAgency.UserControls
        
         private ObservableCollection<Smestaj> smestajiZaIzmenu;
        
+      
+
 
 
 
@@ -579,6 +581,7 @@ namespace TouristAgency.UserControls
                 YesNoModule  popupUserControl = new YesNoModule(izabraneInformacije);
 
                 myUserControl.IsHitTestVisible = false;
+                myUserControl.Opacity = 0.4;
                 popup.Child = null;
                 popup.Child = popupUserControl;
                 popup.Height = 570;
@@ -612,11 +615,15 @@ namespace TouristAgency.UserControls
         {
             popup.IsOpen = false;
             myUserControl.IsHitTestVisible = true;
+            myUserControl.Opacity = 1;
+
+
 
         }
         public void ZatvoriOk(object sender, EventArgs e)
         {
             popup.IsOpen = false;
+            myUserControl.Opacity = 1;
             txtNaziv.Text = "";
             txtbrDana.Text = "";
             txtCena.Text = "";
@@ -651,6 +658,7 @@ namespace TouristAgency.UserControls
             myUserControl.IsHitTestVisible = true;
             popup.IsOpen = false;
             OkModule okModule = new OkModule("Uspešno ste izmenili  " + naziv + " putovanje");
+            popup.Opacity = 0.4;
             popup.Child = null;
             popup.Child = okModule;
             popup.Height = 180;
@@ -677,6 +685,8 @@ namespace TouristAgency.UserControls
             OkModule okModule = new OkModule("Uspešno ste dodali " + naziv + " putovanje");
             popup.Child = null;
             popup.Child = okModule;
+            myUserControl.Opacity = 0.4;
+      
             popup.Height = 180;
             popup.Width = 400;
             popup.AllowsTransparency = true;

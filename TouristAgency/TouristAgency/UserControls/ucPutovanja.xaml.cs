@@ -23,6 +23,7 @@ namespace TouristAgency.UserControls
     {
         PutovanjaServis putovanjaServis = new PutovanjaServis();
         ObservableCollection<Putovanje> putovanja;
+        Putovanje zaBrisanje;
 
 
         public ucPutovanja()
@@ -44,17 +45,66 @@ namespace TouristAgency.UserControls
 
             if (selectedItem != null)
             {
-                MessageBoxResult result = MessageBox.Show("Da li sigurno želiš da izbrišeš putovanje "+ selectedItem.Naziv, "Potvrda", MessageBoxButton.YesNo, MessageBoxImage.Question);
+                zaBrisanje = selectedItem;
+                YesNoModule popupUserControl = new YesNoModule("Da li sigurno želiš da izbrišeš putovanje " + selectedItem.Naziv);
 
-                if (result == MessageBoxResult.Yes)
-                {
-                    putovanja.Remove(selectedItem);
-                    MessageBox.Show($"Putovanje '{selectedItem.Naziv}' je obrisano.", "Putovanje obrisano", MessageBoxButton.OK, MessageBoxImage.Information);
+                mainComponent.IsHitTestVisible = false;
+                mainComponent.Opacity = 0.4;
 
-                }
+                popup.Child = null;
+                popup.Child = popupUserControl;
+                popup.Width = 500;
+                popup.Height = 200;
+                popup.HorizontalOffset = -100;
+                popup.AllowsTransparency = true;
+
+                popup.IsOpen = true;
+
+                popupUserControl.PotvrdiClicked += Obrisi;
+                popupUserControl.OdustaniClicked += Odustani;
 
             }
 
+        }
+
+        public void Obrisi(object sender, EventArgs e)
+        {
+            
+            putovanja.Remove(zaBrisanje);
+            putovanjaDataGrid.Items.Refresh();
+            putovanjaServis.ObrisiPutovanje(zaBrisanje);
+
+            popup.IsOpen = false;
+
+            OkModule popupUserControl = new OkModule("Putovanje " + zaBrisanje.Naziv + " je obrisano.");
+
+            popup.Width = 400;
+            mainComponent.Opacity = 0.4;
+            popup.Height = 180;
+            popup.Child = null;
+            popup.Child = popupUserControl;
+
+            popup.HorizontalOffset = -100;
+            popup.AllowsTransparency = true;
+
+
+            popup.IsOpen = true;
+
+            popupUserControl.PotvrdiClicked += Zatvori;
+        }
+
+        public void Zatvori(object sender, EventArgs e)
+        {
+            popup.IsOpen = false;
+            mainComponent.IsHitTestVisible = true;
+            mainComponent.Opacity = 1;
+        }
+
+        public void Odustani(object sender, EventArgs e)
+        {
+            popup.IsOpen = false;
+            mainComponent.IsHitTestVisible = true;
+            mainComponent.Opacity = 1;
         }
 
         private void Dodaj_Putovanje(object sender, RoutedEventArgs e)

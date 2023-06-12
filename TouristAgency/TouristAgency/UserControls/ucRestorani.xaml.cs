@@ -54,7 +54,8 @@ namespace TouristAgency.UserControls
 
                 popup.Child = null;
                 popup.Child = popupUserControl;
-
+                popup.Width = 450;
+                popup.Height = 200;
                 popup.HorizontalOffset = -100;
                 popup.AllowsTransparency = true;
 
@@ -76,9 +77,9 @@ namespace TouristAgency.UserControls
 
             popup.IsOpen = false;
 
-            OkModule popupUserControl = new OkModule("Resotran " + zaBrisanje.Naziv + " je obrisan.");
+            OkModule popupUserControl = new OkModule("Restoran " + zaBrisanje.Naziv + " je obrisan.");
 
-            popup.Width = 200;
+            popup.Width = 400;
             popup.Height = 200;
             popup.Child = null;
             popup.Child = popupUserControl;
@@ -162,8 +163,6 @@ namespace TouristAgency.UserControls
 
             popup.Child = null;
             popup.Child = popupUserControl;
-            popup.HorizontalOffset = 500;
-            popup.VerticalOffset = 570;
             popup.Height = 350;
             popup.Width = 400;
             popup.AllowsTransparency = true;
