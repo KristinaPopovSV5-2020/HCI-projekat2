@@ -148,6 +148,8 @@ namespace TouristAgency.UserControls.client
             listaPutovanja.ItemsSource = ucitanaPutovanja;
             topTri.Visibility = Visibility.Visible;
             izdvajamo.Foreground = Brushes.Red;
+            filterKrs.Visibility = Visibility.Collapsed;
+
         }
 
         private void title_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
@@ -159,6 +161,7 @@ namespace TouristAgency.UserControls.client
             Color color = (Color)ColorConverter.ConvertFromString(colorCode);
             Brush brush = new SolidColorBrush(color);
             izdvajamo.Foreground = brush;
+            filterKrs.Visibility = Visibility.Visible;
         }
     }
 }
