@@ -328,8 +328,13 @@
             </Grid>
             </ScrollViewer>
         </Border>
+        <Popup x:Name="popup"
+            PlacementTarget="{Binding ElementName=mainComponent1}"
+            Placement="Center">
+        </Popup>
 
-      
+
     </Grid>
+    
 
 </UserControl>

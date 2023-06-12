@@ -5,7 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:TouristAgency.UserControls.client"
              mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="720"
+             d:DesignHeight="450" d:DesignWidth="720" Name="myUserControl"
              xmlns:Icon="http://metro.mahapps.com/winfx/xaml/iconpacks" xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes">
     <UserControl.Resources>
         <BooleanToVisibilityConverter x:Key="MyBoolToVisibilityConverter" />
@@ -39,7 +39,7 @@
                 <StackPanel Orientation="Horizontal" Grid.Row="0">
                     <TextBlock Grid.Row="0" Name="title" Text="Cela ponuda" MouseLeftButtonUp="title_MouseLeftButtonUp" FontSize="30" FontWeight="SemiBold" Foreground="#121518" HorizontalAlignment="Left" Margin="0, 15, 30, 30"/>
                     <TextBlock Style="{StaticResource mouseOverStyle}" x:Name="izdvajamo" MouseLeftButtonUp="izdvajamo_MouseLeftButtonUp" FontSize="30" FontWeight="SemiBold" Margin="0, 15, 0, 0" Text="&lt;&lt; HIT ponuda  >>"></TextBlock>
-                    <StackPanel Margin="490 0 0 0" Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Left" Grid.Row="4">
+                    <StackPanel Margin="150 0 0 0" Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Left" Grid.Row="4">
                         <Icon:PackIconMaterial Kind="Filter" Width="20" Height="20" VerticalAlignment="Center" Margin="0,0,5,0" />
                         <TextBlock  FontWeight="SemiBold" Text="Filtriraj putovanja" FontSize="25" Foreground="#121518" Cursor="Hand" MouseDown="Filtriraj"/>
                     </StackPanel>
@@ -47,11 +47,11 @@
 
                 
                 <Grid Margin="0, 0, 15, 0" Width="250" Height="60" HorizontalAlignment="Right" Grid.Row="0">
-                    <TextBlock Margin="15 0" VerticalAlignment="Center" Foreground="#B0B9C6" IsHitTestVisible="False"
+                    <TextBlock   Height="35"  Margin="15 0" VerticalAlignment="Center" Foreground="#B0B9C6" IsHitTestVisible="False"
                         Panel.ZIndex="1" Text="Pretraži" FontSize="20" 
                         Visibility="{Binding ElementName=textBoxFilter, Path=Text.IsEmpty, Converter={StaticResource MyBoolToVisibilityConverter}}"/>
 
-                    <TextBox Name="textBoxFilter" Style="{StaticResource filterTextBox}" FontSize="20" TextChanged="PretraziPutovanja"/>
+                    <TextBox Height="35" Name="textBoxFilter" Style="{StaticResource filterTextBox}" FontSize="20" TextChanged="PretraziPutovanja"/>
                 </Grid>
 
                 <TextBlock Margin="10" Visibility="Collapsed" x:Name="topTri" Grid.Row="2" HorizontalAlignment="Center" FontSize="25" Text="TOP 3 najpopularnija putovanja"></TextBlock>
@@ -135,6 +135,10 @@
             </Grid>
             <Grid x:Name="detalji" Visibility="Collapsed">
             </Grid>
+            <Popup x:Name="popup"
+            PlacementTarget="{Binding ElementName=mainComponent1}"
+            Placement="Center">
+            </Popup>
         </Grid>
     </ScrollViewer>
 

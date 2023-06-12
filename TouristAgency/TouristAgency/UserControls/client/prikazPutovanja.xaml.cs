@@ -26,7 +26,7 @@ namespace TouristAgency.UserControls.client
     {
         List<Putovanje> ucitanaPutovanja = new List<Putovanje>();
         List<Putovanje> popularnaPutovanja = new List<Putovanje>();
-        Popup popup = new Popup();
+        
 
         PutovanjaServis putovanjaServis = new PutovanjaServis();
         public event EventHandler LoginForm;
@@ -97,8 +97,7 @@ namespace TouristAgency.UserControls.client
 
             popup.Child = null;
             popup.Child = popupUserControl;
-            popup.HorizontalOffset = 500;
-            popup.VerticalOffset = 570;
+            myUserControl.Opacity = 0.4;
             popup.Height = 500;
             popup.Width = 400;
             popup.AllowsTransparency = true;
@@ -116,6 +115,7 @@ namespace TouristAgency.UserControls.client
         {
             listaPutovanja.ItemsSource = e.PovratnaVrednost;
             popup.IsOpen = false;
+            myUserControl.Opacity = 1;
         }
 
 
@@ -123,6 +123,7 @@ namespace TouristAgency.UserControls.client
         {
             putovanja.Visibility = Visibility.Visible;
             listaPutovanja.SelectedItem = null;
+            myUserControl.Opacity = 1;
             detalji.Visibility = Visibility.Collapsed;
             popup.IsOpen = false;
         }
