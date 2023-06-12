@@ -57,9 +57,6 @@ namespace TouristAgency.UserControls
        
         private ObservableCollection<Smestaj> smestajiZaIzmenu;
        
-        Popup popup = new Popup();
-        Popup popup1 = new Popup();
-
 
 
 
@@ -584,8 +581,6 @@ namespace TouristAgency.UserControls
                 myUserControl.IsHitTestVisible = false;
                 popup.Child = null;
                 popup.Child = popupUserControl;
-                popup.HorizontalOffset = 600;
-                popup.VerticalOffset = 670;
                 popup.Height = 570;
                 popup.Width = 600;
                 popup.AllowsTransparency = true;
@@ -621,7 +616,7 @@ namespace TouristAgency.UserControls
         }
         public void ZatvoriOk(object sender, EventArgs e)
         {
-            popup1.IsOpen = false;
+            popup.IsOpen = false;
             txtNaziv.Text = "";
             txtbrDana.Text = "";
             txtCena.Text = "";
@@ -656,15 +651,13 @@ namespace TouristAgency.UserControls
             myUserControl.IsHitTestVisible = true;
             popup.IsOpen = false;
             OkModule okModule = new OkModule("Uspešno ste izmenili  " + naziv + " putovanje");
-            popup1.Child = null;
-            popup1.Child = okModule;
-            popup1.HorizontalOffset = 600;
-            popup1.VerticalOffset = 300;
-            popup1.Height = 180;
-            popup1.Width = 400;
-            popup1.AllowsTransparency = true;
+            popup.Child = null;
+            popup.Child = okModule;
+            popup.Height = 180;
+            popup.Width = 400;
+            popup.AllowsTransparency = true;
 
-            popup1.IsOpen = true;
+            popup.IsOpen = true;
 
 
             okModule.PotvrdiClicked += ZatvoriOk;
@@ -682,15 +675,13 @@ namespace TouristAgency.UserControls
             myUserControl.IsHitTestVisible = true;
             popup.IsOpen = false;
             OkModule okModule = new OkModule("Uspešno ste dodali " + naziv + " putovanje");
-            popup1.Child = null;
-            popup1.Child = okModule;
-            popup1.HorizontalOffset = 600;
-            popup1.VerticalOffset = 300;
-            popup1.Height = 180;
-            popup1.Width = 400;
-            popup1.AllowsTransparency = true;
+            popup.Child = null;
+            popup.Child = okModule;
+            popup.Height = 180;
+            popup.Width = 400;
+            popup.AllowsTransparency = true;
 
-            popup1.IsOpen = true;
+            popup.IsOpen = true;
 
 
             okModule.PotvrdiClicked += ZatvoriOk;

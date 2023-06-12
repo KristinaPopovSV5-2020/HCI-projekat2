@@ -114,12 +114,19 @@ namespace TouristAgency.UserControls.client
         {
             PronadjiPopularneKupovine();
             listaPutovanja.ItemsSource = ucitanaPutovanja;
+            topTri.Visibility = Visibility.Visible;
+            izdvajamo.Foreground = Brushes.Red;
         }
 
         private void title_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
         {
             ucitanaPutovanja = putovanjaServis.PronadjiPutovanja();
             listaPutovanja.ItemsSource = ucitanaPutovanja;
+            topTri.Visibility = Visibility.Collapsed;
+            string colorCode = "#121518";
+            Color color = (Color)ColorConverter.ConvertFromString(colorCode);
+            Brush brush = new SolidColorBrush(color);
+            izdvajamo.Foreground = brush;
         }
     }
 }

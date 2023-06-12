@@ -91,7 +91,7 @@ namespace TouristAgency.UserControls
                     restoran.Id = ObjectId.GenerateNewId().ToString();
                     putovanjaServis.DodajRestoran(restoran);
                     OkModule popupUserControl = new OkModule("Dodali ste restoran " + restoran.Naziv);
-                    myUserControl.IsHitTestVisible = false;
+                    mainComponent.IsHitTestVisible = false;
 
                     popup.Child = null;
                     popup.Child = popupUserControl;

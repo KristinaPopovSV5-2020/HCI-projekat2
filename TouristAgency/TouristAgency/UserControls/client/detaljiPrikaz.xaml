@@ -159,7 +159,7 @@
         </Grid>
 
 
-        <Grid Grid.Column="2" Background="White" Margin="10" Height="750">
+        <Grid Grid.Column="2" Background="White" Margin="10" Height="600">
             <m:Map Name="map" CredentialsProvider="nltGyIgw8vEO79Dc9AFY~00N7BTnXTXYeNf3EVNeDNw~AkowgGH4IsDZEM9SmtVES0nD2OD-cD9VWqNSC8e29PF4zPvYoWnCedQQgoaJiDkr" Center="47.6062,-122.3321" ZoomLevel="12" />
 
             <Popup x:Name="pinPopup" PlacementTarget="{Binding ElementName=map}" Placement="Mouse" StaysOpen="False">

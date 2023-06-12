@@ -106,7 +106,7 @@ namespace TouristAgency.UserControls
                     putovanjaServis.DodajSmestaj(smestaj);
 
                     OkModule popupUserControl = new OkModule("Dodali ste smeštaj " + smestaj.Naziv);
-                    myUserControl.IsHitTestVisible = false;
+                    mainComponent.IsHitTestVisible = false;
 
                     popup.Child = null;
                     popup.Child = popupUserControl;

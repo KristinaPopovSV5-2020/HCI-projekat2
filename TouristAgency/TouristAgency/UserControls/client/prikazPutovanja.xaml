@@ -9,6 +9,15 @@
              xmlns:Icon="http://metro.mahapps.com/winfx/xaml/iconpacks" xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes">
     <UserControl.Resources>
         <BooleanToVisibilityConverter x:Key="MyBoolToVisibilityConverter" />
+        <SolidColorBrush x:Key="myColor" Color="Red" />
+        <Style TargetType="TextBlock" x:Key="mouseOverStyle">
+            <Setter Property="Foreground" Value="#121518" />
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Foreground" Value="{StaticResource myColor}" />
+                </Trigger>
+            </Style.Triggers>
+        </Style>
     </UserControl.Resources>
     <ScrollViewer VerticalScrollBarVisibility="Auto">
 
@@ -29,7 +38,7 @@
 
                 <StackPanel Orientation="Horizontal" Grid.Row="0">
                     <TextBlock Grid.Row="0" Name="title" Text="Cela ponuda" MouseLeftButtonUp="title_MouseLeftButtonUp" FontSize="30" FontWeight="SemiBold" Foreground="#121518" HorizontalAlignment="Left" Margin="0, 15, 30, 30"/>
-                    <TextBlock x:Name="izdvajamo" MouseLeftButtonUp="izdvajamo_MouseLeftButtonUp" FontSize="30" FontWeight="SemiBold" Foreground="Red" Margin="0, 15, 0, 0" Text="&lt;&lt; HIT ponuda  >>"></TextBlock>
+                    <TextBlock Style="{StaticResource mouseOverStyle}" x:Name="izdvajamo" MouseLeftButtonUp="izdvajamo_MouseLeftButtonUp" FontSize="30" FontWeight="SemiBold" Margin="0, 15, 0, 0" Text="&lt;&lt; HIT ponuda  >>"></TextBlock>
                 </StackPanel>
 
                 <Grid Margin="0, 0, 15, 0" Width="250" Height="60" HorizontalAlignment="Right" Grid.Row="0">
@@ -39,6 +48,8 @@
 
                     <TextBox Name="textBoxFilter" Style="{StaticResource filterTextBox}" FontSize="20" TextChanged="PretraziPutovanja"/>
                 </Grid>
+
+                <TextBlock Margin="10" Visibility="Collapsed" x:Name="topTri" Grid.Row="2" HorizontalAlignment="Center" FontSize="25" Text="TOP 3 najpopularnija putovanja"></TextBlock>
 
                 
                 <ListBox Name="listaPutovanja" Grid.Row="3" HorizontalAlignment="Center" SelectionChanged="ItemListBox_SelectionChanged">
