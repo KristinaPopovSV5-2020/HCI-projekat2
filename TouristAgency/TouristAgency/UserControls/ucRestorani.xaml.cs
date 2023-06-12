@@ -26,8 +26,6 @@ namespace TouristAgency.UserControls
         ObservableCollection<Restoran> restorani;
         ObservableCollection<Restoran> trenutniRestorani;
         PutovanjaServis putovanjaServis = new PutovanjaServis();
-        Popup popup = new Popup();
-        Popup popup1 = new Popup();
         Restoran zaBrisanje;
         public ucRestorani()
         {
@@ -56,10 +54,8 @@ namespace TouristAgency.UserControls
 
                 popup.Child = null;
                 popup.Child = popupUserControl;
-                popup.HorizontalOffset = 500;
-                popup.VerticalOffset = 570;
-                popup.Height = 180;
-                popup.Width = 400;
+
+                popup.HorizontalOffset = -100;
                 popup.AllowsTransparency = true;
 
                 popup.IsOpen = true;
@@ -82,22 +78,23 @@ namespace TouristAgency.UserControls
 
             OkModule popupUserControl = new OkModule("Resotran " + zaBrisanje.Naziv + " je obrisan.");
 
-            popup1.Child = null;
-            popup1.Child = popupUserControl;
-            popup1.HorizontalOffset = 500;
-            popup1.VerticalOffset = 570;
-            popup1.Height = 180;
-            popup1.Width = 400;
-            popup1.AllowsTransparency = true;
+            popup.Width = 200;
+            popup.Height = 200;
+            popup.Child = null;
+            popup.Child = popupUserControl;
 
-            popup1.IsOpen = true;
+            popup.HorizontalOffset = -100;
+            popup.AllowsTransparency = true;
+
+
+            popup.IsOpen = true;
 
             popupUserControl.PotvrdiClicked += Zatvori;
         }
 
         public void Zatvori(object sender, EventArgs e)
         {
-            popup1.IsOpen = false;
+            popup.IsOpen = false;
             mainComponent.IsHitTestVisible = true;
             mainComponent.Opacity = 1;
         }

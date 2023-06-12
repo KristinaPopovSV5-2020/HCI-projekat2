@@ -28,8 +28,6 @@ namespace TouristAgency.UserControls
     {
         public ObservableCollection<Atrakcija> atrakcije;
         PutovanjaServis putovanjaServis = new PutovanjaServis();
-        Popup popup = new Popup();
-        Popup popup1 = new Popup();
         Atrakcija zaBrisanje;
         public ucAtrakcije()
         {
@@ -53,13 +51,12 @@ namespace TouristAgency.UserControls
 
                 mainComponent.IsHitTestVisible = false;
                 mainComponent.Opacity = 0.4;
-
+                popup.Width = 450;
+                popup.Height = 180;
                 popup.Child = null;
                 popup.Child = popupUserControl;
-                popup.HorizontalOffset = 500;
-                popup.VerticalOffset = 570;
-                popup.Height = 180;
-                popup.Width = 400;
+
+                popup.HorizontalOffset = -100;
                 popup.AllowsTransparency = true;
 
                 popup.IsOpen = true;
@@ -83,20 +80,23 @@ namespace TouristAgency.UserControls
 
             //MessageBox.Show($"Atrakcija '{zaBrisanje.Naziv}' je obrisana.", "Atrakcija obrisana", MessageBoxButton.OK, MessageBoxImage.Information);
             OkModule popupUserControl = new OkModule("Atrakcija " + zaBrisanje.Naziv + " je obrisana.");
-            
+
+
+
+            popup.Width = 400;
+            popup.Height = 200;
+
             mainComponent.IsHitTestVisible = false;
             mainComponent.Opacity = 0.4;
 
-            popup1.Child = null;
-            popup1.Child = popupUserControl;
-            popup1.HorizontalOffset = 500;
-            popup1.VerticalOffset = 570;
-            popup1.Height = 180;
-            popup1.Width = 400;
-            popup1.AllowsTransparency = true;
+            popup.Child = null;
+            popup.Child = popupUserControl;
 
-            popup1.IsOpen = true;
-           
+            popup.HorizontalOffset = -100;
+            popup.AllowsTransparency = true;
+
+            popup.IsOpen = true;
+
 
             popupUserControl.PotvrdiClicked += Zatvori;
 
@@ -106,7 +106,7 @@ namespace TouristAgency.UserControls
 
         public void Zatvori(object sender, EventArgs e)
         {
-            popup1.IsOpen = false;
+            popup.IsOpen = false;
             mainComponent.IsHitTestVisible = true;
             mainComponent.Opacity = 1;
         }

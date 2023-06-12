@@ -97,7 +97,10 @@
                 </DataGridTemplateColumn>
             </DataGrid.Columns>
         </DataGrid>
+        <Popup x:Name="popup"
+            PlacementTarget="{Binding ElementName=mainComponent}"
+            Placement="Center">
+        </Popup>
 
-        
     </Grid>
 </UserControl>

@@ -26,8 +26,6 @@ namespace TouristAgency.UserControls
         ObservableCollection<Smestaj> smestaji;
         ObservableCollection<Smestaj> trenutniSmestaji;
         PutovanjaServis putovanjaServis = new PutovanjaServis();
-        Popup popup = new Popup();
-        Popup popup1 = new Popup();
         Smestaj zaBrisanje;
         public ucSmestaji()
         {
@@ -55,10 +53,8 @@ namespace TouristAgency.UserControls
 
                 popup.Child = null;
                 popup.Child = popupUserControl;
-                popup.HorizontalOffset = 500;
-                popup.VerticalOffset = 570;
                 popup.Height = 180;
-                popup.Width = 400;
+                popup.Width = 450;
                 popup.AllowsTransparency = true;
 
                 popup.IsOpen = true;
@@ -81,22 +77,24 @@ namespace TouristAgency.UserControls
 
             OkModule popupUserControl = new OkModule("Smestaj " + zaBrisanje.Naziv + " je obrisan.");
 
-            popup1.Child = null;
-            popup1.Child = popupUserControl;
-            popup1.HorizontalOffset = 500;
-            popup1.VerticalOffset = 570;
-            popup1.Height = 180;
-            popup1.Width = 400;
-            popup1.AllowsTransparency = true;
+            mainComponent.IsHitTestVisible = false;
+            mainComponent.Opacity = 0.4;
 
-            popup1.IsOpen = true;
+            popup.Child = null;
+            popup.Child = popupUserControl;
+            popup.Height = 180;
+            popup.Width = 400;
+            popup.AllowsTransparency = true;
+
+
+            popup.IsOpen = true;
 
             popupUserControl.PotvrdiClicked += Zatvori;
         }
 
         public void Zatvori(object sender, EventArgs e)
         {
-            popup1.IsOpen = false;
+            popup.IsOpen = false;
             mainComponent.IsHitTestVisible = true;
             mainComponent.Opacity = 1;
         }
@@ -165,8 +163,6 @@ namespace TouristAgency.UserControls
 
             popup.Child = null;
             popup.Child = popupUserControl;
-            popup.HorizontalOffset = 500;
-            popup.VerticalOffset = 570;
             popup.Height = 500;
             popup.Width = 400;
             popup.AllowsTransparency = true;

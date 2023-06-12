@@ -26,7 +26,6 @@ namespace TouristAgency.UserControls.client
         List<Smestaj> smestaji = new List<Smestaj>();
         List<Restoran> restorani = new List<Restoran>();
         private Putovanje putovanje;
-        Popup popup = new Popup();
         public event EventHandler LoginClick;
 
 
@@ -281,24 +280,18 @@ namespace TouristAgency.UserControls.client
 
             kupovinaPotvrda popupUserControl = new kupovinaPotvrda(putovanje);
 
+
             mainComponent.IsHitTestVisible = false;
             mainComponent.Opacity = 0.4;
 
             popup.Child = null;
             popup.Child = popupUserControl;
-            double screenWidth = SystemParameters.PrimaryScreenWidth;
-            double screenHeight = SystemParameters.PrimaryScreenHeight;
-            double popupWidth = 400;
-            double popupHeight = 350;
 
-            double horizontalOffset = (screenWidth - popupWidth) / 2;
-            double verticalOffset = (screenHeight - popupHeight) / 2;
+            popup.Width = popupUserControl.Width;
+            popup.Height = popupUserControl.Height;
 
-            popup.Placement = PlacementMode.Center;
-            popup.HorizontalOffset = horizontalOffset;
-            popup.VerticalOffset = verticalOffset;
-            popup.Width = popupWidth;
-            popup.Height = popupHeight;
+
+            popup.HorizontalOffset = -100;
             popup.AllowsTransparency = true;
 
             popup.IsOpen = true;
@@ -318,19 +311,13 @@ namespace TouristAgency.UserControls.client
 
             popup.Child = null;
             popup.Child = popupUserControl;
-            double screenWidth = SystemParameters.PrimaryScreenWidth;
-            double screenHeight = SystemParameters.PrimaryScreenHeight;
-            double popupWidth = 400;
-            double popupHeight = 350;
 
-            double horizontalOffset = (screenWidth - popupWidth) / 2;
-            double verticalOffset = (screenHeight - popupHeight) / 2;
 
-            popup.Placement = PlacementMode.Center;
-            popup.HorizontalOffset = horizontalOffset;
-            popup.VerticalOffset = verticalOffset;
-            popup.Width = popupWidth;
-            popup.Height = popupHeight;
+            popup.Width = popupUserControl.Width;
+            popup.Height = popupUserControl.Height;
+
+
+            popup.HorizontalOffset =- 100;
             popup.AllowsTransparency = true;
 
             popup.IsOpen = true;
@@ -357,25 +344,17 @@ namespace TouristAgency.UserControls.client
             mainComponent.IsHitTestVisible = true;
             putovanjaServis.KupiPutovanje(UserSession.CurrentUser, putovanje);
             OkModule popupUserControl = new OkModule("Kupili ste putovanje", "Kupili ste putovanje. Vaše kupovine možete pogledati u odeljku istorija kupovine. Srećan put!");
+            popup.Width = 400;
+            popup.Height = 200;
 
             mainComponent.IsHitTestVisible = false;
             mainComponent.Opacity = 0.4;
 
             popup.Child = null;
             popup.Child = popupUserControl;
-            double screenWidth = SystemParameters.PrimaryScreenWidth;
-            double screenHeight = SystemParameters.PrimaryScreenHeight;
-            double popupWidth = 400;
-            double popupHeight = 200;
 
-            double horizontalOffset = (screenWidth - popupWidth) / 2;
-            double verticalOffset = (screenHeight - popupHeight) / 2;
 
-            popup.Placement = PlacementMode.Center;
-            popup.HorizontalOffset = horizontalOffset;
-            popup.VerticalOffset = verticalOffset;
-            popup.Width = popupWidth;
-            popup.Height = popupHeight;
+            popup.HorizontalOffset = -100;
             popup.AllowsTransparency = true;
 
             popup.IsOpen = true;
@@ -388,26 +367,19 @@ namespace TouristAgency.UserControls.client
             mainComponent.IsHitTestVisible = true;
             putovanjaServis.RezervisiPutovanje(UserSession.CurrentUser, putovanje);
             OkModule popupUserControl = new OkModule("Rezervisali ste putovanje", "Vaše rezervacije možete pogledati u odeljku rezervacije.");
+            popup.Width = 400;
+            popup.Height = 200;
 
             mainComponent.IsHitTestVisible = false;
             mainComponent.Opacity = 0.4;
 
             popup.Child = null;
             popup.Child = popupUserControl;
-            double screenWidth = SystemParameters.PrimaryScreenWidth;
-            double screenHeight = SystemParameters.PrimaryScreenHeight;
-            double popupWidth = 400;
-            double popupHeight = 200;
 
-            double horizontalOffset = (screenWidth - popupWidth) / 2;
-            double verticalOffset = (screenHeight - popupHeight) / 2;
 
-            popup.Placement = PlacementMode.Center;
-            popup.HorizontalOffset = horizontalOffset;
-            popup.VerticalOffset = verticalOffset;
-            popup.Width = popupWidth;
-            popup.Height = popupHeight;
+            popup.HorizontalOffset = -100;
             popup.AllowsTransparency = true;
+
 
             popup.IsOpen = true;
             popupUserControl.PotvrdiClicked += Ugasi;

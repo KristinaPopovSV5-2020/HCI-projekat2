@@ -24,7 +24,6 @@ namespace TouristAgency.UserControls
     {
         public Smestaj smestaj = new Smestaj();
         PutovanjaServis putovanjaServis = new PutovanjaServis();
-        Popup popup = new Popup();
 
         public ucSmestajIzmena(string id, string naziv, string tip, string adresa, string ocena)
         {
@@ -134,12 +133,10 @@ namespace TouristAgency.UserControls
                     putovanjaServis.IzmeniSmestaj(smestaj);
 
                     OkModule popupUserControl = new OkModule("Smestaj " + smestaj.Naziv + " je izmenjen.");
-                    myUserControl.IsHitTestVisible = false;
-
+                    mainComponent.IsHitTestVisible = false;
+                    mainComponent.Opacity = 0.4;
                     popup.Child = null;
                     popup.Child = popupUserControl;
-                    popup.HorizontalOffset = 500;
-                    popup.VerticalOffset = 570;
                     popup.Height = 180;
                     popup.Width = 400;
                     popup.AllowsTransparency = true;
@@ -148,7 +145,6 @@ namespace TouristAgency.UserControls
 
                     popupUserControl.PotvrdiClicked += Zatvori;
 
-                    VratiSeNa_Smestaj?.Invoke(this, EventArgs.Empty);
                     //MessageBox.Show($"Smestaj '{smestaj.Id}' je izmenjen.", "Smestaj izmenjen", MessageBoxButton.OK, MessageBoxImage.Information);
                 }
             }
@@ -157,7 +153,8 @@ namespace TouristAgency.UserControls
           public void Zatvori(object sender, EventArgs e)
         {
             popup.IsOpen = false;
-            myUserControl.IsHitTestVisible = true;
+            mainComponent.IsHitTestVisible = true;
+            VratiSeNa_Smestaj?.Invoke(this, EventArgs.Empty);
         }
         private bool ValidateInput(string naziv, string tip, string ocena, string adresa)
         {

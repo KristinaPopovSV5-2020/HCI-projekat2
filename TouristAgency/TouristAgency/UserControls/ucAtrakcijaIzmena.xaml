@@ -14,7 +14,7 @@
         <CommandBinding Command="ApplicationCommands.Help" Executed="CommandBinding_Executed"/>
     </UserControl.CommandBindings>
 
-    <Grid>
+    <Grid x:Name="mainComponent1">
         <Border Grid.Column="1" Padding="20" Background="White" Width="800" Height="650" CornerRadius="30" HorizontalAlignment="Center" VerticalAlignment="Center">
             <Grid Width="600" Height="800">
                 <TextBlock HorizontalAlignment="Center" FontSize="40" Margin="50" FontWeight="SemiBold" Name="naslov"></TextBlock>
@@ -71,5 +71,9 @@
             </Grid>
         </Border>
 
+        <Popup x:Name="popup"
+            PlacementTarget="{Binding ElementName=mainComponent1}"
+            Placement="Center">
+        </Popup>
     </Grid>
 </UserControl>

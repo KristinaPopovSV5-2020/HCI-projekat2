@@ -12,7 +12,7 @@
              Name="myUserControl"
              >
 
-    <Grid>
+    <Grid x:Name="mainComponent">
         <Border Grid.Column="1" Background="White" Width="800" Height="650" CornerRadius="30" HorizontalAlignment="Center" VerticalAlignment="Center">
             <Grid Width="600" Height="800">
                 <TextBlock HorizontalAlignment="Center" FontSize="40" Margin="50" FontWeight="SemiBold" Name="naslov"></TextBlock>
@@ -76,6 +76,9 @@
                 </Grid>
             </Grid>
         </Border>
-
+        <Popup x:Name="popup"
+            PlacementTarget="{Binding ElementName=mainComponent}"
+            Placement="Center">
+        </Popup>
     </Grid>
 </UserControl>

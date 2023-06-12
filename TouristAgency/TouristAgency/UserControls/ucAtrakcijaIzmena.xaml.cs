@@ -26,7 +26,6 @@ namespace TouristAgency.UserControls
     {
         public Atrakcija atrakcija = new Atrakcija();
         PutovanjaServis putovanjaServis = new PutovanjaServis();
-        Popup popup = new Popup();
         public ucAtrakcijaIzmena(string id, string naziv, string opis, string adresa)
         {
             InitializeComponent();
@@ -101,22 +100,25 @@ namespace TouristAgency.UserControls
                    
 
                     OkModule popupUserControl = new OkModule("Atrakcija "+atrakcija.Naziv+" je izmenjena.");
-                    mainComponent.IsHitTestVisible = false;
 
+
+                    popup.Width = 400;
+                    popup.Height = 200;
+
+                    mainComponent1.IsHitTestVisible = false;
+                    mainComponent1.Opacity = 0.4;
 
                     popup.Child = null;
                     popup.Child = popupUserControl;
-                    popup.HorizontalOffset = 500;
-                    popup.VerticalOffset = 570;
-                    popup.Height = 180;
-                    popup.Width = 400;
+
+
+                    popup.HorizontalOffset = -100;
                     popup.AllowsTransparency = true;
 
                     popup.IsOpen = true;
 
                     popupUserControl.PotvrdiClicked += Zatvori;
 
-                    VratiSeNa_Atrakcije?.Invoke(this, EventArgs.Empty);
 
                     // MessageBox.Show($"Atrakcija '{atrakcija.Id}' je izmenjena.", "Atrakcija izmenjena", MessageBoxButton.OK, MessageBoxImage.Information);
 
@@ -128,6 +130,7 @@ namespace TouristAgency.UserControls
         {
             popup.IsOpen = false;
             mainComponent.IsHitTestVisible = true;
+            VratiSeNa_Atrakcije?.Invoke(this, EventArgs.Empty);
         }
 
         private bool ValidateInput(string naziv, string opis, string adresa)

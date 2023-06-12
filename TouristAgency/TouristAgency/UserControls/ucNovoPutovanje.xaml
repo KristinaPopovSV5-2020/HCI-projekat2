@@ -9,7 +9,7 @@
     <UserControl.Resources>
         <BooleanToVisibilityConverter x:Key="BoolToVis" />
     </UserControl.Resources>
-    <Grid>
+    <Grid x:Name="mainComponent">
         
         <Border Grid.Column="1" Padding="20" Background="White" Width="750" Height="800" CornerRadius="30" HorizontalAlignment="Center" VerticalAlignment="Center">
             <ScrollViewer VerticalScrollBarVisibility="Auto" Name="scroll">
@@ -328,5 +328,11 @@
             </Grid>
             </ScrollViewer>
         </Border>
+
+        <Popup x:Name="popup"
+            PlacementTarget="{Binding ElementName=mainComponent}"
+            Placement="Center">
+        </Popup>
     </Grid>
+
 </UserControl>
