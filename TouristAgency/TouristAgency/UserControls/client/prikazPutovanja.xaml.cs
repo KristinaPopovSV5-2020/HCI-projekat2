@@ -15,7 +15,7 @@ using System.Windows.Shapes;
 using TouristAgency.Model;
 using TouristAgency.Servis;
 using System.Linq;
-
+using System.Windows.Controls.Primitives;
 
 namespace TouristAgency.UserControls.client
 {
@@ -26,6 +26,7 @@ namespace TouristAgency.UserControls.client
     {
         List<Putovanje> ucitanaPutovanja = new List<Putovanje>();
         List<Putovanje> popularnaPutovanja = new List<Putovanje>();
+        Popup popup = new Popup();
 
         PutovanjaServis putovanjaServis = new PutovanjaServis();
         public event EventHandler LoginForm;
@@ -89,11 +90,41 @@ namespace TouristAgency.UserControls.client
             }
         }
 
+        private void Filtriraj(object sender, MouseButtonEventArgs e)
+        {
+            filterPutovanja popupUserControl = new filterPutovanja();
+            
+
+            popup.Child = null;
+            popup.Child = popupUserControl;
+            popup.HorizontalOffset = 500;
+            popup.VerticalOffset = 570;
+            popup.Height = 500;
+            popup.Width = 400;
+            popup.AllowsTransparency = true;
+
+            popup.IsOpen = true;
+
+            popupUserControl.VratiSeNa_Putovanja += Vrati;
+
+            popupUserControl.Filtriraj_Putovanja += UcitajFiltrirano;
+
+
+        }
+
+        public void UcitajFiltrirano(object sender, PutovanjaArgs e)
+        {
+            listaPutovanja.ItemsSource = e.PovratnaVrednost;
+            popup.IsOpen = false;
+        }
+
+
         private void Vrati(object sender, EventArgs e)
         {
             putovanja.Visibility = Visibility.Visible;
             listaPutovanja.SelectedItem = null;
             detalji.Visibility = Visibility.Collapsed;
+            popup.IsOpen = false;
         }
 
         private void CallLoginForm(object sender, EventArgs e)

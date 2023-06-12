@@ -102,6 +102,62 @@ namespace TouristAgency.Servis
             return restorani;
         }
 
+        public List<Putovanje> FiltriranjePutovanja(List<string> list, string min, string max, string minRestoran, string maxRestoran, string minC, string maxC, string minD, string maxD)
+        {
+            var documents = Baza.PutovanjaKol.Find(_ => true).ToList();
+            var putovanja = documents.Select(p => BsonSerializer.Deserialize<Putovanje>(p)).ToList();
+            List<Putovanje> listaPutovanja = new List<Putovanje>();
+            foreach(Putovanje p in putovanja)
+            {
+                if(double.Parse(p.Cena)<= double.Parse(maxC) && double.Parse(p.Cena) >= double.Parse(minC) && double.Parse(p.BrojDana) <= double.Parse(maxD) && double.Parse(p.BrojDana) >= double.Parse(minD))
+                {
+                    if(PutovanjeSadrziSmestaj(min,max,p.Smestaji) && PutovanjeSadrziRestoran(minRestoran,maxRestoran,p.Restorani))
+                        listaPutovanja.Add(p);
+                }
+            }
+            
+            /*var filterBuilder = Builders<Putovanje>.Filter;
+            var filter = filterBuilder.And(
+                 filterBuilder.ElemMatch("smestaji", Builders<Putovanje>.Filter.And(
+                     filterBuilder.Gt("Ocena", min),
+                     filterBuilder.Lt("Ocena", max)
+                 )),
+                 filterBuilder.ElemMatch("restorani", Builders<Putovanje>.Filter.And(
+                     filterBuilder.Gt("Ocena", minRestoran),
+                     filterBuilder.Lt("Ocena", maxRestoran)
+                 ))
+             );
+
+
+            List<Putovanje> putov=listaPutovanja.Find(filter).ToList();*/
+
+            return listaPutovanja;
+        }
+
+        public bool PutovanjeSadrziSmestaj(string min,string max,List<Smestaj> smestaji)
+        {
+            bool sadrzi = false;
+            foreach(Smestaj s in smestaji)
+            {
+                if (int.Parse(s.Ocena) <= int.Parse(max) && int.Parse(s.Ocena) >= int.Parse(min))
+                    sadrzi = true;
+            }
+
+            return sadrzi;
+        }
+
+        public bool PutovanjeSadrziRestoran(string min, string max, List<Restoran> restorani)
+        {
+            bool sadrzi = false;
+            foreach (Restoran s in restorani)
+            {
+                if (int.Parse(s.Ocena) <= int.Parse(max) && int.Parse(s.Ocena) >= int.Parse(min))
+                    sadrzi = true;
+            }
+
+            return sadrzi;
+        }
+
         public async Task<ObservableCollection<Smestaj>> FiltriranjeSmestaja(List<string> list, string min, string max)
         {
             ObservableCollection<Smestaj> smestaji = new ObservableCollection<Smestaj>();

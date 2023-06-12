@@ -1,0 +1,108 @@
+﻿<UserControl x:Class="TouristAgency.UserControls.filterPutovanja"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:TouristAgency.UserControls"
+             mc:Ignorable="d" 
+              d:DesignHeight="720" d:DesignWidth="1080" Background="Transparent">
+    
+    <Border Background="White" BorderBrush="Gray" BorderThickness="0.5"  CornerRadius="20" Height="500" Width="400">
+        <Grid Height="510" Width="400" HorizontalAlignment="Center" VerticalAlignment="Center" >
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+
+            <TextBlock Grid.Row="0" Text="Filtriraj putovanja" FontSize="25" FontWeight="Bold" Margin="5 15 0 0" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+
+            <ScrollViewer  Grid.Row="1" Height="360">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
+                    <Border Grid.Row="0" BorderBrush="Gray" BorderThickness="0.2" CornerRadius="7" Margin="0 20 0 0" Height="200" Width="350">
+                        <StackPanel>
+                            <StackPanel>
+                                <TextBlock Text="Cena" FontSize="15" Margin="20 25 0 0" />
+                                <StackPanel Margin="10 0 0 0" Orientation="Horizontal">
+                                    <TextBlock Text="Min. cena" HorizontalAlignment="Center" FontSize="15" VerticalAlignment="Center"></TextBlock>
+                                    <TextBox Width="70" Margin="10" FontSize="15" Name="minCena"></TextBox>
+                                    <TextBlock Text="Max. cena" HorizontalAlignment="Center" FontSize="15" VerticalAlignment="Center"></TextBlock>
+                                    <TextBox Width="70" Margin="10" FontSize="15" Name="maxCena"></TextBox>
+                                </StackPanel>
+                                <TextBlock Text="Broj dana" FontSize="15" Margin="20 20 0 0" />
+                                <StackPanel Margin="10 0 0 0" Orientation="Horizontal">
+                                    <TextBlock Text="Min. dana" HorizontalAlignment="Center" FontSize="15" VerticalAlignment="Center"></TextBlock>
+                                    <TextBox Width="70" Margin="10" FontSize="15" Name="minDana"></TextBox>
+                                    <TextBlock Text="Max. dana" HorizontalAlignment="Center" FontSize="15" VerticalAlignment="Center"></TextBlock>
+                                    <TextBox Width="70" Margin="10" FontSize="15" Name="maxDana"></TextBox>
+                                </StackPanel>
+                            </StackPanel>
+                        </StackPanel>
+                    </Border>
+            
+                    <Border Grid.Row="1" BorderBrush="Gray" BorderThickness="0.2" CornerRadius="7" Margin="0 10 0 0" Height="250" Width="350" >
+                        <StackPanel>
+                            <TextBlock Text="Smestaji" FontSize="18" Margin="20 5 0 0" />
+                            <TextBlock Text="Tip" FontSize="15" Margin="30 15 0 0" />
+                            <StackPanel Name="tipovi" Margin="45 10 0 0">
+                                <CheckBox VerticalAlignment="Center" VerticalContentAlignment="Center" FontSize="17" Content="Hotel" />
+                                <CheckBox VerticalAlignment="Center" VerticalContentAlignment="Center" FontSize="17" Content="Apartman" />
+                                <CheckBox VerticalAlignment="Center" VerticalContentAlignment="Center" FontSize="17" Content="Soba" />
+                            </StackPanel>
+                            <StackPanel>
+                                <TextBlock Text="Ocena" FontSize="15" Margin="20 25 0 0" />
+                                <StackPanel Margin="10 0 0 0" Orientation="Horizontal">
+                                    <TextBlock Text="Min. ocena" HorizontalAlignment="Center" FontSize="15" VerticalAlignment="Center"></TextBlock>
+                                    <TextBox Width="70" Margin="10" FontSize="15" Name="minOcena"></TextBox>
+                                    <TextBlock Text="Max. ocena" HorizontalAlignment="Center" FontSize="15" VerticalAlignment="Center"></TextBlock>
+                                    <TextBox Width="70" Margin="10" FontSize="15" Name="maxOcena"></TextBox>
+                                </StackPanel>
+                            </StackPanel>
+                        </StackPanel>
+                    </Border>
+
+                    <Border Grid.Row="2" BorderBrush="Gray" BorderThickness="0.2" CornerRadius="7" Margin="0 20 0 0" Height="150" Width="350">
+                        <StackPanel>
+                            <TextBlock Text="Restorani" FontSize="18" Margin="20 5 0 0" />
+                            <StackPanel>
+                                <TextBlock Text="Ocena" FontSize="15" Margin="20 25 0 0" />
+                                <StackPanel Margin="10 0 0 0" Orientation="Horizontal">
+                                    <TextBlock Text="Min. ocena" HorizontalAlignment="Center" FontSize="15" VerticalAlignment="Center"></TextBlock>
+                                    <TextBox Width="70" Margin="10" FontSize="15" Name="minOcenaRestorana"></TextBox>
+                                    <TextBlock Text="Max. ocena" HorizontalAlignment="Center" FontSize="15" VerticalAlignment="Center"></TextBlock>
+                                    <TextBox Width="70" Margin="10" FontSize="15" Name="maxOcenaRestorana"></TextBox>
+                                </StackPanel>
+                            </StackPanel>
+                        </StackPanel>
+                    </Border>
+                </Grid>
+            </ScrollViewer>
+    <Grid Grid.Row="2" Margin="0 40 20 0" VerticalAlignment="Center">
+
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+
+                <TextBlock x:Name="txtError" Grid.Row="0" Grid.ColumnSpan="2" FontSize="15" Margin="10 -40 0 0" FontWeight="SemiBold" Foreground="BlueViolet" HorizontalAlignment="Center" VerticalAlignment="Center" Text="" Visibility="Collapsed" />
+
+                <Button Grid.Row="1"  HorizontalAlignment="Right"  FontSize="17" Style="{StaticResource filterOdustani}" Margin="0 0 -85 0" Content="Odustani" Width="80" Click="Odustani"/>
+
+                <Button Grid.Row="1"  HorizontalAlignment="Right"  FontSize="17" Content="Filtriraj" Grid.Column="1" Style="{StaticResource filterDugme}" Margin="10 0 0 0" Name="potvrdi" Width="80" Click="Filtriraj"/>
+            </Grid>
+        </Grid>
+    </Border>
+   
+</UserControl>

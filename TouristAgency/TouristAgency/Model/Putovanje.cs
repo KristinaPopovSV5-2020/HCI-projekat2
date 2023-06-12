@@ -79,4 +79,8 @@ namespace TouristAgency.Model
         public List<Atrakcija> Atrakcije { get => atrakcije; set => atrakcije = value; }
         
     }
+    public class PutovanjaArgs : EventArgs
+    {
+        public List<Putovanje> PovratnaVrednost { get; set; }
+    }
 }

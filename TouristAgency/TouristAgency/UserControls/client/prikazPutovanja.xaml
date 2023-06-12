@@ -39,8 +39,13 @@
                 <StackPanel Orientation="Horizontal" Grid.Row="0">
                     <TextBlock Grid.Row="0" Name="title" Text="Cela ponuda" MouseLeftButtonUp="title_MouseLeftButtonUp" FontSize="30" FontWeight="SemiBold" Foreground="#121518" HorizontalAlignment="Left" Margin="0, 15, 30, 30"/>
                     <TextBlock Style="{StaticResource mouseOverStyle}" x:Name="izdvajamo" MouseLeftButtonUp="izdvajamo_MouseLeftButtonUp" FontSize="30" FontWeight="SemiBold" Margin="0, 15, 0, 0" Text="&lt;&lt; HIT ponuda  >>"></TextBlock>
+                    <StackPanel Margin="490 0 0 0" Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Left" Grid.Row="4">
+                        <Icon:PackIconMaterial Kind="Filter" Width="20" Height="20" VerticalAlignment="Center" Margin="0,0,5,0" />
+                        <TextBlock  FontWeight="SemiBold" Text="Filtriraj putovanja" FontSize="25" Foreground="#121518" Cursor="Hand" MouseDown="Filtriraj"/>
+                    </StackPanel>
                 </StackPanel>
 
+                
                 <Grid Margin="0, 0, 15, 0" Width="250" Height="60" HorizontalAlignment="Right" Grid.Row="0">
                     <TextBlock Margin="15 0" VerticalAlignment="Center" Foreground="#B0B9C6" IsHitTestVisible="False"
                         Panel.ZIndex="1" Text="Pretraži" FontSize="20" 
@@ -52,6 +57,7 @@
                 <TextBlock Margin="10" Visibility="Collapsed" x:Name="topTri" Grid.Row="2" HorizontalAlignment="Center" FontSize="25" Text="TOP 3 najpopularnija putovanja"></TextBlock>
 
                 
+
                 <ListBox Name="listaPutovanja" Grid.Row="3" HorizontalAlignment="Center" SelectionChanged="ItemListBox_SelectionChanged">
                     <ListBox.Resources>
 
