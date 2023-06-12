@@ -91,6 +91,20 @@ namespace TouristAgency.UserControls
                     restoran.Ocena = o[o.Length - 1].ToString();
                     restoran.Id = ObjectId.GenerateNewId().ToString();
                     putovanjaServis.DodajRestoran(restoran);
+                    OkModule popupUserControl = new OkModule("Dodali ste restoran " + restoran.Naziv);
+                    myUserControl.IsHitTestVisible = false;
+
+                    popup.Child = null;
+                    popup.Child = popupUserControl;
+                    popup.HorizontalOffset = 500;
+                    popup.VerticalOffset = 570;
+                    popup.Height = 180;
+                    popup.Width = 400;
+                    popup.AllowsTransparency = true;
+
+                    popup.IsOpen = true;
+
+                    popupUserControl.PotvrdiClicked += Zatvori;
                     VratiSeNa_Restoran?.Invoke(this, EventArgs.Empty);
                 }
 

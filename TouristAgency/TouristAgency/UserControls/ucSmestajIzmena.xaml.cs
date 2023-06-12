@@ -105,6 +105,22 @@ namespace TouristAgency.UserControls
                     smestaj.Ocena = o[o.Length - 1].ToString();
                     smestaj.Id = ObjectId.GenerateNewId().ToString();
                     putovanjaServis.DodajSmestaj(smestaj);
+
+                    OkModule popupUserControl = new OkModule("Dodali ste smeštaj " + smestaj.Naziv);
+                    myUserControl.IsHitTestVisible = false;
+
+                    popup.Child = null;
+                    popup.Child = popupUserControl;
+                    popup.HorizontalOffset = 500;
+                    popup.VerticalOffset = 570;
+                    popup.Height = 180;
+                    popup.Width = 400;
+                    popup.AllowsTransparency = true;
+
+                    popup.IsOpen = true;
+
+                    popupUserControl.PotvrdiClicked += Zatvori;
+
                     VratiSeNa_Smestaj?.Invoke(this, EventArgs.Empty);
                 }
             }

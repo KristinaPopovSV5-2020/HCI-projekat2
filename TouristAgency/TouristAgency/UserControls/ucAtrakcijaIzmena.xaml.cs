@@ -76,6 +76,20 @@ namespace TouristAgency.UserControls
                 {
                     atrakcija.Id = ObjectId.GenerateNewId().ToString();
                     putovanjaServis.DodajAtrakciju(atrakcija);
+
+                    OkModule popupUserControl = new OkModule("Dodali ste atrakciju " + atrakcija.Naziv);
+
+                    popup.Child = null;
+                    popup.Child = popupUserControl;
+                    popup.HorizontalOffset = 500;
+                    popup.VerticalOffset = 570;
+                    popup.Height = 180;
+                    popup.Width = 400;
+                    popup.AllowsTransparency = true;
+
+                    popup.IsOpen = true;
+
+                    popupUserControl.PotvrdiClicked += Zatvori;
                     VratiSeNa_Atrakcije?.Invoke(this, EventArgs.Empty);
                 }
             }
